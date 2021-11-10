@@ -12,6 +12,8 @@ public:
 	void SetPosition(float xPosition, float yPosition);
 	float GetXPosition();
 	float GetYPosition();
+
+	virtual void Draw() = 0;
 };
 
 #endif

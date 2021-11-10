@@ -21,9 +21,21 @@
     <ClCompile Include="src\gameplay\gameplay.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="src\gameplay\game_object.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gameplay\tank.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\gameplay\gameplay.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gameplay\game_object.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gameplay\tank.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
