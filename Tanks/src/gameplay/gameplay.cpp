@@ -5,7 +5,7 @@ Gameplay::Gameplay()
     windowWidth = 1200;
     windowHeigth = 800;    
 
-    window.create(VideoMode(windowWidth, windowHeigth), title);
+    window.create(VideoMode(windowWidth, windowHeigth), title);       
 }
 Gameplay::~Gameplay() 
 {
@@ -22,13 +22,12 @@ void Gameplay::Update()
 }
 void Gameplay::Draw()
 {
-
+    window.clear(Color::Black);    
+    
+    window.display();
 }
 void Gameplay::Run() 
-{    
-    CircleShape shape(100.f);    
-    shape.setFillColor(Color::Green);
-
+{
     while (window.isOpen())
     {
         Event event;
@@ -38,8 +37,8 @@ void Gameplay::Run()
                 window.close();
         }
 
-        window.clear();
-        window.draw(shape);
-        window.display();
+        Input();
+        Update();
+        Draw();
     }
 }

@@ -12,6 +12,7 @@ private:
 	short windowHeigth;
 	const char* title = "TANKS";	
 	RenderWindow window;
+	CircleShape shape;
 public:
 	Gameplay();
 	~Gameplay();
