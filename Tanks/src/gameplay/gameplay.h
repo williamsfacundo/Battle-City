@@ -3,10 +3,15 @@
 
 #include "SFML/Graphics.hpp"
 
+using namespace sf;
+
 class Gameplay 
 {
 private:
-
+	short windowWidth;
+	short windowHeigth;
+	const char* title = "TANKS";	
+	RenderWindow window;
 public:
 	Gameplay();
 	~Gameplay();
