@@ -10,10 +10,12 @@ void GameObject::SetPosition(float xPosition, float yPosition)
 	this->xPosition = xPosition;
 	this->yPosition = yPosition;
 }
+
 float GameObject::GetXPosition() 
 {
 	return xPosition;
 }
+
 float GameObject::GetYPosition() 
 {
 	return yPosition;

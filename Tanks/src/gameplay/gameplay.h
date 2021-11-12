@@ -1,7 +1,9 @@
-#ifndef gameplay_h
-#define gameplay_h
+#ifndef GAMEPLAY_H
+#define GAMEPLAY_H
 
-#include "SFML/Graphics.hpp"
+#include "SFML/Graphics/RenderWindow.hpp"
+
+#include "game_object.h"
 
 using namespace sf;
 
@@ -11,8 +13,8 @@ private:
 	short windowWidth;
 	short windowHeigth;
 	const char* title = "TANKS";	
-	RenderWindow window;
-	CircleShape shape;
+	RenderWindow window;	
+	GameObject* playerTank;
 public:
 	Gameplay();
 	~Gameplay();

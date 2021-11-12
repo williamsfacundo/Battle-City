@@ -1,11 +1,15 @@
-#ifndef game_object_h
-#define game_object_h
+#ifndef GAME_OBJECT_H
+#define GAME_OBJECT_H
+
+#include "SFML/Graphics/RenderWindow.hpp"
+
+using namespace sf;
 
 class GameObject 
 {
 private:
 	float xPosition;
-	float yPosition;
+	float yPosition;	
 public:
 	GameObject(float xPosition, float yPosition);	
 
@@ -13,7 +17,7 @@ public:
 	float GetXPosition();
 	float GetYPosition();
 
-	virtual void Draw() = 0;
+	virtual void Draw(RenderWindow& window) = 0;	
 };
 
 #endif
