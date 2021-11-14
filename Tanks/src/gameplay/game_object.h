@@ -5,6 +5,8 @@
 
 using namespace sf;
 
+enum class Direction {left, right, up, down};
+
 class GameObject 
 {
 private:

@@ -16,7 +16,7 @@ private:
 	short windowHeigth;
 	const char* title = "TANKS";	
 	RenderWindow window;	
-	GameObject* playerTank;
+	GameObject* playerTank;	
 	Clock clock;
 	Time dt;
 public:

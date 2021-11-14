@@ -11,12 +11,12 @@ Gameplay::Gameplay()
 
     window.create(VideoMode(windowWidth, windowHeigth), title);    
 
-    playerTank = new Tank(window.getSize().x / 2.0f, window.getSize().y / 2.0f, {50, 50});
+    playerTank = new Tank(window.getSize().x / 2.0f, window.getSize().y / 2.0f, {50.0f, 50.0f});    
 }
 
 Gameplay::~Gameplay() 
 {
-    delete playerTank;
+    delete playerTank;    
 }
 
 void Gameplay::Input() 
@@ -26,14 +26,14 @@ void Gameplay::Input()
 
 void Gameplay::Update(Time dt)
 {
-    ((Tank*)playerTank)->Update(dt);
+    ((Tank*)playerTank)->Update(dt);    
 }
 
 void Gameplay::Draw()
 {
     window.clear(Color::Black);    
     
-    playerTank->Draw(window);
+    playerTank->Draw(window);    
 
     window.display();
 }

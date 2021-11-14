@@ -3,13 +3,16 @@
 #include "SFML/Window/Keyboard.hpp"
 #include "SFML/System/Time.hpp"
 
+#include "game_object.h"
+
 Tank::Tank(float xPosition, float yPosition, Vector2f size) : GameObject(xPosition, yPosition)
 {
 	SetSize(size.x, size.y);
 	rectangle.setSize(size);
-	rectangle.setFillColor(Color::Green);
+	rectangle.setFillColor(tankColor);
 	rectangle.setPosition(xPosition, yPosition);
 	moveStatus = PlayerMovementSet::none;
+	direction = Direction::up;
 }
 
 void Tank::SetSize(float width, float heigth) 
@@ -43,18 +46,22 @@ void Tank::MovementInput()
 	if (Keyboard::isKeyPressed(Keyboard::Left))
 	{
 		moveStatus = PlayerMovementSet::left;
+		direction = Direction::left;
 	}
 	else if (Keyboard::isKeyPressed(Keyboard::Right))
 	{
 		moveStatus = PlayerMovementSet::right;
+		direction = Direction::right;
 	}
 	else if (Keyboard::isKeyPressed(Keyboard::Up))
 	{
 		moveStatus = PlayerMovementSet::up;
+		direction = Direction::up;
 	}
 	else if (Keyboard::isKeyPressed(Keyboard::Down))
 	{
 		moveStatus = PlayerMovementSet::down;
+		direction = Direction::down;
 	}
 	else
 	{
@@ -68,19 +75,19 @@ void Tank::MovePlayer(Time dt)
 	{
 	case PlayerMovementSet::right:
 
-		AddXPosition(moveValue * dt.asSeconds());
+		AddXPosition(tankMoveSpeed * dt.asSeconds());
 		break;
 	case PlayerMovementSet::left:
 		
-		AddXPosition(-moveValue * dt.asSeconds());
+		AddXPosition(-tankMoveSpeed * dt.asSeconds());
 		break;
 	case PlayerMovementSet::up:
 		
-		AddYPosition(-moveValue * dt.asSeconds());
+		AddYPosition(-tankMoveSpeed * dt.asSeconds());
 		break;
 	case PlayerMovementSet::down:
 		
-		AddYPosition(moveValue * dt.asSeconds());
+		AddYPosition(tankMoveSpeed * dt.asSeconds());
 		break;
 	case PlayerMovementSet::none:
 		break;

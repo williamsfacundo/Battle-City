@@ -10,7 +10,8 @@
 using namespace sf;
 
 enum class PlayerMovementSet {right, left, up, down, none};
-const float moveValue = 150.5f;
+const float tankMoveSpeed = 150.5f;
+const Color tankColor = Color::Green;
 
 class Tank : public GameObject
 {
@@ -18,6 +19,7 @@ private:
 	Vector2f size;
 	RectangleShape rectangle;	
 	PlayerMovementSet moveStatus;
+	Direction direction;	
 public:
 	Tank(float xPosition, float yPosition, Vector2f size);	
 	
