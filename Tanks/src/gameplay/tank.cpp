@@ -158,7 +158,34 @@ void Tank::Shoot()
 	{
 		if (FindEmpyBulletIndex() != maxBullets)
 		{
-			bullets[FindEmpyBulletIndex()] = new Bullet(GetXPosition(), GetYPosition(), { 10.0f, 10.0f }, direction);
+			float xPos = 0.0f;
+			float yPos = 0.0f;
+
+			switch (direction)
+			{
+			case Direction::left:
+
+				xPos = GetXPosition();
+				yPos = GetYPosition() + (size.y / 2.0f) - (bulletsHeight / 2.0f);
+				break;
+			case Direction::right:
+
+				xPos = GetXPosition() + size.x;
+				yPos = GetYPosition() + (size.y / 2.0f) - (bulletsHeight / 2.0f);
+				break;
+			case Direction::up:
+
+				xPos = GetXPosition() + (size.x / 2) - (bulletsWidth / 2.0f);
+				yPos = GetYPosition();
+				break;
+			case Direction::down:
+
+				xPos = GetXPosition() + (size.x / 2) - (bulletsWidth / 2.0f);
+				yPos = GetYPosition() + size.y;
+				break;
+			}
+
+			bullets[FindEmpyBulletIndex()] = new Bullet(xPos, yPos, { bulletsWidth, bulletsHeight }, direction);
 
 			shootingTimer = timeBetweenShots;
 		}		

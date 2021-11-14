@@ -14,6 +14,8 @@ using namespace sf;
 enum class PlayerMovementSet {right, left, up, down, none};
 const float tankMoveSpeed = 150.5f;
 const float timeBetweenShots = 0.65f;
+const float bulletsWidth = 15.0f;
+const float bulletsHeight = 15.0f;
 const short maxBullets = 10;
 const Color tankColor = Color::Green;
 const Keyboard::Key moveUp = Keyboard::Up;
