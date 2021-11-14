@@ -5,6 +5,11 @@ GameObject::GameObject(float xPosition, float yPosition)
 	SetPosition(xPosition, yPosition);
 }
 
+GameObject::~GameObject() 
+{
+
+}
+
 void GameObject::SetPosition(float xPosition, float yPosition) 
 {
 	this->xPosition = xPosition;

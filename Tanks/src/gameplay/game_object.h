@@ -17,6 +17,7 @@ protected:
 	void AddYPosition(float value);
 public:
 	GameObject(float xPosition, float yPosition);	
+	virtual ~GameObject();
 
 	void SetPosition(float xPosition, float yPosition);	
 

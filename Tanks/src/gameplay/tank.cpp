@@ -136,6 +136,8 @@ void Tank::DestroyBullets()
 
 short Tank::FindEmpyBulletIndex() 
 {
+	short auxReturn = maxBullets;
+
 	for (short i = 0; i < maxBullets; i++) 
 	{
 		if (bullets[i] == NULL) 
@@ -143,13 +145,18 @@ short Tank::FindEmpyBulletIndex()
 			return i;
 		}
 	}
+
+	return auxReturn;
 }
 
 void Tank::Shoot() 
 {
 	if (Keyboard::isKeyPressed(shootKey))
 	{
-		bullets[FindEmpyBulletIndex()] = new Bullet(GetXPosition(), GetYPosition(), {10.0f, 10.0f}, direction);
+		if (FindEmpyBulletIndex() != maxBullets)
+		{
+			bullets[FindEmpyBulletIndex()] = new Bullet(GetXPosition(), GetYPosition(), { 10.0f, 10.0f }, direction);
+		}		
 	}
 }
 
