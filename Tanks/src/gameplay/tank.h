@@ -13,8 +13,9 @@ using namespace sf;
 
 enum class PlayerMovementSet {right, left, up, down, none};
 const float tankMoveSpeed = 150.5f;
-const Color tankColor = Color::Green;
+const float timeBetweenShots = 0.65f;
 const short maxBullets = 10;
+const Color tankColor = Color::Green;
 const Keyboard::Key moveUp = Keyboard::Up;
 const Keyboard::Key moveDown = Keyboard::Down;
 const Keyboard::Key moveRight = Keyboard::Right;
@@ -29,6 +30,7 @@ private:
 	PlayerMovementSet moveStatus;
 	Direction direction;
 	GameObject* bullets[maxBullets];
+	float shootingTimer;
 public:
 	Tank(float xPosition, float yPosition, Vector2f size);		
 	~Tank();
@@ -50,6 +52,8 @@ public:
 	void Shoot();
 	void MoveBullets(Time dt);
 	void DrawBullets(RenderWindow& window);
+
+	void UpdateTimer(Time dt);
 };
 
 #endif

@@ -13,7 +13,8 @@ Tank::Tank(float xPosition, float yPosition, Vector2f size) : GameObject(xPositi
 	rectangle.setPosition(xPosition, yPosition);
 	moveStatus = PlayerMovementSet::none;
 	direction = Direction::up;
-
+	shootingTimer = 0.0f;
+	
 	InitBullets();
 }
 
@@ -43,6 +44,7 @@ void Tank::Update(Time dt)
 {	
 	MovePlayer(dt);
 	MoveBullets(dt);
+	UpdateTimer(dt);
 }
 
 void Tank::Draw(RenderWindow& window)
@@ -151,11 +153,13 @@ short Tank::FindEmpyBulletIndex()
 
 void Tank::Shoot() 
 {
-	if (Keyboard::isKeyPressed(shootKey))
+	if (Keyboard::isKeyPressed(shootKey) && shootingTimer == 0.0f)
 	{
 		if (FindEmpyBulletIndex() != maxBullets)
 		{
 			bullets[FindEmpyBulletIndex()] = new Bullet(GetXPosition(), GetYPosition(), { 10.0f, 10.0f }, direction);
+
+			shootingTimer = timeBetweenShots;
 		}		
 	}
 }
@@ -179,5 +183,18 @@ void Tank::DrawBullets(RenderWindow& window)
 		{
 			((Bullet*)bullets[i])->Draw(window);
 		}
+	}
+}
+
+void Tank::UpdateTimer(Time dt) 
+{
+	if (shootingTimer > 0.0f) 
+	{
+		shootingTimer -= dt.asSeconds();
+	}
+
+	if (shootingTimer < 0.0f)
+	{
+		shootingTimer = 0.0f;
 	}
 }
