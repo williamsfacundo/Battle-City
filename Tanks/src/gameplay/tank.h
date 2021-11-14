@@ -39,7 +39,7 @@ public:
 	Vector2f GetSize();
 
 	void Input();
-	void Update(Time dt);
+	void Update(Time dt, float xLimit, float yLimit);
 	virtual void Draw(RenderWindow& window);	
 
 	void MovementInput();
@@ -52,6 +52,7 @@ public:
 	void Shoot();
 	void MoveBullets(Time dt);
 	void DrawBullets(RenderWindow& window);
+	void DestroyBulletsOutOfMapLimits(float xLimit, float yLimit);
 
 	void UpdateTimer(Time dt);
 };

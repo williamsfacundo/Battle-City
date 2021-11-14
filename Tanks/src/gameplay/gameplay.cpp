@@ -3,7 +3,7 @@
 #include "SFML/Window/Event.hpp"
 
 #include "tank.h"
-
+ 
 Gameplay::Gameplay() 
 {
     windowWidth = 1200;
@@ -26,7 +26,7 @@ void Gameplay::Input()
 
 void Gameplay::Update(Time dt)
 {
-    ((Tank*)playerTank)->Update(dt);    
+    ((Tank*)playerTank)->Update(dt, windowWidth, windowHeigth);    
 }
 
 void Gameplay::Draw()

@@ -26,6 +26,8 @@ public:
 	virtual void Draw(RenderWindow& window);
 
 	void MoveBullet(Time dt);
+
+	bool BulletOutOfMapLimits(float xLimit, float yLimit);
 };
 
 #endif

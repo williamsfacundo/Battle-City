@@ -55,3 +55,8 @@ void Bullet::MoveBullet(Time dt)
 
 	rectangle.setPosition(GetXPosition(), GetYPosition());
 }
+
+bool Bullet::BulletOutOfMapLimits(float xLimit, float yLimit) 
+{
+	return (GetXPosition() < 0 || GetXPosition() > xLimit) || (GetYPosition() < 0 || GetYPosition() > yLimit);
+}

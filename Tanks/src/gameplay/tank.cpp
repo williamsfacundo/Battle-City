@@ -40,11 +40,12 @@ void Tank::Input()
 	Shoot();
 }
 
-void Tank::Update(Time dt)
+void Tank::Update(Time dt, float xLimit, float yLimit)
 {	
 	MovePlayer(dt);
 	MoveBullets(dt);
 	UpdateTimer(dt);
+	DestroyBulletsOutOfMapLimits(xLimit, yLimit);
 }
 
 void Tank::Draw(RenderWindow& window)
@@ -182,6 +183,20 @@ void Tank::DrawBullets(RenderWindow& window)
 		if (bullets[i] != NULL)
 		{
 			((Bullet*)bullets[i])->Draw(window);
+		}
+	}
+}
+
+void Tank::DestroyBulletsOutOfMapLimits(float xLimit, float yLimit)
+{
+	for (short i = 0; i < maxBullets; i++) 
+	{
+		if (bullets[i] != NULL) 
+		{
+			if (((Bullet*)bullets[i])->BulletOutOfMapLimits(xLimit, yLimit)) 
+			{
+				DestroyBullet(i);
+			}
 		}
 	}
 }
