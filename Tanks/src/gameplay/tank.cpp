@@ -13,6 +13,13 @@ Tank::Tank(float xPosition, float yPosition, Vector2f size) : GameObject(xPositi
 	rectangle.setPosition(xPosition, yPosition);
 	moveStatus = PlayerMovementSet::none;
 	direction = Direction::up;
+
+	InitBullets();
+}
+
+Tank::~Tank() 
+{
+	DestroyBullets();
 }
 
 void Tank::SetSize(float width, float heigth) 
@@ -96,4 +103,29 @@ void Tank::MovePlayer(Time dt)
 	}
 
 	rectangle.setPosition(GetXPosition(), GetYPosition());
+}
+
+void Tank::InitBullets()
+{
+	for (short i = 0; i < maxBullets; i++) 
+	{
+		bullets[i] = NULL;
+	}
+}
+
+void Tank::DestroyBullet(short index) 
+{
+	if (bullets[index] != NULL) 
+	{
+		delete bullets[index];
+		bullets[index] = NULL;
+	}
+}
+
+void Tank::DestroyBullets()
+{
+	for (short i = 0; i < maxBullets; i++)
+	{
+		DestroyBullet(i);
+	}
 }
