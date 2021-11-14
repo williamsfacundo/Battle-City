@@ -36,36 +36,40 @@ Vector2f Tank::GetSize()
 void Tank::Input() 
 {
 	MovementInput();
+	Shoot();
 }
 
 void Tank::Update(Time dt)
 {	
 	MovePlayer(dt);
+	MoveBullets(dt);
 }
 
 void Tank::Draw(RenderWindow& window)
 {
 	window.draw(rectangle);
+
+	DrawBullets(window);
 }
 
 void Tank::MovementInput() 
 {
-	if (Keyboard::isKeyPressed(Keyboard::Left))
+	if (Keyboard::isKeyPressed(moveLeft))
 	{
 		moveStatus = PlayerMovementSet::left;
 		direction = Direction::left;
 	}
-	else if (Keyboard::isKeyPressed(Keyboard::Right))
+	else if (Keyboard::isKeyPressed(moveRight))
 	{
 		moveStatus = PlayerMovementSet::right;
 		direction = Direction::right;
 	}
-	else if (Keyboard::isKeyPressed(Keyboard::Up))
+	else if (Keyboard::isKeyPressed(moveUp))
 	{
 		moveStatus = PlayerMovementSet::up;
 		direction = Direction::up;
 	}
-	else if (Keyboard::isKeyPressed(Keyboard::Down))
+	else if (Keyboard::isKeyPressed(moveDown))
 	{
 		moveStatus = PlayerMovementSet::down;
 		direction = Direction::down;
@@ -127,5 +131,46 @@ void Tank::DestroyBullets()
 	for (short i = 0; i < maxBullets; i++)
 	{
 		DestroyBullet(i);
+	}
+}
+
+short Tank::FindEmpyBulletIndex() 
+{
+	for (short i = 0; i < maxBullets; i++) 
+	{
+		if (bullets[i] == NULL) 
+		{
+			return i;
+		}
+	}
+}
+
+void Tank::Shoot() 
+{
+	if (Keyboard::isKeyPressed(shootKey))
+	{
+		bullets[FindEmpyBulletIndex()] = new Bullet(GetXPosition(), GetYPosition(), {10.0f, 10.0f}, direction);
+	}
+}
+
+void Tank::MoveBullets(Time dt)
+{
+	for (short i = 0; i < maxBullets; i++) 
+	{
+		if (bullets[i] != NULL) 
+		{
+			((Bullet*)bullets[i])->MoveBullet(dt);
+		}
+	}
+}
+
+void Tank::DrawBullets(RenderWindow& window) 
+{
+	for (short i = 0; i < maxBullets; i++)
+	{
+		if (bullets[i] != NULL)
+		{
+			((Bullet*)bullets[i])->Draw(window);
+		}
 	}
 }

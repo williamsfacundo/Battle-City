@@ -3,6 +3,7 @@
 
 #include "SFML/Graphics/RenderWindow.hpp"
 #include "SFML/Graphics/RectangleShape.hpp"
+#include "SFML/Window/Keyboard.hpp"
 #include "SFML/System/Time.hpp"
 
 #include "game_object.h"
@@ -13,7 +14,12 @@ using namespace sf;
 enum class PlayerMovementSet {right, left, up, down, none};
 const float tankMoveSpeed = 150.5f;
 const Color tankColor = Color::Green;
-const short maxBullets = 6;
+const short maxBullets = 10;
+const Keyboard::Key moveUp = Keyboard::Up;
+const Keyboard::Key moveDown = Keyboard::Down;
+const Keyboard::Key moveRight = Keyboard::Right;
+const Keyboard::Key moveLeft = Keyboard::Left;
+const Keyboard::Key shootKey = Keyboard::Space;
 
 class Tank : public GameObject
 {
@@ -40,6 +46,10 @@ public:
 	void InitBullets();
 	void DestroyBullet(short index);
 	void DestroyBullets();
+	short FindEmpyBulletIndex();
+	void Shoot();
+	void MoveBullets(Time dt);
+	void DrawBullets(RenderWindow& window);
 };
 
 #endif
