@@ -11,6 +11,16 @@ void GameObject::SetPosition(float xPosition, float yPosition)
 	this->yPosition = yPosition;
 }
 
+void GameObject::AddXPosition(float value)
+{
+	xPosition += value;
+}
+
+void GameObject::AddYPosition(float value)
+{
+	yPosition += value;
+}
+
 float GameObject::GetXPosition() 
 {
 	return xPosition;

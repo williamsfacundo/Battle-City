@@ -11,7 +11,7 @@ Gameplay::Gameplay()
 
     window.create(VideoMode(windowWidth, windowHeigth), title);    
 
-    playerTank = new Tank(1, 1, {50, 50});
+    playerTank = new Tank(window.getSize().x / 2.0f, window.getSize().y / 2.0f, {50, 50});
 }
 
 Gameplay::~Gameplay() 
@@ -21,12 +21,12 @@ Gameplay::~Gameplay()
 
 void Gameplay::Input() 
 {
-
+    ((Tank*)playerTank)->Input();
 }
 
-void Gameplay::Update() 
+void Gameplay::Update(Time dt)
 {
-
+    ((Tank*)playerTank)->Update(dt);
 }
 
 void Gameplay::Draw()
@@ -42,6 +42,8 @@ void Gameplay::Run()
 {
     while (window.isOpen())
     {
+        dt = clock.restart();
+
         Event event;
         while (window.pollEvent(event))
         {
@@ -50,7 +52,7 @@ void Gameplay::Run()
         }
 
         Input();
-        Update();
+        Update(dt);
         Draw();
     }
 }

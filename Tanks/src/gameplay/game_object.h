@@ -10,10 +10,14 @@ class GameObject
 private:
 	float xPosition;
 	float yPosition;	
+protected:
+	void AddXPosition(float value);
+	void AddYPosition(float value);
 public:
 	GameObject(float xPosition, float yPosition);	
 
-	void SetPosition(float xPosition, float yPosition);
+	void SetPosition(float xPosition, float yPosition);	
+
 	float GetXPosition();
 	float GetYPosition();
 
