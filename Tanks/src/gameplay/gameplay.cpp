@@ -46,6 +46,8 @@ namespace Battle_City
 
     void Gameplay::Update(Time dt)
     {
+        DestroyEnemyTanksWhenHit();
+
         ((Player*)playerTank)->Update(dt, windowWidth, windowHeigth);
 
         for (short i = 0; i < maxEnemyTanks; i++) 
@@ -103,13 +105,13 @@ namespace Battle_City
     
     void Gameplay::DefeatCondition()
     {
-        if (enemiesBulletsCollideWithPlayer())
+        if (EnemiesBulletsCollideWithPlayer())
         {
             gameOver = true;
         }
     }    
 
-    bool Gameplay::enemiesBulletsCollideWithPlayer()
+    bool Gameplay::EnemiesBulletsCollideWithPlayer()
     {
         bool isCollision = false;
 
@@ -142,5 +144,36 @@ namespace Battle_City
         }
 
         return isCollision;
+    }
+
+    void Gameplay::DestroyEnemyTanksWhenHit()
+    {
+        for (short i = 0; i < maxEnemyTanks; i++)
+        {
+            if (enemyTank[i] != NULL)
+            {
+                for (short j = 0; j < maxBullets; j++)
+                {
+                    if (!((Tank*)playerTank)->IsBulletNull(j))
+                    {
+                        if (CollisionFunctions::CollisionRectangles(
+                            ((Tank*)enemyTank[i])->GetXPosition(),
+                            ((Tank*)enemyTank[i])->GetYPosition(),
+                            ((Tank*)enemyTank[i])->GetSize().x,
+                            ((Tank*)enemyTank[i])->GetSize().y,
+                            ((Tank*)playerTank)->GetBullet(j)->GetXPosition(),
+                            ((Tank*)playerTank)->GetBullet(j)->GetYPosition(),
+                            ((Bullet*)((Tank*)playerTank)->GetBullet(j))->GetSize().x,
+                            ((Bullet*)((Tank*)playerTank)->GetBullet(j))->GetSize().y))
+                        {
+                            delete enemyTank[i];
+                            enemyTank[i] = NULL;
+
+                            ((Tank*)playerTank)->DestroyBullet(j);
+                        }                        
+                    }
+                }
+            }
+        }
     }
 }
