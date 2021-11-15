@@ -12,8 +12,6 @@ using namespace sf;
 
 namespace Battle_City
 {
-	enum class PlayerMovementSet { right, left, up, down, none };
-
 	const float bulletsWidth = 15.0f;
 	const float bulletsHeight = 15.0f;
 	const short maxBullets = 10;	
@@ -22,8 +20,7 @@ namespace Battle_City
 	{
 	private:
 		Vector2f size;
-		RectangleShape rectangle;
-		PlayerMovementSet moveStatus;
+		RectangleShape rectangle;		
 		Direction direction;
 		Color color;
 		GameObject* bullets[maxBullets];		
@@ -31,18 +28,19 @@ namespace Battle_City
 		Tank(float xPosition, float yPosition, Vector2f size, Color color);
 		virtual ~Tank();
 
-		void SetSize(float width, float heigth);
-		void setMoveStatus(PlayerMovementSet moveStatus);
+		void SetSize(float width, float heigth);		
 		void setDirection(Direction direction);
 		void SetRectanglePosition(float xPos, float yPos);
 		Vector2f GetSize();
 		Direction getDirection();
-		Vector2f getSize();
-		PlayerMovementSet GetMoveStatus();
+		Vector2f getSize();		
 		RectangleShape GetRectangle();
 		
 		virtual void Update(Time dt, float xLimit, float yLimit) = 0;
 		virtual void Draw(RenderWindow& window);		
+
+		void UpdateTimer(Time dt, float& timer);
+		virtual void MoveTank(Time dt) = 0;
 
 		void InitBullets();
 		void DestroyBullet(short index);

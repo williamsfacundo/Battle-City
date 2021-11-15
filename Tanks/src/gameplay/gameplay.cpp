@@ -3,6 +3,7 @@
 #include <SFML/Window/Event.hpp>
 
 #include "player.h"
+#include "enemy.h"
  
 namespace Battle_City 
 {
@@ -13,12 +14,14 @@ namespace Battle_City
 
         window.create(VideoMode(windowWidth, windowHeigth), title);
 
-        playerTank = new Player(window.getSize().x / 2.0f, window.getSize().y / 2.0f, { 50.0f, 50.0f }, tankColor);
+        playerTank = new Player(window.getSize().x / 2.0f, window.getSize().y / 2.0f, { 50.0f, 50.0f }, playerTankColor);
+        enemyTank = new Enemy(window.getSize().x / 3.0f, window.getSize().y / 3.0f, { 50.0f, 50.0f }, enemyTankColor);
     }
 
     Gameplay::~Gameplay()
     {
         delete playerTank;
+        delete enemyTank;
     }
 
     void Gameplay::Input()
@@ -29,6 +32,10 @@ namespace Battle_City
     void Gameplay::Update(Time dt)
     {
         ((Player*)playerTank)->Update(dt, windowWidth, windowHeigth);
+        ((Enemy*)enemyTank)->Update(dt, windowWidth, windowHeigth);
+
+        WinCondition();
+        DefeatCondition();
     }
 
     void Gameplay::Draw()
@@ -36,6 +43,7 @@ namespace Battle_City
         window.clear(Color::Black);
 
         playerTank->Draw(window);
+        enemyTank->Draw(window);
 
         window.display();
     }

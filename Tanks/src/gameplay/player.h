@@ -10,10 +10,12 @@
 
 namespace Battle_City 
 {
-	const float tankMoveSpeed = 150.5f;
+	enum class PlayerMovementSet { right, left, up, down, none };
+
+	const float playerMoveSpeed = 150.5f;
 	const float timeBetweenShots = 0.65f;
 
-	const Color tankColor = Color::Green;
+	const Color playerTankColor = Color::Green;
 
 	const Keyboard::Key moveUp = Keyboard::Up;
 	const Keyboard::Key moveDown = Keyboard::Down;
@@ -24,19 +26,22 @@ namespace Battle_City
 	class Player : public Tank
 	{
 	private:
+		PlayerMovementSet moveStatus;
 		float shootingTimer;
 	public:
 		Player(float xPosition, float yPosition, Vector2f size, Color color);
 		~Player(); 
+
+		void setMoveStatus(PlayerMovementSet moveStatus);
+		PlayerMovementSet GetMoveStatus();
 		 
 		void Input();
 		virtual void Update(Time dt, float xLimit, float yLimit);
 
 		virtual void Shoot();
 		void MovementInput();
-
-		void UpdateTimer(Time dt);
-		void MovePlayer(Time dt);		
+		
+		virtual void MoveTank(Time dt);		
 	};
 }
 

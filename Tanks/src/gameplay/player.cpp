@@ -9,11 +9,22 @@ namespace Battle_City
 	Player::Player(float xPosition, float yPosition, Vector2f size, Color color) : Tank(xPosition, yPosition, size, color)
 	{
 		shootingTimer = 0.0f;
+		moveStatus = PlayerMovementSet::none;
 	}
 
 	Player::~Player() 
 	{
 
+	}
+
+	void Player::setMoveStatus(PlayerMovementSet moveStatus)
+	{
+		this->moveStatus = moveStatus;
+	}
+
+	PlayerMovementSet Player::GetMoveStatus()
+	{
+		return moveStatus;
 	}
 
 	void Player::Input()
@@ -24,9 +35,9 @@ namespace Battle_City
 
 	void Player::Update(Time dt, float xLimit, float yLimit)
 	{
-		MovePlayer(dt);
+		MoveTank(dt);
 		MoveBullets(dt);
-		UpdateTimer(dt);
+		UpdateTimer(dt, shootingTimer);
 		DestroyBulletsOutOfMapLimits(xLimit, yLimit);
 	}
 
@@ -96,40 +107,27 @@ namespace Battle_City
 		{
 			setMoveStatus(PlayerMovementSet::none);
 		}
-	}
+	}	
 
-	void Player::UpdateTimer(Time dt)
-	{
-		if (shootingTimer > 0.0f)
-		{
-			shootingTimer -= dt.asSeconds();
-		}
-
-		if (shootingTimer < 0.0f)
-		{
-			shootingTimer = 0.0f;
-		}
-	}
-
-	void Player::MovePlayer(Time dt)
+	void Player::MoveTank(Time dt)
 	{
 		switch (GetMoveStatus())
 		{
 		case PlayerMovementSet::right:
 
-			AddXPosition(tankMoveSpeed * dt.asSeconds());
+			AddXPosition(playerMoveSpeed * dt.asSeconds());
 			break;
 		case PlayerMovementSet::left:
 
-			AddXPosition(-tankMoveSpeed * dt.asSeconds());
+			AddXPosition(-playerMoveSpeed * dt.asSeconds());
 			break;
 		case PlayerMovementSet::up:
 
-			AddYPosition(-tankMoveSpeed * dt.asSeconds());
+			AddYPosition(-playerMoveSpeed * dt.asSeconds());
 			break;
 		case PlayerMovementSet::down:
 
-			AddYPosition(tankMoveSpeed * dt.asSeconds());
+			AddYPosition(playerMoveSpeed * dt.asSeconds());
 			break;
 		case PlayerMovementSet::none:
 			break;

@@ -14,8 +14,7 @@ namespace Battle_City
 		SetSize(size.x, size.y);
 		rectangle.setSize(size);
 		rectangle.setFillColor(color);
-		rectangle.setPosition(xPosition, yPosition);
-		moveStatus = PlayerMovementSet::none;
+		rectangle.setPosition(xPosition, yPosition);		
 		direction = Direction::up;		
 
 		InitBullets();
@@ -30,12 +29,7 @@ namespace Battle_City
 	{
 		size.x = width;
 		size.y = heigth;
-	}
-
-	void Tank::setMoveStatus(PlayerMovementSet moveStatus) 
-	{
-		this->moveStatus = moveStatus;
-	}
+	}	
 
 	void Tank::setDirection(Direction direction) 
 	{
@@ -60,12 +54,7 @@ namespace Battle_City
 	Vector2f Tank::getSize() 
 	{
 		return size;
-	}
-
-	PlayerMovementSet Tank::GetMoveStatus() 
-	{
-		return moveStatus;
-	}
+	}	
 
 	RectangleShape Tank::GetRectangle() 
 	{
@@ -77,6 +66,19 @@ namespace Battle_City
 		window.draw(rectangle);
 
 		DrawBullets(window);
+	}
+
+	void Tank::UpdateTimer(Time dt, float& timer) 
+	{
+		if (timer > 0.0f)
+		{
+			timer -= dt.asSeconds();
+		}
+
+		if (timer < 0.0f)
+		{
+			timer = 0.0f;
+		}
 	}
 
 	void Tank::InitBullets()

@@ -19,6 +19,7 @@ namespace Battle_City
 		const char* title = "TANKS";
 		RenderWindow window;
 		GameObject* playerTank;
+		GameObject* enemyTank;
 		Clock clock;
 		Time dt;
 	public:
