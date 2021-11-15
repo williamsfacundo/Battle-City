@@ -4,11 +4,14 @@
 
 #include "player.h"
 #include "enemy.h"
+#include "collisions.h"
  
 namespace Battle_City 
 {
     Gameplay::Gameplay()
     {
+        gameOver = false;
+
         windowWidth = 1200;
         windowHeigth = 800;
 
@@ -50,7 +53,7 @@ namespace Battle_City
 
     void Gameplay::Run()
     {
-        while (window.isOpen())
+        while (window.isOpen() && !gameOver)
         {
             dt = clock.restart();
 
@@ -74,6 +77,9 @@ namespace Battle_City
     
     void Gameplay::DefeatCondition()
     {
-
-    }
+        if (enemyBulletsCollideWithPlayer()) 
+        {
+            gameOver = true;
+        }
+    }    
 }

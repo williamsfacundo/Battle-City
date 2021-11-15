@@ -10,10 +10,11 @@
 using namespace sf;
 
 namespace Battle_City 
-{
+{	
 	class Gameplay
 	{
 	private:
+		bool gameOver;
 		short windowWidth;
 		short windowHeigth;
 		const char* title = "TANKS";
@@ -32,7 +33,7 @@ namespace Battle_City
 		void Run();
 
 		void WinCondition();
-		void DefeatCondition();
+		void DefeatCondition();		
 	};
 }
 
