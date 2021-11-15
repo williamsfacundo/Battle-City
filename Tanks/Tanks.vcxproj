@@ -158,6 +158,7 @@
     <ClCompile Include="src\gameplay\bullet.cpp" />
     <ClCompile Include="src\gameplay\gameplay.cpp" />
     <ClCompile Include="src\gameplay\game_object.cpp" />
+    <ClCompile Include="src\gameplay\player.cpp" />
     <ClCompile Include="src\gameplay\tank.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
@@ -165,6 +166,7 @@
     <ClInclude Include="src\gameplay\bullet.h" />
     <ClInclude Include="src\gameplay\gameplay.h" />
     <ClInclude Include="src\gameplay\game_object.h" />
+    <ClInclude Include="src\gameplay\player.h" />
     <ClInclude Include="src\gameplay\tank.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
