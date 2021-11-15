@@ -7,7 +7,7 @@ namespace Battle_City
 		SetPosition(xPosition, yPosition);
 	}
 
-	GameObject::~GameObject()
+	GameObject::~GameObject() 
 	{
 
 	}

@@ -1,8 +1,8 @@
 #include "gameplay.h"
 
-#include "SFML/Window/Event.hpp"
+#include <SFML/Window/Event.hpp>
 
-#include "tank.h"
+#include "player.h"
  
 namespace Battle_City 
 {
@@ -13,7 +13,7 @@ namespace Battle_City
 
         window.create(VideoMode(windowWidth, windowHeigth), title);
 
-        playerTank = new Tank(window.getSize().x / 2.0f, window.getSize().y / 2.0f, { 50.0f, 50.0f });
+        playerTank = new Player(window.getSize().x / 2.0f, window.getSize().y / 2.0f, { 50.0f, 50.0f }, tankColor);
     }
 
     Gameplay::~Gameplay()
@@ -23,12 +23,12 @@ namespace Battle_City
 
     void Gameplay::Input()
     {
-        ((Tank*)playerTank)->Input();
+        ((Player*)playerTank)->Input();
     }
 
     void Gameplay::Update(Time dt)
     {
-        ((Tank*)playerTank)->Update(dt, windowWidth, windowHeigth);
+        ((Player*)playerTank)->Update(dt, windowWidth, windowHeigth);
     }
 
     void Gameplay::Draw()

@@ -1,9 +1,9 @@
 #ifndef GAMEPLAY_H
 #define GAMEPLAY_H
 
-#include "SFML/Graphics/RenderWindow.hpp"
-#include "SFML/System/Time.hpp"
-#include "SFML/System/Clock.hpp"
+#include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/System/Time.hpp>
+#include <SFML/System/Clock.hpp>
 
 #include "game_object.h"
 

@@ -3,13 +3,14 @@
 
 #include "game_object.h"
 
-#include "SFML/Graphics/RenderWindow.hpp"
-#include "SFML/Graphics/RectangleShape.hpp"
-#include "SFML/System/Time.hpp"
+#include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/System/Time.hpp>
 
 namespace Battle_City
 {
 	const float bulletMoveSpeed = 300.0f;
+
 	const Color bulletColor = Color::Red;
 
 	class Bullet : public GameObject

@@ -1,5 +1,10 @@
 #include "bullet.h"
 
+#include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/System/Time.hpp>
+
+#include "game_object.h"
+
 namespace Battle_City
 {
 	Bullet::Bullet(float xPosition, float yPosition, Vector2f size, Direction direction) : GameObject(xPosition, yPosition)
