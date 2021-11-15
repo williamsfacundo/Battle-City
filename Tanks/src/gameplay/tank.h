@@ -20,7 +20,7 @@ namespace Battle_City
 
 	class Tank : public GameObject
 	{
-	protected:
+	private:
 		Vector2f size;
 		RectangleShape rectangle;
 		PlayerMovementSet moveStatus;
@@ -32,7 +32,14 @@ namespace Battle_City
 		virtual ~Tank();
 
 		void SetSize(float width, float heigth);
+		void setMoveStatus(PlayerMovementSet moveStatus);
+		void setDirection(Direction direction);
+		void SetRectanglePosition(float xPos, float yPos);
 		Vector2f GetSize();
+		Direction getDirection();
+		Vector2f getSize();
+		PlayerMovementSet GetMoveStatus();
+		RectangleShape GetRectangle();
 		
 		virtual void Update(Time dt, float xLimit, float yLimit) = 0;
 		virtual void Draw(RenderWindow& window);		
@@ -45,6 +52,7 @@ namespace Battle_City
 		void MoveBullets(Time dt);
 		void DrawBullets(RenderWindow& window);
 		void DestroyBulletsOutOfMapLimits(float xLimit, float yLimit);		
+		void CreateBullet(short index, float xPos, float yPos);
 	};
 }
 

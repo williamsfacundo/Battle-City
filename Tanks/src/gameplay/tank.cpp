@@ -32,10 +32,45 @@ namespace Battle_City
 		size.y = heigth;
 	}
 
+	void Tank::setMoveStatus(PlayerMovementSet moveStatus) 
+	{
+		this->moveStatus = moveStatus;
+	}
+
+	void Tank::setDirection(Direction direction) 
+	{
+		this->direction = direction;
+	}
+
+	void Tank::SetRectanglePosition(float xPos, float yPos) 
+	{
+		rectangle.setPosition(xPos, yPos);
+	}
+
 	Vector2f Tank::GetSize()
 	{
 		return size;
 	}		
+
+	Direction Tank::getDirection() 
+	{
+		return direction;
+	}
+
+	Vector2f Tank::getSize() 
+	{
+		return size;
+	}
+
+	PlayerMovementSet Tank::GetMoveStatus() 
+	{
+		return moveStatus;
+	}
+
+	RectangleShape Tank::GetRectangle() 
+	{
+		return rectangle;
+	}
 
 	void Tank::Draw(RenderWindow& window)
 	{
@@ -119,4 +154,9 @@ namespace Battle_City
 			}
 		}
 	}	
+
+	void Tank::CreateBullet(short index, float xPos, float yPos) 
+	{
+		bullets[index] = new Bullet(xPos, yPos, { bulletsWidth, bulletsHeight }, getDirection());
+	}
 }

@@ -39,31 +39,31 @@ namespace Battle_City
 				float xPos = 0.0f;
 				float yPos = 0.0f;
 
-				switch (direction)
+				switch (getDirection())
 				{
 				case Direction::left:
 
 					xPos = GetXPosition();
-					yPos = GetYPosition() + (size.y / 2.0f) - (bulletsHeight / 2.0f);
+					yPos = GetYPosition() + (getSize().y / 2.0f) - (bulletsHeight / 2.0f);
 					break;
 				case Direction::right:
 
-					xPos = GetXPosition() + size.x;
-					yPos = GetYPosition() + (size.y / 2.0f) - (bulletsHeight / 2.0f);
+					xPos = GetXPosition() + getSize().x;
+					yPos = GetYPosition() + (getSize().y / 2.0f) - (bulletsHeight / 2.0f);
 					break;
 				case Direction::up:
 
-					xPos = GetXPosition() + (size.x / 2) - (bulletsWidth / 2.0f);
+					xPos = GetXPosition() + (getSize().x / 2) - (bulletsWidth / 2.0f);
 					yPos = GetYPosition();
 					break;
 				case Direction::down:
 
-					xPos = GetXPosition() + (size.x / 2) - (bulletsWidth / 2.0f);
-					yPos = GetYPosition() + size.y;
+					xPos = GetXPosition() + (getSize().x / 2) - (bulletsWidth / 2.0f);
+					yPos = GetYPosition() + getSize().y;
 					break;
 				}
 
-				bullets[FindEmpyBulletIndex()] = new Bullet(xPos, yPos, { bulletsWidth, bulletsHeight }, direction);
+				CreateBullet(FindEmpyBulletIndex(), xPos, yPos);
 
 				shootingTimer = timeBetweenShots;
 			}
@@ -74,27 +74,27 @@ namespace Battle_City
 	{
 		if (Keyboard::isKeyPressed(moveLeft))
 		{
-			moveStatus = PlayerMovementSet::left;
-			direction = Direction::left;
+			setMoveStatus(PlayerMovementSet::left);
+			setDirection(Direction::left);
 		}
 		else if (Keyboard::isKeyPressed(moveRight))
 		{
-			moveStatus = PlayerMovementSet::right;
-			direction = Direction::right;
+			setMoveStatus(PlayerMovementSet::right);
+			setDirection(Direction::right);
 		}
 		else if (Keyboard::isKeyPressed(moveUp))
 		{
-			moveStatus = PlayerMovementSet::up;
-			direction = Direction::up;
+			setMoveStatus(PlayerMovementSet::up);
+			setDirection(Direction::up);
 		}
 		else if (Keyboard::isKeyPressed(moveDown))
 		{
-			moveStatus = PlayerMovementSet::down;
-			direction = Direction::down;
+			setMoveStatus(PlayerMovementSet::down);
+			setDirection(Direction::down);
 		}
 		else
 		{
-			moveStatus = PlayerMovementSet::none;
+			setMoveStatus(PlayerMovementSet::none);
 		}
 	}
 
@@ -113,7 +113,7 @@ namespace Battle_City
 
 	void Player::MovePlayer(Time dt)
 	{
-		switch (moveStatus)
+		switch (GetMoveStatus())
 		{
 		case PlayerMovementSet::right:
 
@@ -137,6 +137,6 @@ namespace Battle_City
 			break;
 		}
 
-		rectangle.setPosition(GetXPosition(), GetYPosition());
+		SetRectanglePosition(GetXPosition(), GetYPosition());
 	}	
 }
