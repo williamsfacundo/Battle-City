@@ -11,6 +11,8 @@ using namespace sf;
 
 namespace Battle_City 
 {	
+	const short maxEnemyTanks = 5;
+
 	class Gameplay
 	{
 	private:
@@ -20,7 +22,7 @@ namespace Battle_City
 		const char* title = "TANKS";
 		RenderWindow window;
 		GameObject* playerTank;
-		GameObject* enemyTank;
+		GameObject* enemyTank[maxEnemyTanks];
 		Clock clock;
 		Time dt;
 	public:

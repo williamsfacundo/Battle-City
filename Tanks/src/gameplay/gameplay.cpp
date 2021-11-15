@@ -18,13 +18,24 @@ namespace Battle_City
         window.create(VideoMode(windowWidth, windowHeigth), title);
 
         playerTank = new Player(window.getSize().x / 2.0f, window.getSize().y / 2.0f, { 50.0f, 50.0f }, playerTankColor);
-        enemyTank = new Enemy(window.getSize().x / 3.0f, window.getSize().y / 3.0f, { 50.0f, 50.0f }, enemyTankColor);
+
+        for (short i = 0; i < maxEnemyTanks; i++) 
+        {
+            enemyTank[i] = new Enemy((window.getSize().x / 15.0f) * (i+1), window.getSize().y / 3.0f, { 50.0f, 50.0f }, enemyTankColor);
+        }       
     }
 
     Gameplay::~Gameplay()
     {
         delete playerTank;
-        delete enemyTank;
+
+        for (short i = 0; i < maxEnemyTanks; i++) 
+        {
+            if (enemyTank != NULL) 
+            {
+                delete enemyTank[i]; 
+            }
+        }        
     }
 
     void Gameplay::Input()
@@ -35,7 +46,14 @@ namespace Battle_City
     void Gameplay::Update(Time dt)
     {
         ((Player*)playerTank)->Update(dt, windowWidth, windowHeigth);
-        ((Enemy*)enemyTank)->Update(dt, windowWidth, windowHeigth);
+
+        for (short i = 0; i < maxEnemyTanks; i++) 
+        {
+            if (enemyTank[i] != NULL)
+            { 
+                ((Enemy*)enemyTank[i])->Update(dt, windowWidth, windowHeigth); 
+            }
+        }        
 
         WinCondition();
         DefeatCondition();
@@ -46,7 +64,14 @@ namespace Battle_City
         window.clear(Color::Black);
 
         playerTank->Draw(window);
-        enemyTank->Draw(window);
+
+        for (short i = 0; i < maxEnemyTanks; i++) 
+        {
+            if (enemyTank[i] != NULL)
+            {
+                enemyTank[i]->Draw(window);
+            }
+        }              
 
         window.display();
     }
@@ -77,9 +102,6 @@ namespace Battle_City
     
     void Gameplay::DefeatCondition()
     {
-        if (enemyBulletsCollideWithPlayer()) 
-        {
-            gameOver = true;
-        }
+        
     }    
 }
