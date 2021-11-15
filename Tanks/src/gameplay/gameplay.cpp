@@ -58,4 +58,14 @@ namespace Battle_City
             Draw();
         }
     }
+
+    void Gameplay::WinCondition() 
+    {
+
+    }
+    
+    void Gameplay::DefeatCondition()
+    {
+
+    }
 }

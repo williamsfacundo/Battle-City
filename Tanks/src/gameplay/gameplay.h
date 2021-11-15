@@ -29,6 +29,9 @@ namespace Battle_City
 		void Update(Time dt);
 		void Draw();
 		void Run();
+
+		void WinCondition();
+		void DefeatCondition();
 	};
 }
 
