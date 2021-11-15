@@ -14,7 +14,7 @@ namespace Battle_City
 {
 	const float bulletsWidth = 15.0f;
 	const float bulletsHeight = 15.0f;
-	const short maxBullets = 10;	
+	const short maxBullets = 5;	
 
 	class Tank : public GameObject
 	{
@@ -51,6 +51,8 @@ namespace Battle_City
 		void DrawBullets(RenderWindow& window);
 		void DestroyBulletsOutOfMapLimits(float xLimit, float yLimit);		
 		void CreateBullet(short index, float xPos, float yPos);
+		GameObject* GetBullet(short index);
+		bool IsBulletNull(short index);
 	};
 }
 

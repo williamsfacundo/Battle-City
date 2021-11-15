@@ -161,4 +161,14 @@ namespace Battle_City
 	{
 		bullets[index] = new Bullet(xPos, yPos, { bulletsWidth, bulletsHeight }, getDirection());
 	}
+
+	GameObject* Tank::GetBullet(short index)
+	{
+		return bullets[index];
+	}
+
+	bool Tank::IsBulletNull(short index)
+	{
+		return bullets[index] == NULL;
+	}
 }

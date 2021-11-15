@@ -2,6 +2,7 @@
 
 #include <SFML/Window/Event.hpp>
 
+#include "tank.h"
 #include "player.h"
 #include "enemy.h"
 #include "collisions.h"
@@ -102,6 +103,44 @@ namespace Battle_City
     
     void Gameplay::DefeatCondition()
     {
-        
+        if (enemiesBulletsCollideWithPlayer())
+        {
+            gameOver = true;
+        }
     }    
+
+    bool Gameplay::enemiesBulletsCollideWithPlayer()
+    {
+        bool isCollision = false;
+
+        for (short i = 0; i < maxEnemyTanks; i++)
+        {
+            if (enemyTank[i] != NULL) 
+            {                
+                for (short j = 0; j < maxBullets; j++) 
+                {
+                    if (!((Tank*)enemyTank[i])->IsBulletNull(j)) 
+                    {                        
+                        isCollision = CollisionFunctions::CollisionRectangles(
+                            ((Tank*)playerTank)->GetXPosition(), 
+                            ((Tank*)playerTank)->GetYPosition(),
+                            ((Tank*)playerTank)->GetSize().x, 
+                            ((Tank*)playerTank)->GetSize().y,
+                            ((Tank*)enemyTank[i])->GetBullet(j)->GetXPosition(), 
+                            ((Tank*)enemyTank[i])->GetBullet(j)->GetYPosition(),
+                            ((Bullet*)((Tank*)enemyTank[i])->GetBullet(j))->GetSize().x, 
+                            ((Bullet*)((Tank*)enemyTank[i])->GetBullet(j))->GetSize().y);
+
+                        if (isCollision) 
+                        {
+                            i = maxEnemyTanks;
+                            j = maxBullets;
+                        }
+                    }                    
+                }                                
+            }
+        }
+
+        return isCollision;
+    }
 }

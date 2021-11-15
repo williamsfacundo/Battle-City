@@ -36,6 +36,8 @@ namespace Battle_City
 
 		void WinCondition();
 		void DefeatCondition();		
+
+		bool enemiesBulletsCollideWithPlayer();
 	};
 }
 
