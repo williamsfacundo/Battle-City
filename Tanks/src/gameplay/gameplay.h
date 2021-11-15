@@ -9,24 +9,27 @@
 
 using namespace sf;
 
-class Gameplay 
+namespace Battle_City 
 {
-private:
-	short windowWidth;
-	short windowHeigth;
-	const char* title = "TANKS";	
-	RenderWindow window;	
-	GameObject* playerTank;	
-	Clock clock;
-	Time dt;
-public:
-	Gameplay();
-	~Gameplay();
+	class Gameplay
+	{
+	private:
+		short windowWidth;
+		short windowHeigth;
+		const char* title = "TANKS";
+		RenderWindow window;
+		GameObject* playerTank;
+		Clock clock;
+		Time dt;
+	public:
+		Gameplay();
+		~Gameplay();
 
-	void Input();
-	void Update(Time dt);
-	void Draw();
-	void Run();
-};
+		void Input();
+		void Update(Time dt);
+		void Draw();
+		void Run();
+	};
+}
 
 #endif

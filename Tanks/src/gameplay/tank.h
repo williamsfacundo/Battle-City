@@ -11,52 +11,55 @@
 
 using namespace sf;
 
-enum class PlayerMovementSet {right, left, up, down, none};
-const float tankMoveSpeed = 150.5f;
-const float timeBetweenShots = 0.65f;
-const float bulletsWidth = 15.0f;
-const float bulletsHeight = 15.0f;
-const short maxBullets = 10;
-const Color tankColor = Color::Green;
-const Keyboard::Key moveUp = Keyboard::Up;
-const Keyboard::Key moveDown = Keyboard::Down;
-const Keyboard::Key moveRight = Keyboard::Right;
-const Keyboard::Key moveLeft = Keyboard::Left;
-const Keyboard::Key shootKey = Keyboard::Space;
-
-class Tank : public GameObject
+namespace Battle_City
 {
-private:
-	Vector2f size;
-	RectangleShape rectangle;	
-	PlayerMovementSet moveStatus;
-	Direction direction;
-	GameObject* bullets[maxBullets];
-	float shootingTimer;
-public:
-	Tank(float xPosition, float yPosition, Vector2f size);		
-	~Tank();
-	
-	void SetSize(float width, float heigth);
-	Vector2f GetSize();
+	enum class PlayerMovementSet { right, left, up, down, none };
+	const float tankMoveSpeed = 150.5f;
+	const float timeBetweenShots = 0.65f;
+	const float bulletsWidth = 15.0f;
+	const float bulletsHeight = 15.0f;
+	const short maxBullets = 10;
+	const Color tankColor = Color::Green;
+	const Keyboard::Key moveUp = Keyboard::Up;
+	const Keyboard::Key moveDown = Keyboard::Down;
+	const Keyboard::Key moveRight = Keyboard::Right;
+	const Keyboard::Key moveLeft = Keyboard::Left;
+	const Keyboard::Key shootKey = Keyboard::Space;
 
-	void Input();
-	void Update(Time dt, float xLimit, float yLimit);
-	virtual void Draw(RenderWindow& window);	
+	class Tank : public GameObject
+	{
+	private:
+		Vector2f size;
+		RectangleShape rectangle;
+		PlayerMovementSet moveStatus;
+		Direction direction;
+		GameObject* bullets[maxBullets];
+		float shootingTimer;
+	public:
+		Tank(float xPosition, float yPosition, Vector2f size);
+		~Tank();
 
-	void MovementInput();
-	void MovePlayer(Time dt);
+		void SetSize(float width, float heigth);
+		Vector2f GetSize();
 
-	void InitBullets();
-	void DestroyBullet(short index);
-	void DestroyBullets();
-	short FindEmpyBulletIndex();
-	void Shoot();
-	void MoveBullets(Time dt);
-	void DrawBullets(RenderWindow& window);
-	void DestroyBulletsOutOfMapLimits(float xLimit, float yLimit);
+		void Input();
+		void Update(Time dt, float xLimit, float yLimit);
+		virtual void Draw(RenderWindow& window);
 
-	void UpdateTimer(Time dt);
-};
+		void MovementInput();
+		void MovePlayer(Time dt);
+
+		void InitBullets();
+		void DestroyBullet(short index);
+		void DestroyBullets();
+		short FindEmpyBulletIndex();
+		void Shoot();
+		void MoveBullets(Time dt);
+		void DrawBullets(RenderWindow& window);
+		void DestroyBulletsOutOfMapLimits(float xLimit, float yLimit);
+
+		void UpdateTimer(Time dt);
+	};
+}
 
 #endif

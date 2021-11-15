@@ -5,26 +5,29 @@
 
 using namespace sf;
 
-enum class Direction {left, right, up, down};
-
-class GameObject 
+namespace Battle_City 
 {
-private:
-	float xPosition;
-	float yPosition;	
-protected:
-	void AddXPosition(float value);
-	void AddYPosition(float value);
-public:
-	GameObject(float xPosition, float yPosition);	
-	virtual ~GameObject();
+	enum class Direction { left, right, up, down };
 
-	void SetPosition(float xPosition, float yPosition);	
+	class GameObject
+	{
+	private:
+		float xPosition;
+		float yPosition;
+	protected:
+		void AddXPosition(float value);
+		void AddYPosition(float value);
+	public:
+		GameObject(float xPosition, float yPosition);
+		virtual ~GameObject();
 
-	float GetXPosition();
-	float GetYPosition();
+		void SetPosition(float xPosition, float yPosition);
 
-	virtual void Draw(RenderWindow& window) = 0;	
-};
+		float GetXPosition();
+		float GetYPosition();
+
+		virtual void Draw(RenderWindow& window) = 0;
+	};
+}
 
 #endif

@@ -7,27 +7,30 @@
 #include "SFML/Graphics/RectangleShape.hpp"
 #include "SFML/System/Time.hpp"
 
-const float bulletMoveSpeed = 300.0f;
-const Color bulletColor = Color::Red;
-
-class Bullet : public GameObject 
+namespace Battle_City
 {
-private:
-	Vector2f size;
-	RectangleShape rectangle;
-	Direction direction;	
-public:
-	Bullet(float xPosition, float yPosition, Vector2f size, Direction direction);
+	const float bulletMoveSpeed = 300.0f;
+	const Color bulletColor = Color::Red;
 
-	void SetSize(float width, float heigth);
-	Vector2f GetSize();
+	class Bullet : public GameObject
+	{
+	private:
+		Vector2f size;
+		RectangleShape rectangle;
+		Direction direction;
+	public:
+		Bullet(float xPosition, float yPosition, Vector2f size, Direction direction);
 
-	void Update(Time dt);
-	virtual void Draw(RenderWindow& window);
+		void SetSize(float width, float heigth);
+		Vector2f GetSize();
 
-	void MoveBullet(Time dt);
+		void Update(Time dt);
+		virtual void Draw(RenderWindow& window);
 
-	bool BulletOutOfMapLimits(float xLimit, float yLimit);
-};
+		void MoveBullet(Time dt);
+
+		bool BulletOutOfMapLimits(float xLimit, float yLimit);
+	};
+}
 
 #endif

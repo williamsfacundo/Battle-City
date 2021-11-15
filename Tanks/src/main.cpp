@@ -1,5 +1,7 @@
 #include "gameplay/gameplay.h"
 
+using namespace Battle_City;
+
 int main()
 {
     Gameplay* gameplay = new Gameplay();
