@@ -44,7 +44,8 @@ namespace Battle_City
 
 		bool EnemiesBulletsCollideWithPlayer();
 		void DestroyEnemyTanksWhenHit();
-		bool BulletsCollideWithMilitaryBase();		
+		bool BulletsCollideWithMilitaryBase();
+		void DestroyDestroyableWallsWhenHit();
 		bool AllTanksDestroyed();		
 	};
 }

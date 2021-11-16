@@ -27,7 +27,7 @@ namespace Battle_City
             enemyTank[i] = new Enemy((window.getSize().x / 15.0f) * (i+1), window.getSize().y / 3.0f, { 50.0f, 50.0f }, enemyTankColor);
         }       
 
-        militaryBase = new Base(window.getSize().x /2.0f + 100.0f, window.getSize().y / 3.0f, {50.0f, 50.0f});
+        militaryBase = new Base(window.getSize().x /2.0f + 100.0f, window.getSize().y / 2.0f, {50.0f, 50.0f});
 
         for (short i = 0; i < maxDestroyableWalls; i++) 
         {
@@ -84,13 +84,6 @@ namespace Battle_City
 
     void Gameplay::Update(Time dt)
     {
-        DestroyEnemyTanksWhenHit();
-
-        if (EnemiesBulletsCollideWithPlayer())
-        {
-            ((Player*)playerTank)->DecreaseLifes();
-        }
-
         ((Player*)playerTank)->Update(dt, windowWidth, windowHeigth);
 
         for (short i = 0; i < maxEnemyTanks; i++) 
@@ -99,7 +92,16 @@ namespace Battle_City
             { 
                 ((Enemy*)enemyTank[i])->Update(dt, windowWidth, windowHeigth); 
             }
-        }        
+        }    
+
+        DestroyEnemyTanksWhenHit();
+        DestroyDestroyableWallsWhenHit();
+        DestroyDestroyableWallsWhenHit();
+
+        if (EnemiesBulletsCollideWithPlayer())
+        {
+            ((Player*)playerTank)->DecreaseLifes();
+        }
 
         WinCondition();
         DefeatCondition();
@@ -300,6 +302,73 @@ namespace Battle_City
         }
 
         return isCollision;
+    }
+
+    void Gameplay::DestroyDestroyableWallsWhenHit()
+    {
+        for (short i = 0; i < maxEnemyTanks; i++)
+        {
+            if (enemyTank[i] != NULL)
+            {
+                for (short j = 0; j < maxBullets; j++)
+                {
+                    if (!((Tank*)enemyTank[i])->IsBulletNull(j))
+                    {
+                        for (short k = 0; k < maxDestroyableWalls; k++) 
+                        {
+                            if (destroyableWalls[k] != NULL)
+                            {
+                                if (CollisionFunctions::CollisionRectangles(
+                                    ((Wall*)destroyableWalls[k])->GetXPosition(),
+                                    ((Wall*)destroyableWalls[k])->GetYPosition(),
+                                    ((Wall*)destroyableWalls[k])->GetSize().x,
+                                    ((Wall*)destroyableWalls[k])->GetSize().y,
+                                    ((Tank*)enemyTank[i])->GetBullet(j)->GetXPosition(),
+                                    ((Tank*)enemyTank[i])->GetBullet(j)->GetYPosition(),
+                                    ((Bullet*)((Tank*)enemyTank[i])->GetBullet(j))->GetSize().x,
+                                    ((Bullet*)((Tank*)enemyTank[i])->GetBullet(j))->GetSize().y)) 
+                                {
+                                    ((Tank*)enemyTank[i])->DestroyBullet(j);
+
+                                    delete destroyableWalls[k];
+                                    destroyableWalls[k] = NULL;
+                                }
+                            }
+                        }
+                                                
+                    }
+                }
+            }
+        }
+
+        for (short j = 0; j < maxBullets; j++)
+        {
+            if (!((Tank*)playerTank)->IsBulletNull(j))
+            {
+                for (short k = 0; k < maxDestroyableWalls; k++)
+                {
+                    if (destroyableWalls[k] != NULL)
+                    {
+                        if (CollisionFunctions::CollisionRectangles(
+                            ((Wall*)destroyableWalls[k])->GetXPosition(),
+                            ((Wall*)destroyableWalls[k])->GetYPosition(),
+                            ((Wall*)destroyableWalls[k])->GetSize().x,
+                            ((Wall*)destroyableWalls[k])->GetSize().y,
+                            ((Tank*)playerTank)->GetBullet(j)->GetXPosition(),
+                            ((Tank*)playerTank)->GetBullet(j)->GetYPosition(),
+                            ((Bullet*)((Tank*)playerTank)->GetBullet(j))->GetSize().x,
+                            ((Bullet*)((Tank*)playerTank)->GetBullet(j))->GetSize().y))
+                        {
+                            ((Tank*)playerTank)->DestroyBullet(j);
+
+                            delete destroyableWalls[k];
+                            destroyableWalls[k] = NULL;
+                        }
+                    }
+                }
+
+            }
+        }        
     }
 
     bool Gameplay::AllTanksDestroyed() 
