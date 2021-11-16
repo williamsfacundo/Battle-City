@@ -27,11 +27,11 @@ namespace Battle_City
             enemyTank[i] = new Enemy((window.getSize().x / 15.0f) * (i+1), window.getSize().y / 3.0f, { 50.0f, 50.0f }, enemyTankColor);
         }       
 
-        militaryBase = new Base(window.getSize().x /2.0f + 100.0f, window.getSize().y / 2.0f, {50.0f, 50.0f});
+        militaryBase = new Base(window.getSize().x /2.0f + 300.0f, window.getSize().y / 3.0f, {50.0f, 50.0f});
 
         for (short i = 0; i < maxDestroyableWalls; i++) 
         {
-            destroyableWalls[i] = new Wall(window.getSize().x - (60.0f * (i + 1)), 100.0f, {50.0f, 50.0f}, true);
+            destroyableWalls[i] = new Wall(window.getSize().x / 2.0f + 55 * (i + 1), window.getSize().y / 3.0f, {50.0f, 50.0f}, true);
         }
         
         for (short i = 0; i < maxNonDestroyableWalls; i++) 
@@ -332,6 +332,8 @@ namespace Battle_City
 
                                     delete destroyableWalls[k];
                                     destroyableWalls[k] = NULL;
+
+                                    k = maxDestroyableWalls;
                                 }
                             }
                         }
@@ -363,6 +365,8 @@ namespace Battle_City
 
                             delete destroyableWalls[k];
                             destroyableWalls[k] = NULL;
+
+                            k = maxDestroyableWalls;
                         }
                     }
                 }
