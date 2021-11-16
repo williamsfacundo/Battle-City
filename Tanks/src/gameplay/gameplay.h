@@ -23,6 +23,7 @@ namespace Battle_City
 		RenderWindow window;
 		GameObject* playerTank;
 		GameObject* enemyTank[maxEnemyTanks];
+		GameObject* militaryBase;
 		Clock clock;
 		Time dt;
 	public:

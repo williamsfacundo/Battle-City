@@ -155,6 +155,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\gameplay\base.cpp" />
     <ClCompile Include="src\gameplay\bullet.cpp" />
     <ClCompile Include="src\gameplay\collisions.cpp" />
     <ClCompile Include="src\gameplay\enemy.cpp" />
@@ -165,6 +166,7 @@
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\gameplay\base.h" />
     <ClInclude Include="src\gameplay\bullet.h" />
     <ClInclude Include="src\gameplay\collisions.h" />
     <ClInclude Include="src\gameplay\enemy.h" />

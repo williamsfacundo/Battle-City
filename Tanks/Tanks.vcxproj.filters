@@ -39,6 +39,9 @@
     <ClCompile Include="src\gameplay\enemy.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="src\gameplay\base.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\gameplay\gameplay.h">
@@ -60,6 +63,9 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="src\gameplay\enemy.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gameplay\base.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>

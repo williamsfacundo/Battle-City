@@ -6,6 +6,7 @@
 #include "player.h"
 #include "enemy.h"
 #include "collisions.h"
+#include "base.h"
  
 namespace Battle_City 
 {
@@ -24,11 +25,14 @@ namespace Battle_City
         {
             enemyTank[i] = new Enemy((window.getSize().x / 15.0f) * (i+1), window.getSize().y / 3.0f, { 50.0f, 50.0f }, enemyTankColor);
         }       
+
+        militaryBase = new Base(window.getSize().x /2.0f + 100.0f, window.getSize().y / 2.0f, {50.0f, 50.0f});
     }
 
     Gameplay::~Gameplay()
     {
         delete playerTank;
+        delete militaryBase;
 
         for (short i = 0; i < maxEnemyTanks; i++) 
         {
@@ -80,6 +84,8 @@ namespace Battle_City
                 enemyTank[i]->Draw(window);
             }
         }              
+
+        militaryBase->Draw(window);
 
         window.display();
     }
