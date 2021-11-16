@@ -4,19 +4,21 @@
 #include <SFML/System/Time.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 
+using namespace sf;
+
 namespace Battle_City 
 {
 	Player::Player(float xPosition, float yPosition, Vector2f size, Color color) : Tank(xPosition, yPosition, size, color)
 	{
 		shootingTimer = 0.0f;
 		moveStatus = PlayerMovementSet::none;		
-		lifes = initialLifes;
+		lifes = initialLifes;				
 	}
 
 	Player::~Player() 
 	{
 
-	}
+	}	
 
 	void Player::DecreaseLifes() 
 	{

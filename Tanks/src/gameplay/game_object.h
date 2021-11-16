@@ -26,7 +26,7 @@ namespace Battle_City
 		float GetXPosition();
 		float GetYPosition();
 
-		virtual void Draw(RenderWindow& window) = 0;
+		virtual void Draw(RenderWindow& window) = 0;		
 	};
 }
 

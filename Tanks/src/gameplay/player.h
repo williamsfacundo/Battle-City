@@ -8,6 +8,8 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/System/Time.hpp>
 
+using namespace sf;
+
 namespace Battle_City 
 {
 	enum class PlayerMovementSet { right, left, up, down, none };
@@ -30,10 +32,10 @@ namespace Battle_City
 	private:
 		PlayerMovementSet moveStatus;
 		float shootingTimer;
-		short lifes;
+		short lifes;		
 	public:
 		Player(float xPosition, float yPosition, Vector2f size, Color color);
-		~Player(); 
+		~Player(); 		
 
 		void DecreaseLifes();
 		void setMoveStatus(PlayerMovementSet moveStatus);
