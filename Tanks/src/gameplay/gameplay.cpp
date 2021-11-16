@@ -31,12 +31,12 @@ namespace Battle_City
 
         for (short i = 0; i < maxDestroyableWalls; i++) 
         {
-            destroyableWalls[i] = new Wall(window.getSize().x / 2.0f + 55 * (i + 1), window.getSize().y / 3.0f + 400, {50.0f, 50.0f}, true);
+            destroyableWalls[i] = new Wall(window.getSize().x / 2.0f + 55 * (i + 1), window.getSize().y / 3.0f + 400, {50.0f, 50.0f}, destroyableWallTextureFile,true);
         }
         
         for (short i = 0; i < maxNonDestroyableWalls; i++) 
         {
-            nonDestroyableWalls[i] = new Wall((window.getSize().x / 15.0f) * (i + 1), window.getSize().y / 3.0f + 200, { 50.0f, 50.0f }, false);
+            nonDestroyableWalls[i] = new Wall((window.getSize().x / 15.0f) * (i + 1), window.getSize().y / 3.0f + 200, { 50.0f, 50.0f }, nonDestroyableWallTextureFile, false);
         }        
     }
 

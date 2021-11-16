@@ -25,6 +25,9 @@ namespace Battle_City
 		"assets/enemy/enemyTankRightOne.png", "assets/enemy/enemyTankRightTwo.png",
 		"assets/enemy/enemyTankUpOne.png", "assets/enemy/enemyTankUpTwo.png" };
 
+	const String nonDestroyableWallTextureFile = "assets/wall/nonDestroyableWall.png";
+	const String destroyableWallTextureFile = "assets/wall/destroyableWall.png";
+
 	const short maxEnemyTanks = 5;
 	const short maxDestroyableWalls = 1;
 	const short maxNonDestroyableWalls = 4;	

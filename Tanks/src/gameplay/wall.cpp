@@ -6,7 +6,7 @@
 
 namespace Battle_City 
 {
-	Wall::Wall(float xPosition, float yPosition, Vector2f size, bool destroyable) : GameObject(xPosition, yPosition)
+	Wall::Wall(float xPosition, float yPosition, Vector2f size, const String textureFile, bool destroyable) : GameObject(xPosition, yPosition)
 	{
 		if (destroyable)
 		{
@@ -21,7 +21,17 @@ namespace Battle_City
 		rectangle.setSize(size);
 		this->destroyable = destroyable;		
 		rectangle.setFillColor(color);
-		rectangle.setPosition(xPosition, yPosition);		
+		rectangle.setPosition(xPosition, yPosition);	
+		wallTexture.loadFromFile(textureFile);
+		wallSprite.setTexture(wallTexture);
+		wallSprite.setPosition(xPosition, yPosition);
+
+		Vector2f actualSize;
+
+		actualSize.x = wallSprite.getTextureRect().width;
+		actualSize.y = wallSprite.getTextureRect().height;
+
+		wallSprite.setScale(size.x / actualSize.x, size.y / actualSize.y);
 	}
 
 	void Wall::SetSize(float width, float heigth)
@@ -42,6 +52,9 @@ namespace Battle_City
 
 	void Wall::Draw(RenderWindow& window)
 	{
+#if _Debug
 		window.draw(rectangle);
+#endif
+		window.draw(wallSprite);		
 	}
 }
