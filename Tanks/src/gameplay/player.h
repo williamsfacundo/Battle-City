@@ -15,6 +15,8 @@ namespace Battle_City
 	const float playerMoveSpeed = 150.5f;
 	const float timeBetweenShots = 0.65f;
 
+	const short initialLifes = 3;
+
 	const Color playerTankColor = Color::Green;
 
 	const Keyboard::Key moveUp = Keyboard::Up;
@@ -28,12 +30,15 @@ namespace Battle_City
 	private:
 		PlayerMovementSet moveStatus;
 		float shootingTimer;
+		short lifes;
 	public:
 		Player(float xPosition, float yPosition, Vector2f size, Color color);
 		~Player(); 
 
+		void DecreaseLifes();
 		void setMoveStatus(PlayerMovementSet moveStatus);
 		PlayerMovementSet GetMoveStatus();
+		short GetLifes();
 		 
 		void Input();
 		virtual void Update(Time dt, float xLimit, float yLimit);

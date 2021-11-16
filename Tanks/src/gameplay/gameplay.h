@@ -39,6 +39,7 @@ namespace Battle_City
 
 		bool EnemiesBulletsCollideWithPlayer();
 		void DestroyEnemyTanksWhenHit();
+		bool AllTanksDestroyed();
 	};
 }
 

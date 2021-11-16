@@ -48,6 +48,11 @@ namespace Battle_City
     {
         DestroyEnemyTanksWhenHit();
 
+        if (EnemiesBulletsCollideWithPlayer())
+        {
+            ((Player*)playerTank)->DecreaseLifes();
+        }
+
         ((Player*)playerTank)->Update(dt, windowWidth, windowHeigth);
 
         for (short i = 0; i < maxEnemyTanks; i++) 
@@ -100,12 +105,15 @@ namespace Battle_City
 
     void Gameplay::WinCondition() 
     {
-
+        if (AllTanksDestroyed()) 
+        {
+            gameOver = true;
+        }
     }
     
     void Gameplay::DefeatCondition()
     {
-        if (EnemiesBulletsCollideWithPlayer())
+        if (((Player*)playerTank)->GetLifes() <= 0)
         {
             gameOver = true;
         }
@@ -131,10 +139,12 @@ namespace Battle_City
                             ((Tank*)enemyTank[i])->GetBullet(j)->GetXPosition(), 
                             ((Tank*)enemyTank[i])->GetBullet(j)->GetYPosition(),
                             ((Bullet*)((Tank*)enemyTank[i])->GetBullet(j))->GetSize().x, 
-                            ((Bullet*)((Tank*)enemyTank[i])->GetBullet(j))->GetSize().y);
+                            ((Bullet*)((Tank*)enemyTank[i])->GetBullet(j))->GetSize().y);                        
 
                         if (isCollision) 
                         {
+                            ((Tank*)enemyTank[i])->DestroyBullet(j);
+
                             i = maxEnemyTanks;
                             j = maxBullets;
                         }
@@ -175,5 +185,22 @@ namespace Battle_City
                 }
             }
         }
+    }
+
+    bool Gameplay::AllTanksDestroyed() 
+    {
+        bool allDestroyed = true;
+
+        for (short i = 0; i < maxEnemyTanks; i++) 
+        {
+            if (enemyTank[i] != NULL) 
+            {
+                allDestroyed = false;
+
+                i = maxEnemyTanks;
+            }
+        }
+
+        return allDestroyed;
     }
 }

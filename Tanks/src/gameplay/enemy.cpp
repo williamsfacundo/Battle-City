@@ -7,7 +7,7 @@ namespace Battle_City
 	Enemy::Enemy(float xPosition, float yPosition, Vector2f size, Color color) : Tank(xPosition, yPosition, size, color)
 	{
 		moveTimer = GetRandomTimer(minMoveTimer, maxMoveTimer);
-		shootingTimer = GetRandomTimer(minShootingTimer, maxShootingTimer);
+		shootingTimer = GetRandomTimer(minShootingTimer, maxShootingTimer);		
 	}
 
 	void Enemy::Update(Time dt, float xLimit, float yLimit)
