@@ -24,7 +24,7 @@ namespace Battle_City
 
         for (short i = 0; i < maxEnemyTanks; i++) 
         {
-            enemyTank[i] = new Enemy((window.getSize().x / 15.0f) * (i+1), window.getSize().y / 3.0f, { 50.0f, 50.0f }, enemyTankColor, playerTexturesFiles);
+            enemyTank[i] = new Enemy((window.getSize().x / 15.0f) * (i+1), window.getSize().y / 3.0f, { 50.0f, 50.0f }, enemyTankColor, enemyTexturesFiles);
         }       
 
         militaryBase = new Base(window.getSize().x /2.0f + 300.0f, window.getSize().y / 3.0f, {50.0f, 50.0f});
