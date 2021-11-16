@@ -1,10 +1,12 @@
 #include "enemy.h"
 
+#include <SFML/System/String.hpp>
+
 #include "tank.h"
 
 namespace Battle_City 
 {
-	Enemy::Enemy(float xPosition, float yPosition, Vector2f size, Color color) : Tank(xPosition, yPosition, size, color)
+	Enemy::Enemy(float xPosition, float yPosition, Vector2f size, Color color, String imageFiles[maxTextures]) : Tank(xPosition, yPosition, size, color, imageFiles)
 	{
 		moveTimer = GetRandomTimer(minMoveTimer, maxMoveTimer);
 		shootingTimer = GetRandomTimer(minShootingTimer, maxShootingTimer);		

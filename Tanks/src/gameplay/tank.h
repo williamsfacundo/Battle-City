@@ -4,6 +4,9 @@
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/System/Time.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/Texture.hpp>
+#include <SFML/System/String.hpp>
 
 #include "game_object.h"
 #include "bullet.h"
@@ -12,6 +15,7 @@ using namespace sf;
 
 namespace Battle_City
 {
+	const short maxTextures = 8;
 	const float bulletsWidth = 15.0f;
 	const float bulletsHeight = 15.0f;
 	const short maxBullets = 5;	
@@ -23,9 +27,12 @@ namespace Battle_City
 		RectangleShape rectangle;		
 		Direction direction;
 		Color color;
-		GameObject* bullets[maxBullets];		
+		GameObject* bullets[maxBullets];
+		String imageFiles[maxTextures];
+		Texture tankTextures[maxTextures];
+		Sprite tankSprite;
 	public:
-		Tank(float xPosition, float yPosition, Vector2f size, Color color);
+		Tank(float xPosition, float yPosition, Vector2f size, Color color, String imageFiles[maxTextures]);
 		virtual ~Tank();
 
 		void SetSize(float width, float heigth);		

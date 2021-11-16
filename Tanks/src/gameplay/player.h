@@ -6,7 +6,9 @@
 #include <SFML/Window/Keyboard.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Graphics/Sprite.hpp>
 #include <SFML/System/Time.hpp>
+#include <SFML/System/String.hpp>
 
 using namespace sf;
 
@@ -34,7 +36,7 @@ namespace Battle_City
 		float shootingTimer;
 		short lifes;		
 	public:
-		Player(float xPosition, float yPosition, Vector2f size, Color color);
+		Player(float xPosition, float yPosition, Vector2f size, Color color, String imageFiles[maxTextures]);
 		~Player(); 		
 
 		void DecreaseLifes();

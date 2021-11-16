@@ -13,6 +13,12 @@ namespace Battle_City
 {
     Gameplay::Gameplay()
     {
+        String playerTexturesFiles[maxTextures] = {
+        "assets/player/playerTankDownOne.png", "assets/player/playerTankDownTwo.png",
+        "assets/player/playerTankLeftOne.png", "assets/player/playerTankLeftTwo.png",
+        "assets/player/playerTankRightOne.png", "assets/player/playerTankRightTwo.png",
+        "assets/player/playerTankUpOne.png", "assets/player/playerTankUpTwo.png" };
+
         gameOver = false;
 
         windowWidth = 1200;
@@ -20,11 +26,11 @@ namespace Battle_City
 
         window.create(VideoMode(windowWidth, windowHeigth), title);
 
-        playerTank = new Player(window.getSize().x / 2.0f, window.getSize().y / 2.0f, { 50.0f, 50.0f }, playerTankColor);
+        playerTank = new Player(window.getSize().x / 2.0f, window.getSize().y / 2.0f, { 50.0f, 50.0f }, playerTankColor, playerTexturesFiles);
 
         for (short i = 0; i < maxEnemyTanks; i++) 
         {
-            enemyTank[i] = new Enemy((window.getSize().x / 15.0f) * (i+1), window.getSize().y / 3.0f, { 50.0f, 50.0f }, enemyTankColor);
+            enemyTank[i] = new Enemy((window.getSize().x / 15.0f) * (i+1), window.getSize().y / 3.0f, { 50.0f, 50.0f }, enemyTankColor, playerTexturesFiles);
         }       
 
         militaryBase = new Base(window.getSize().x /2.0f + 300.0f, window.getSize().y / 3.0f, {50.0f, 50.0f});

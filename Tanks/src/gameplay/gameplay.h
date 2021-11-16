@@ -4,8 +4,10 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/System/Time.hpp>
 #include <SFML/System/Clock.hpp>
+#include <SFML/System/String.hpp>
 
 #include "game_object.h"
+#include "tank.h"
 
 using namespace sf;
 
@@ -13,7 +15,7 @@ namespace Battle_City
 {	
 	const short maxEnemyTanks = 5;
 	const short maxDestroyableWalls = 4;
-	const short maxNonDestroyableWalls = 4;
+	const short maxNonDestroyableWalls = 4;	
 
 	class Gameplay
 	{

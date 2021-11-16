@@ -4,12 +4,16 @@
 
 #include <SFML/System/Time.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/Texture.hpp>
+#include <SFML/System/String.hpp>
+#include <SFML/System/String.hpp>
 
 #include "game_object.h"
 
 namespace Battle_City
 {
-	Tank::Tank(float xPosition, float yPosition, Vector2f size, Color color) : GameObject(xPosition, yPosition)
+	Tank::Tank(float xPosition, float yPosition, Vector2f size, Color color, String imageFiles[maxTextures]) : GameObject(xPosition, yPosition)
 	{
 		SetSize(size.x, size.y);
 		rectangle.setSize(size);
@@ -18,6 +22,26 @@ namespace Battle_City
 		direction = Direction::up;		
 
 		InitBullets();
+
+		for (short i = 0; i < maxTextures; i++)
+		{
+			this->imageFiles[i] = imageFiles[i];
+		}
+
+		for (short i = 0; i < maxTextures; i++)
+		{
+			tankTextures[i].loadFromFile(this->imageFiles[i]);
+		}
+
+		Vector2f actualSize;
+
+		tankSprite.setTexture(tankTextures[0]);
+
+		actualSize.x = tankSprite.getTextureRect().width;
+		actualSize.y = tankSprite.getTextureRect().height;
+
+		tankSprite.setScale(size.x / actualSize.x, size.y / actualSize.y);
+		tankSprite.setPosition(GetXPosition(), GetYPosition());		
 	}
 
 	Tank::~Tank()
@@ -63,7 +87,11 @@ namespace Battle_City
 
 	void Tank::Draw(RenderWindow& window)
 	{
+#if _DEBUG
 		window.draw(rectangle);
+#endif		
+
+		window.draw(tankSprite);
 
 		DrawBullets(window);
 	}
