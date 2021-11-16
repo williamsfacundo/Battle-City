@@ -12,7 +12,7 @@ namespace Battle_City
 
 	const float enemyMoveSpeed = 650.5f;
 	const float minMoveTimer = 1.0f;
-	const float maxMoveTimer = 3.0f;
+	const float maxMoveTimer = 5.0f;
 	const float minShootingTimer = 1.0f;
 	const float maxShootingTimer = 5.0f;
 
