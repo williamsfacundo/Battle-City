@@ -19,8 +19,8 @@ namespace Battle_City
 	public:
 		Base(float xPosition, float yPosition, Vector2f size);
 
-		void SetSize(float width, float heigth);
-		Vector2f GetSize();
+		void SetSize(float width, float heigth);		
+		Vector2f GetSize();	
 
 		void Draw(RenderWindow& window);
 	};

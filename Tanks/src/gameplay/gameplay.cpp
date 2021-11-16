@@ -7,6 +7,7 @@
 #include "enemy.h"
 #include "collisions.h"
 #include "base.h"
+#include "wall.h"
  
 namespace Battle_City 
 {
@@ -27,6 +28,16 @@ namespace Battle_City
         }       
 
         militaryBase = new Base(window.getSize().x /2.0f + 100.0f, window.getSize().y / 3.0f, {50.0f, 50.0f});
+
+        for (short i = 0; i < maxDestroyableWalls; i++) 
+        {
+            destroyableWalls[i] = new Wall(window.getSize().x - (60.0f * (i + 1)), 100.0f, {50.0f, 50.0f}, true);
+        }
+        
+        for (short i = 0; i < maxNonDestroyableWalls; i++) 
+        {
+            nonDestroyableWalls[i] = new Wall(window.getSize().x - (60.0f * (i + 1)), window.getSize().y - 100.0f, { 50.0f, 50.0f }, false);
+        }        
     }
 
     Gameplay::~Gameplay()
@@ -48,6 +59,22 @@ namespace Battle_City
                 delete enemyTank[i]; 
             }
         }        
+
+        for (short i = 0; i < maxDestroyableWalls; i++)
+        {
+            if (destroyableWalls[i] != NULL)
+            {
+                delete destroyableWalls[i];
+            }            
+        }
+
+        for (short i = 0; i < maxNonDestroyableWalls; i++)
+        {
+            if (nonDestroyableWalls[i] != NULL)
+            {
+                delete nonDestroyableWalls[i];
+            }
+        }
     }
 
     void Gameplay::Input()
@@ -90,9 +117,25 @@ namespace Battle_City
             {
                 enemyTank[i]->Draw(window);
             }
-        }              
+        }
 
         militaryBase->Draw(window);
+
+        for (short i = 0; i < maxDestroyableWalls; i++)
+        {
+            if (destroyableWalls[i] != NULL)
+            {
+               destroyableWalls[i]->Draw(window);
+            }
+        }
+
+        for (short i = 0; i < maxNonDestroyableWalls; i++)
+        {
+            if (nonDestroyableWalls[i] != NULL)
+            {
+                nonDestroyableWalls[i]->Draw(window);
+            }
+        }
 
         window.display();
     }

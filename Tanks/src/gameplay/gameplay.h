@@ -12,6 +12,8 @@ using namespace sf;
 namespace Battle_City 
 {	
 	const short maxEnemyTanks = 5;
+	const short maxDestroyableWalls = 4;
+	const short maxNonDestroyableWalls = 4;
 
 	class Gameplay
 	{
@@ -24,6 +26,8 @@ namespace Battle_City
 		GameObject* playerTank;
 		GameObject* enemyTank[maxEnemyTanks];
 		GameObject* militaryBase;
+		GameObject* destroyableWalls[maxDestroyableWalls];
+		GameObject* nonDestroyableWalls[maxNonDestroyableWalls];
 		Clock clock;
 		Time dt;
 	public:
@@ -40,7 +44,7 @@ namespace Battle_City
 
 		bool EnemiesBulletsCollideWithPlayer();
 		void DestroyEnemyTanksWhenHit();
-		bool BulletsCollideWithMilitaryBase();
+		bool BulletsCollideWithMilitaryBase();		
 		bool AllTanksDestroyed();		
 	};
 }
