@@ -21,12 +21,12 @@ namespace Battle_City
 
 	const String enemyTexturesFiles[maxTextures] = {
 		"assets/enemy/enemyTankDownOne.png", "assets/enemy/enemyTankDownTwo.png",
-		"assets/enemy/enemyTankLeftOne.png", "assets/enemy/enemyTankLeftTwo.png",
+	 	"assets/enemy/enemyTankLeftOne.png", "assets/enemy/enemyTankLeftTwo.png",
 		"assets/enemy/enemyTankRightOne.png", "assets/enemy/enemyTankRightTwo.png",
 		"assets/enemy/enemyTankUpOne.png", "assets/enemy/enemyTankUpTwo.png" };
 
 	const short maxEnemyTanks = 5;
-	const short maxDestroyableWalls = 4;
+	const short maxDestroyableWalls = 1;
 	const short maxNonDestroyableWalls = 4;	
 
 	class Gameplay
@@ -61,6 +61,7 @@ namespace Battle_City
 		bool BulletsCollideWithMilitaryBase();
 		void DestroyDestroyableWallsWhenHit();
 		void DestroyBulletsWhenHitNonDestroyableWalls();
+		void TanksCollideWithWalls();
 		bool AllTanksDestroyed();		
 	};
 }

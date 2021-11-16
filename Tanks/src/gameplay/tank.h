@@ -47,8 +47,7 @@ namespace Battle_City
 		void SetSpriteDependingDirection();
 		void UpdateSpriteSize();		
 		Vector2f GetSize();
-		Direction getDirection();
-		Vector2f getSize();		
+		Direction getDirection();				
 		RectangleShape GetRectangle();		
 
 		virtual void Update(Time dt, float xLimit, float yLimit) = 0;

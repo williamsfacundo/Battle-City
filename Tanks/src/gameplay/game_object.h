@@ -22,7 +22,7 @@ namespace Battle_City
 		virtual ~GameObject();
 
 		void SetPosition(float xPosition, float yPosition);
-
+		
 		float GetXPosition();
 		float GetYPosition();
 

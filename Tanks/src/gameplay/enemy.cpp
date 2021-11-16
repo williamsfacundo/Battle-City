@@ -37,22 +37,22 @@ namespace Battle_City
 				case Direction::left:
 
 					xPos = GetXPosition();
-					yPos = GetYPosition() + (getSize().y / 2.0f) - (bulletsHeight / 2.0f);
+					yPos = GetYPosition() + (GetSize().y / 2.0f) - (bulletsHeight / 2.0f);
 					break;
 				case Direction::right:
 
-					xPos = GetXPosition() + getSize().x;
-					yPos = GetYPosition() + (getSize().y / 2.0f) - (bulletsHeight / 2.0f);
+					xPos = GetXPosition() + GetSize().x;
+					yPos = GetYPosition() + (GetSize().y / 2.0f) - (bulletsHeight / 2.0f);
 					break;
 				case Direction::up:
 
-					xPos = GetXPosition() + (getSize().x / 2) - (bulletsWidth / 2.0f);
+					xPos = GetXPosition() + (GetSize().x / 2) - (bulletsWidth / 2.0f);
 					yPos = GetYPosition();
 					break;
 				case Direction::down:
 
-					xPos = GetXPosition() + (getSize().x / 2) - (bulletsWidth / 2.0f);
-					yPos = GetYPosition() + getSize().y;
+					xPos = GetXPosition() + (GetSize().x / 2) - (bulletsWidth / 2.0f);
+					yPos = GetYPosition() + GetSize().y;
 					break;
 				}
 

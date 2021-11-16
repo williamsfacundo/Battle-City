@@ -26,7 +26,7 @@ namespace Battle_City
 	void GameObject::AddYPosition(float value)
 	{
 		yPosition += value;
-	}
+	}	
 
 	float GameObject::GetXPosition()
 	{

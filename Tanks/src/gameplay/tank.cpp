@@ -113,12 +113,7 @@ namespace Battle_City
 	Direction Tank::getDirection() 
 	{
 		return direction;
-	}
-
-	Vector2f Tank::getSize() 
-	{
-		return size;
-	}	
+	}		
 
 	RectangleShape Tank::GetRectangle() 
 	{
