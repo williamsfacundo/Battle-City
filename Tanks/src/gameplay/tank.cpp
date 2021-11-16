@@ -19,7 +19,9 @@ namespace Battle_City
 		rectangle.setSize(size);
 		rectangle.setFillColor(color);
 		SetRectanglePosition(xPosition, yPosition);
-		direction = Direction::up;		
+		direction = Direction::up;	
+		textureType = TextureType::up1;
+		float nextAnimation;
 
 		InitBullets();
 
@@ -30,18 +32,14 @@ namespace Battle_City
 
 		for (short i = 0; i < maxTextures; i++)
 		{
-			tankTextures[i].loadFromFile(this->imageFiles[i]);
-		}
+			tankTextures[i].loadFromFile(this->imageFiles[i]);		
+		}		
 
-		Vector2f actualSize;
+		SetSpriteDependingDirection();
 
-		tankSprite.setTexture(tankTextures[0]);
-
-		actualSize.x = tankSprite.getTextureRect().width;
-		actualSize.y = tankSprite.getTextureRect().height;
-
-		tankSprite.setScale(size.x / actualSize.x, size.y / actualSize.y);
-		SetSpritePosition(GetXPosition(), GetYPosition());
+		UpdateSpriteSize();
+		
+		SetSpritePosition(GetXPosition(), GetYPosition());	
 	}
 
 	Tank::~Tank()
@@ -57,7 +55,7 @@ namespace Battle_City
 
 	void Tank::setDirection(Direction direction) 
 	{
-		this->direction = direction;
+		this->direction = direction;		
 	}
 
 	void Tank::SetRectanglePosition(float xPos, float yPos) 
@@ -68,6 +66,43 @@ namespace Battle_City
 	void Tank::SetSpritePosition(float xPos, float yPos) 
 	{
 		tankSprite.setPosition(xPos, yPos);
+	}
+
+	void Tank::SetSpriteDependingDirection() 
+	{
+		switch (direction)
+		{
+		case Direction::left:
+
+			tankSprite.setTexture(tankTextures[2]);
+			textureType = TextureType::left1;			
+			break;
+		case Direction::right:
+			tankSprite.setTexture(tankTextures[4]);
+			textureType = TextureType::right1;
+			break;
+		case Direction::up:
+			tankSprite.setTexture(tankTextures[6]);
+			textureType = TextureType::up1;
+			break;
+		case Direction::down:
+			tankSprite.setTexture(tankTextures[0]);
+			textureType = TextureType::down1;
+			break;
+		default:
+
+			break;
+		}
+	}	
+
+	void Tank::UpdateSpriteSize() 
+	{
+		Vector2f actualSize;
+
+		actualSize.x = tankSprite.getTextureRect().width;
+		actualSize.y = tankSprite.getTextureRect().height;
+
+		tankSprite.setScale(size.x / actualSize.x, size.y / actualSize.y);
 	}
 
 	Vector2f Tank::GetSize()
@@ -88,7 +123,7 @@ namespace Battle_City
 	RectangleShape Tank::GetRectangle() 
 	{
 		return rectangle;
-	}
+	}		
 
 	void Tank::Draw(RenderWindow& window)
 	{
@@ -203,5 +238,51 @@ namespace Battle_City
 	bool Tank::IsBulletNull(short index)
 	{
 		return bullets[index] == NULL;
+	}
+
+	void Tank::Animation(Time dt) 
+	{
+		UpdateTimer(dt, changeAnimationTimer);
+
+		if (changeAnimationTimer == 0.0f)
+		{
+			switch (direction)
+			{
+			case Direction::left:		
+
+				SwitchBetweenTextures(TextureType::left1, TextureType::left2, 2, 3);
+				break;
+			case Direction::right:
+
+				SwitchBetweenTextures(TextureType::right1, TextureType::right2, 4, 5);
+				break;
+			case Direction::up:
+
+				SwitchBetweenTextures(TextureType::up1, TextureType::up2, 6, 7);
+				break;
+			case Direction::down:
+
+				SwitchBetweenTextures(TextureType::down1, TextureType::down2, 0, 1);
+				break;			
+			}
+
+			changeAnimationTimer = changeAnimationTime;
+		}		
+	}
+
+	void Tank::SwitchBetweenTextures(TextureType type1, TextureType type2, short index1, short index2)
+	{
+		if (textureType == type1)
+		{
+			tankSprite.setTexture(tankTextures[index1]);
+			textureType = type2;
+		}
+		else
+		{
+			tankSprite.setTexture(tankTextures[index2]);
+			textureType = type1;
+		}
+
+		UpdateSpriteSize();
 	}
 }

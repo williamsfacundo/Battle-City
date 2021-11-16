@@ -18,12 +18,11 @@ namespace Battle_City
 		UpdateTimer(dt, shootingTimer);
 
 		MoveTank(dt);
-		MoveBullets(dt);
-		Shoot();		
-		DestroyBulletsOutOfMapLimits(xLimit, yLimit);
+		MoveBullets(dt);			
+		DestroyBulletsOutOfMapLimits(xLimit, yLimit);		
 	}
 
-	void Enemy::Shoot() 
+	void Enemy::Shoot()
 	{
 		if (shootingTimer == 0.0f) 
 		{
@@ -97,6 +96,8 @@ namespace Battle_City
 
 			SetRectanglePosition(GetXPosition(), GetYPosition());
 			SetSpritePosition(GetXPosition(), GetYPosition());
+			SetSpriteDependingDirection();
+			UpdateSpriteSize();
 			moveTimer = maxMoveTimer;
 		}		
 	}

@@ -25,7 +25,7 @@ namespace Battle_City
 		Enemy(float xPosition, float yPosition, Vector2f size, Color color, const String imageFiles[maxTextures]);
 
 		virtual void Update(Time dt, float xLimit, float yLimit);
-		virtual void Shoot();		
+		virtual void Shoot();
 		virtual void MoveTank(Time dt);
 
 		Direction GetRandomDirection();

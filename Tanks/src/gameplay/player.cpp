@@ -53,7 +53,7 @@ namespace Battle_City
 		MoveTank(dt);
 		MoveBullets(dt);
 		UpdateTimer(dt, shootingTimer);
-		DestroyBulletsOutOfMapLimits(xLimit, yLimit);
+		DestroyBulletsOutOfMapLimits(xLimit, yLimit);			
 	}
 
 	void Player::Shoot()
@@ -100,23 +100,19 @@ namespace Battle_City
 	{
 		if (Keyboard::isKeyPressed(moveLeft))
 		{
-			setMoveStatus(PlayerMovementSet::left);
-			setDirection(Direction::left);
+			setMoveStatus(PlayerMovementSet::left);			
 		}
 		else if (Keyboard::isKeyPressed(moveRight))
 		{
-			setMoveStatus(PlayerMovementSet::right);
-			setDirection(Direction::right);
+			setMoveStatus(PlayerMovementSet::right);			
 		}
 		else if (Keyboard::isKeyPressed(moveUp))
 		{
-			setMoveStatus(PlayerMovementSet::up);
-			setDirection(Direction::up);
+			setMoveStatus(PlayerMovementSet::up);			
 		}
 		else if (Keyboard::isKeyPressed(moveDown))
 		{
-			setMoveStatus(PlayerMovementSet::down);
-			setDirection(Direction::down);
+			setMoveStatus(PlayerMovementSet::down);			
 		}
 		else
 		{
@@ -131,18 +127,46 @@ namespace Battle_City
 		case PlayerMovementSet::right:
 
 			AddXPosition(playerMoveSpeed * dt.asSeconds());
+
+			if (getDirection() != Direction::right) 
+			{
+				setDirection(Direction::right);
+				SetSpriteDependingDirection();
+			}
+
 			break;
 		case PlayerMovementSet::left:
 
 			AddXPosition(-playerMoveSpeed * dt.asSeconds());
+			
+			if (getDirection() != Direction::left)
+			{
+				setDirection(Direction::left);
+				SetSpriteDependingDirection();
+			}
+
 			break;
 		case PlayerMovementSet::up:
 
 			AddYPosition(-playerMoveSpeed * dt.asSeconds());
+			
+			if (getDirection() != Direction::up)
+			{
+				setDirection(Direction::up);
+				SetSpriteDependingDirection();
+			}
+			
 			break;
-		case PlayerMovementSet::down:
-
+		case PlayerMovementSet::down:			
+			
 			AddYPosition(playerMoveSpeed * dt.asSeconds());
+
+			if (getDirection() != Direction::down)
+			{
+				setDirection(Direction::down);
+				SetSpriteDependingDirection();
+			}
+
 			break;
 		case PlayerMovementSet::none:
 			break;
@@ -150,7 +174,11 @@ namespace Battle_City
 			break;
 		}
 
-		SetRectanglePosition(GetXPosition(), GetYPosition());
-		SetSpritePosition(GetXPosition(), GetYPosition());
+		if (GetMoveStatus() != PlayerMovementSet::none)
+		{
+			SetRectanglePosition(GetXPosition(), GetYPosition());
+			SetSpritePosition(GetXPosition(), GetYPosition());				
+			Animation(dt);
+		}		
 	}	
 }

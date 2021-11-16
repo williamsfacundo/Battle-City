@@ -15,10 +15,13 @@ using namespace sf;
 
 namespace Battle_City
 {
+	enum class TextureType {left1, left2, right1, right2, up1, up2, down1, down2};
+
 	const short maxTextures = 8;
 	const float bulletsWidth = 15.0f;
 	const float bulletsHeight = 15.0f;
 	const short maxBullets = 5;	
+	const float changeAnimationTime = 0.15f;
 
 	class Tank : public GameObject
 	{
@@ -31,6 +34,8 @@ namespace Battle_City
 		String imageFiles[maxTextures];
 		Texture tankTextures[maxTextures];
 		Sprite tankSprite;
+		TextureType textureType;
+		float changeAnimationTimer;
 	public:
 		Tank(float xPosition, float yPosition, Vector2f size, Color color, const String imageFiles[maxTextures]);
 		virtual ~Tank();
@@ -39,11 +44,13 @@ namespace Battle_City
 		void setDirection(Direction direction);
 		void SetRectanglePosition(float xPos, float yPos);
 		void SetSpritePosition(float xPos, float yPos);
+		void SetSpriteDependingDirection();
+		void UpdateSpriteSize();		
 		Vector2f GetSize();
 		Direction getDirection();
 		Vector2f getSize();		
-		RectangleShape GetRectangle();
-		
+		RectangleShape GetRectangle();		
+
 		virtual void Update(Time dt, float xLimit, float yLimit) = 0;
 		virtual void Draw(RenderWindow& window);		
 
@@ -61,6 +68,9 @@ namespace Battle_City
 		void CreateBullet(short index, float xPos, float yPos);
 		GameObject* GetBullet(short index);
 		bool IsBulletNull(short index);
+
+		void Animation(Time dt);
+		void SwitchBetweenTextures(TextureType type1, TextureType type2, short index1, short index2);
 	};
 }
 
