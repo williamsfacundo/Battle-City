@@ -26,13 +26,20 @@ namespace Battle_City
             enemyTank[i] = new Enemy((window.getSize().x / 15.0f) * (i+1), window.getSize().y / 3.0f, { 50.0f, 50.0f }, enemyTankColor);
         }       
 
-        militaryBase = new Base(window.getSize().x /2.0f + 100.0f, window.getSize().y / 2.0f, {50.0f, 50.0f});
+        militaryBase = new Base(window.getSize().x /2.0f + 100.0f, window.getSize().y / 3.0f, {50.0f, 50.0f});
     }
 
     Gameplay::~Gameplay()
     {
-        delete playerTank;
-        delete militaryBase;
+        if (playerTank != NULL)
+        { 
+            delete playerTank; 
+        }
+
+        if (militaryBase != NULL) 
+        { 
+            delete militaryBase; 
+        }
 
         for (short i = 0; i < maxEnemyTanks; i++) 
         {
@@ -119,7 +126,7 @@ namespace Battle_City
     
     void Gameplay::DefeatCondition()
     {
-        if (((Player*)playerTank)->GetLifes() <= 0)
+        if (((Player*)playerTank)->GetLifes() <= 0 || BulletsCollideWithMilitaryBase())
         {
             gameOver = true;
         }
@@ -193,6 +200,65 @@ namespace Battle_City
         }
     }
 
+    bool Gameplay::BulletsCollideWithMilitaryBase()
+    {
+        bool isCollision = false;
+
+        for (short i = 0; i < maxEnemyTanks; i++)
+        {
+            if (enemyTank[i] != NULL)
+            {
+                for (short j = 0; j < maxBullets; j++)
+                {
+                    if (!((Tank*)enemyTank[i])->IsBulletNull(j))
+                    {
+                        isCollision = CollisionFunctions::CollisionRectangles(
+                            ((Tank*)militaryBase)->GetXPosition(),
+                            ((Tank*)militaryBase)->GetYPosition(),
+                            ((Tank*)militaryBase)->GetSize().x,
+                            ((Tank*)militaryBase)->GetSize().y,
+                            ((Tank*)enemyTank[i])->GetBullet(j)->GetXPosition(),
+                            ((Tank*)enemyTank[i])->GetBullet(j)->GetYPosition(),
+                            ((Bullet*)((Tank*)enemyTank[i])->GetBullet(j))->GetSize().x,
+                            ((Bullet*)((Tank*)enemyTank[i])->GetBullet(j))->GetSize().y);
+
+                        if (isCollision)
+                        {
+                            i = maxEnemyTanks;
+                            j = maxBullets;
+                        }
+                    }
+                }
+            }
+        }
+
+        if (!isCollision && playerTank != NULL) 
+        {
+            for (short j = 0; j < maxBullets; j++)
+            {
+                if (!((Tank*)playerTank)->IsBulletNull(j))
+                {
+                    isCollision = CollisionFunctions::CollisionRectangles(
+                        ((Tank*)militaryBase)->GetXPosition(),
+                        ((Tank*)militaryBase)->GetYPosition(),
+                        ((Tank*)militaryBase)->GetSize().x,
+                        ((Tank*)militaryBase)->GetSize().y,
+                        ((Tank*)playerTank)->GetBullet(j)->GetXPosition(),
+                        ((Tank*)playerTank)->GetBullet(j)->GetYPosition(),
+                        ((Bullet*)((Tank*)playerTank)->GetBullet(j))->GetSize().x,
+                        ((Bullet*)((Tank*)playerTank)->GetBullet(j))->GetSize().y);
+
+                    if (isCollision)
+                    {                      
+                        j = maxBullets;
+                    }
+                }
+            }
+        }
+
+        return isCollision;
+    }
+
     bool Gameplay::AllTanksDestroyed() 
     {
         bool allDestroyed = true;
@@ -208,5 +274,5 @@ namespace Battle_City
         }
 
         return allDestroyed;
-    }
+    }    
 }
