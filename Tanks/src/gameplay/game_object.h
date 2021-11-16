@@ -13,16 +13,16 @@ namespace Battle_City
 	{
 	private:
 		float xPosition;
-		float yPosition;
-	protected:
-		void AddXPosition(float value);
-		void AddYPosition(float value);
+		float yPosition;		
 	public:
 		GameObject(float xPosition, float yPosition);
 		virtual ~GameObject();
 
 		void SetPosition(float xPosition, float yPosition);
 		
+		void AddXPosition(float value);
+		void AddYPosition(float value);
+
 		float GetXPosition();
 		float GetYPosition();
 

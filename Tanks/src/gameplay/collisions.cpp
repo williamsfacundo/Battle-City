@@ -26,23 +26,57 @@ namespace Battle_City
 				{
 				case Direction::left:
 										
-					newPosition = { (recPosition.x + recSize.x) + minSeparation, tank->GetYPosition() };
+					if (((Tank*)tank)->GetTankMoving())
+					{
+						((Tank*)tank)->AddXPosition(-((Tank*)tank)->GetMoveSpeed());
+					}
+					else 
+					{
+						newPosition = { (recPosition.x + recSize.x) + minSeparation, tank->GetYPosition() };
+						tank->SetPosition(newPosition.x, newPosition.y);
+					}
+					
 					break;
 				case Direction::right:
-										
-					newPosition = { recPosition.x - ((Tank*)tank)->GetSize().x - minSeparation, tank->GetYPosition() };
+					
+					if (((Tank*)tank)->GetTankMoving())
+					{
+						((Tank*)tank)->AddXPosition(-((Tank*)tank)->GetMoveSpeed());
+					}
+					else
+					{
+						newPosition = { recPosition.x - ((Tank*)tank)->GetSize().x - minSeparation, tank->GetYPosition() };
+						tank->SetPosition(newPosition.x, newPosition.y);
+					}
+					
 					break;
 				case Direction::up:
 
-					newPosition = { tank->GetXPosition(), recPosition.y + recSize.y + minSeparation };
+					if (((Tank*)tank)->GetTankMoving())
+					{
+						((Tank*)tank)->AddYPosition(-((Tank*)tank)->GetMoveSpeed());
+					}
+					else
+					{
+						newPosition = { tank->GetXPosition(), recPosition.y + recSize.y + minSeparation };
+						tank->SetPosition(newPosition.x, newPosition.y);
+					}
+					
 					break;
 				case Direction::down:
 					
-					newPosition = { tank->GetXPosition(), recPosition.y - ((Tank*)tank)->GetSize().y - minSeparation };
+					if (((Tank*)tank)->GetTankMoving())
+					{
+						((Tank*)tank)->AddYPosition(-((Tank*)tank)->GetMoveSpeed());
+					}
+					else
+					{
+						newPosition = { tank->GetXPosition(), recPosition.y - ((Tank*)tank)->GetSize().y - minSeparation };
+						tank->SetPosition(newPosition.x, newPosition.y);
+					}
+					
 					break;
-				}	
-
-				tank->SetPosition(newPosition.x, newPosition.y);
+				}					
 			}						
 		}
 	}

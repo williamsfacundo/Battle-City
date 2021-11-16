@@ -21,7 +21,9 @@ namespace Battle_City
 		SetRectanglePosition(xPosition, yPosition);
 		direction = Direction::up;	
 		textureType = TextureType::up1;
-		float nextAnimation;
+		changeAnimationTimer = changeAnimationTime;
+		tankMoving = false;
+		moveSpeed = 0.0f;
 
 		InitBullets();
 
@@ -95,6 +97,16 @@ namespace Battle_City
 		}
 	}	
 
+	void Tank::SetTankMoving(bool tankMoving) 
+	{
+		this->tankMoving = tankMoving;
+	}
+
+	void Tank::SetMoveSpeed(float moveSpeed)
+	{
+		this->moveSpeed = moveSpeed;
+	}
+
 	void Tank::UpdateSpriteSize() 
 	{
 		Vector2f actualSize;
@@ -119,6 +131,16 @@ namespace Battle_City
 	{
 		return rectangle;
 	}		
+
+	bool Tank::GetTankMoving() 
+	{
+		return tankMoving;
+	}
+
+	float Tank::GetMoveSpeed() 
+	{
+		return moveSpeed;
+	}
 
 	void Tank::Draw(RenderWindow& window)
 	{

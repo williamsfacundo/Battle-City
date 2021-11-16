@@ -50,7 +50,9 @@ namespace Battle_City
 		virtual void Shoot();
 		void MovementInput();
 		
-		virtual void MoveTank(Time dt);		
+		virtual void MoveTank(Time dt);
+
+		bool IsTankMoving();
 	};
 }
 

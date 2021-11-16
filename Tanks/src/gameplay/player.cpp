@@ -53,7 +53,8 @@ namespace Battle_City
 		MoveTank(dt);
 		MoveBullets(dt);
 		UpdateTimer(dt, shootingTimer);
-		DestroyBulletsOutOfMapLimits(xLimit, yLimit);			
+		DestroyBulletsOutOfMapLimits(xLimit, yLimit);		
+		SetTankMoving(IsTankMoving());
 	}
 
 	void Player::Shoot()
@@ -126,6 +127,7 @@ namespace Battle_City
 		{
 		case PlayerMovementSet::right:
 
+			SetMoveSpeed(playerMoveSpeed * dt.asSeconds());
 			AddXPosition(playerMoveSpeed * dt.asSeconds());
 
 			if (getDirection() != Direction::right) 
@@ -137,6 +139,7 @@ namespace Battle_City
 			break;
 		case PlayerMovementSet::left:
 
+			SetMoveSpeed(-playerMoveSpeed * dt.asSeconds());
 			AddXPosition(-playerMoveSpeed * dt.asSeconds());
 			
 			if (getDirection() != Direction::left)
@@ -148,6 +151,7 @@ namespace Battle_City
 			break;
 		case PlayerMovementSet::up:
 
+			SetMoveSpeed(-playerMoveSpeed * dt.asSeconds());
 			AddYPosition(-playerMoveSpeed * dt.asSeconds());
 			
 			if (getDirection() != Direction::up)
@@ -159,6 +163,7 @@ namespace Battle_City
 			break;
 		case PlayerMovementSet::down:			
 			
+			SetMoveSpeed(playerMoveSpeed * dt.asSeconds());
 			AddYPosition(playerMoveSpeed * dt.asSeconds());
 
 			if (getDirection() != Direction::down)
@@ -181,4 +186,9 @@ namespace Battle_City
 			Animation(dt);
 		}		
 	}	
+
+	bool Player::IsTankMoving() 
+	{
+		return moveStatus != PlayerMovementSet::none;
+	}
 }

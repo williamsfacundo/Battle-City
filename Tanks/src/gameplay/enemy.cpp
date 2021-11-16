@@ -72,21 +72,25 @@ namespace Battle_City
 			case Direction::left:
 
 				setDirection(Direction::left);
+				SetMoveSpeed(-enemyMoveSpeed * dt.asSeconds());
 				AddXPosition(-enemyMoveSpeed * dt.asSeconds());
 				break;
 			case Direction::right:
-
+								
 				setDirection(Direction::right);
+				SetMoveSpeed(enemyMoveSpeed * dt.asSeconds());
 				AddXPosition(enemyMoveSpeed * dt.asSeconds());
 				break;
 			case Direction::up:
 
 				AddYPosition(-enemyMoveSpeed * dt.asSeconds());
+				SetMoveSpeed(-enemyMoveSpeed * dt.asSeconds());
 				setDirection(Direction::up);
 				break;
 			case Direction::down:
 
 				AddYPosition(enemyMoveSpeed * dt.asSeconds());
+				SetMoveSpeed(enemyMoveSpeed * dt.asSeconds());
 				setDirection(Direction::down);
 				break;
 			default:

@@ -36,6 +36,8 @@ namespace Battle_City
 		Sprite tankSprite;
 		TextureType textureType;
 		float changeAnimationTimer;
+		bool tankMoving;
+		float moveSpeed;
 	public:
 		Tank(float xPosition, float yPosition, Vector2f size, Color color, const String imageFiles[maxTextures]);
 		virtual ~Tank();
@@ -45,10 +47,14 @@ namespace Battle_City
 		void SetRectanglePosition(float xPos, float yPos);
 		void SetSpritePosition(float xPos, float yPos);
 		void SetSpriteDependingDirection();
+		void SetTankMoving(bool tankMoving);
+		void SetMoveSpeed(float moveSpeed);
 		void UpdateSpriteSize();		
 		Vector2f GetSize();
 		Direction getDirection();				
 		RectangleShape GetRectangle();		
+		bool GetTankMoving();
+		float GetMoveSpeed();
 
 		virtual void Update(Time dt, float xLimit, float yLimit) = 0;
 		virtual void Draw(RenderWindow& window);		
