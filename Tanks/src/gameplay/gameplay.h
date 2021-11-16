@@ -13,6 +13,12 @@ using namespace sf;
 
 namespace Battle_City 
 {	
+	const String playerTexturesFiles[maxTextures] = {
+		"assets/player/playerTankDownOne.png", "assets/player/playerTankDownTwo.png",
+		"assets/player/playerTankLeftOne.png", "assets/player/playerTankLeftTwo.png",
+		"assets/player/playerTankRightOne.png", "assets/player/playerTankRightTwo.png",
+		"assets/player/playerTankUpOne.png", "assets/player/playerTankUpTwo.png" };
+
 	const short maxEnemyTanks = 5;
 	const short maxDestroyableWalls = 4;
 	const short maxNonDestroyableWalls = 4;	

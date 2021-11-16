@@ -10,7 +10,7 @@ using namespace sf;
 
 namespace Battle_City 
 {
-	Player::Player(float xPosition, float yPosition, Vector2f size, Color color, String imageFiles[maxTextures]) : Tank(xPosition, yPosition, size, color, imageFiles)
+	Player::Player(float xPosition, float yPosition, Vector2f size, Color color, const String imageFiles[maxTextures]) : Tank(xPosition, yPosition, size, color, imageFiles)
 	{
 		shootingTimer = 0.0f;
 		moveStatus = PlayerMovementSet::none;		
@@ -151,5 +151,6 @@ namespace Battle_City
 		}
 
 		SetRectanglePosition(GetXPosition(), GetYPosition());
+		SetSpritePosition(GetXPosition(), GetYPosition());
 	}	
 }

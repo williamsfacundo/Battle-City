@@ -22,7 +22,7 @@ namespace Battle_City
 		float moveTimer;
 		float shootingTimer;		
 	public:
-		Enemy(float xPosition, float yPosition, Vector2f size, Color color, String imageFiles[maxTextures]);
+		Enemy(float xPosition, float yPosition, Vector2f size, Color color, const String imageFiles[maxTextures]);
 
 		virtual void Update(Time dt, float xLimit, float yLimit);
 		virtual void Shoot();		

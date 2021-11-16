@@ -32,12 +32,13 @@ namespace Battle_City
 		Texture tankTextures[maxTextures];
 		Sprite tankSprite;
 	public:
-		Tank(float xPosition, float yPosition, Vector2f size, Color color, String imageFiles[maxTextures]);
+		Tank(float xPosition, float yPosition, Vector2f size, Color color, const String imageFiles[maxTextures]);
 		virtual ~Tank();
 
 		void SetSize(float width, float heigth);		
 		void setDirection(Direction direction);
 		void SetRectanglePosition(float xPos, float yPos);
+		void SetSpritePosition(float xPos, float yPos);
 		Vector2f GetSize();
 		Direction getDirection();
 		Vector2f getSize();		

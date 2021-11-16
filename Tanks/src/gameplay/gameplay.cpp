@@ -12,13 +12,7 @@
 namespace Battle_City 
 {
     Gameplay::Gameplay()
-    {
-        String playerTexturesFiles[maxTextures] = {
-        "assets/player/playerTankDownOne.png", "assets/player/playerTankDownTwo.png",
-        "assets/player/playerTankLeftOne.png", "assets/player/playerTankLeftTwo.png",
-        "assets/player/playerTankRightOne.png", "assets/player/playerTankRightTwo.png",
-        "assets/player/playerTankUpOne.png", "assets/player/playerTankUpTwo.png" };
-
+    {        
         gameOver = false;
 
         windowWidth = 1200;

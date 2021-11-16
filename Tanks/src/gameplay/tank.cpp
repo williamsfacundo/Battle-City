@@ -13,12 +13,12 @@
 
 namespace Battle_City
 {
-	Tank::Tank(float xPosition, float yPosition, Vector2f size, Color color, String imageFiles[maxTextures]) : GameObject(xPosition, yPosition)
+	Tank::Tank(float xPosition, float yPosition, Vector2f size, Color color, const String imageFiles[maxTextures]) : GameObject(xPosition, yPosition)
 	{
 		SetSize(size.x, size.y);
 		rectangle.setSize(size);
 		rectangle.setFillColor(color);
-		rectangle.setPosition(xPosition, yPosition);		
+		SetRectanglePosition(xPosition, yPosition);
 		direction = Direction::up;		
 
 		InitBullets();
@@ -41,7 +41,7 @@ namespace Battle_City
 		actualSize.y = tankSprite.getTextureRect().height;
 
 		tankSprite.setScale(size.x / actualSize.x, size.y / actualSize.y);
-		tankSprite.setPosition(GetXPosition(), GetYPosition());		
+		SetSpritePosition(GetXPosition(), GetYPosition());
 	}
 
 	Tank::~Tank()
@@ -63,6 +63,11 @@ namespace Battle_City
 	void Tank::SetRectanglePosition(float xPos, float yPos) 
 	{
 		rectangle.setPosition(xPos, yPos);
+	}
+
+	void Tank::SetSpritePosition(float xPos, float yPos) 
+	{
+		tankSprite.setPosition(xPos, yPos);
 	}
 
 	Vector2f Tank::GetSize()

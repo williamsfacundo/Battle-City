@@ -6,7 +6,7 @@
 
 namespace Battle_City 
 {
-	Enemy::Enemy(float xPosition, float yPosition, Vector2f size, Color color, String imageFiles[maxTextures]) : Tank(xPosition, yPosition, size, color, imageFiles)
+	Enemy::Enemy(float xPosition, float yPosition, Vector2f size, Color color, const String imageFiles[maxTextures]) : Tank(xPosition, yPosition, size, color, imageFiles)
 	{
 		moveTimer = GetRandomTimer(minMoveTimer, maxMoveTimer);
 		shootingTimer = GetRandomTimer(minShootingTimer, maxShootingTimer);		
@@ -96,6 +96,7 @@ namespace Battle_City
 			}
 
 			SetRectanglePosition(GetXPosition(), GetYPosition());
+			SetSpritePosition(GetXPosition(), GetYPosition());
 			moveTimer = maxMoveTimer;
 		}		
 	}

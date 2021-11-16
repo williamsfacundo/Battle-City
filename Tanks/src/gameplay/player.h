@@ -36,7 +36,7 @@ namespace Battle_City
 		float shootingTimer;
 		short lifes;		
 	public:
-		Player(float xPosition, float yPosition, Vector2f size, Color color, String imageFiles[maxTextures]);
+		Player(float xPosition, float yPosition, Vector2f size, Color color, const String imageFiles[maxTextures]);
 		~Player(); 		
 
 		void DecreaseLifes();
