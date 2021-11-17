@@ -13,7 +13,18 @@ namespace Battle_City
 		rectangle.setSize(size);
 		color = baseColor;
 		rectangle.setFillColor(color);
-		rectangle.setPosition(xPosition, yPosition);		
+		rectangle.setPosition(xPosition, yPosition);	
+
+		baseTexture.loadFromFile("assets/MilitaryBase/baseSprite.png");
+		baseSprite.setTexture(baseTexture);
+		baseSprite.setPosition(xPosition, yPosition);
+
+		Vector2f actualSize;
+
+		actualSize.x = baseSprite.getTextureRect().width;
+		actualSize.y = baseSprite.getTextureRect().height;
+
+		baseSprite.setScale(size.x / actualSize.x, size.y / actualSize.y);
 	}
 
 	void Base::SetSize(float width, float heigth)
@@ -29,6 +40,11 @@ namespace Battle_City
 
 	void Base::Draw(RenderWindow& window) 
 	{
+#if _DEBUG
 		window.draw(rectangle);
+#endif
+
+		window.draw(baseSprite);
+		
 	}
 }

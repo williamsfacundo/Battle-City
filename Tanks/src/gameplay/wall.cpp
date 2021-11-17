@@ -52,7 +52,7 @@ namespace Battle_City
 
 	void Wall::Draw(RenderWindow& window)
 	{
-#if _Debug
+#if _DEBUG
 		window.draw(rectangle);
 #endif
 		window.draw(wallSprite);		
