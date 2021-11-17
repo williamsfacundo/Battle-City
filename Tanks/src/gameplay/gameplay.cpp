@@ -39,7 +39,16 @@ namespace Battle_City
         for (short i = 0; i < maxNonDestroyableWalls; i++) 
         {
             nonDestroyableWalls[i] = new Wall((window.getSize().x / 15.0f) * (i + 1), window.getSize().y / 3.0f + 200, { 50.0f, 50.0f }, nonDestroyableWallTextureFile, false);
-        }        
+        }   
+        
+        for (short i = 0; i < maxMapLimitingWalls; i++) 
+        {
+            mapLimitingWalls[i] = NULL;
+        }
+        mapLimitingWalls[0] = new Wall(limitingWallXOffset, limitingWallYOffset, {window.getSize().x - (limitingWallXOffset * 2.0f), limitingWallHeight}, mapLimitingWallFile, false);
+        mapLimitingWalls[1] = new Wall(limitingWallXOffset, limitingWallYOffset, { limitingWallWidth, window.getSize().y - (limitingWallYOffset * 2.0f) }, mapLimitingWallFile, false);
+        mapLimitingWalls[2] = new Wall(limitingWallXOffset, window.getSize().y - limitingWallYOffset, { window.getSize().x - (limitingWallXOffset * 2.0f) + limitingWallWidth, limitingWallHeight }, mapLimitingWallFile, false);
+        mapLimitingWalls[3] = new Wall(window.getSize().x - limitingWallXOffset, limitingWallYOffset, { limitingWallWidth, window.getSize().y - (limitingWallYOffset * 2.0f) }, mapLimitingWallFile, false);
     }
 
     Gameplay::~Gameplay()
@@ -47,18 +56,21 @@ namespace Battle_City
         if (playerTank != NULL)
         { 
             delete playerTank; 
+            playerTank = NULL;
         }
 
         if (militaryBase != NULL) 
         { 
-            delete militaryBase; 
+            delete militaryBase;
+            militaryBase = NULL;
         }
 
         for (short i = 0; i < maxEnemyTanks; i++) 
         {
             if (enemyTank != NULL) 
             {
-                delete enemyTank[i]; 
+                delete enemyTank[i];
+                enemyTank[i] = NULL;
             }
         }        
 
@@ -67,15 +79,26 @@ namespace Battle_City
             if (destroyableWalls[i] != NULL)
             {
                 delete destroyableWalls[i];
+                destroyableWalls[i] = NULL;
             }            
         }
 
         for (short i = 0; i < maxNonDestroyableWalls; i++)
         {
-            if (nonDestroyableWalls[i] != NULL)
+            if (nonDestroyableWalls[i] != NULL) 
             {
                 delete nonDestroyableWalls[i];
-            }
+                nonDestroyableWalls[i] = NULL;
+            }            
+        }
+
+        for (short i = 0; i < maxMapLimitingWalls; i++) 
+        {
+            if (mapLimitingWalls[i] != NULL)
+            {        
+                delete mapLimitingWalls[i];
+                mapLimitingWalls[i] = NULL;
+            }            
         }
     }
 
@@ -144,6 +167,14 @@ namespace Battle_City
             }
         }
 
+        for (short i = 0; i < maxMapLimitingWalls; i++)
+        {
+            if (mapLimitingWalls[i] != NULL)
+            {
+                mapLimitingWalls[i]->Draw(window);
+            }
+        }
+
         window.display();
     }
 
@@ -157,7 +188,9 @@ namespace Battle_City
             while (window.pollEvent(event))
             {
                 if (event.type == Event::Closed)
+                {
                     window.close();
+                }
             }
 
             Input();

@@ -5,6 +5,7 @@
 #include <SFML/System/Time.hpp>
 #include <SFML/System/Clock.hpp>
 #include <SFML/System/String.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
 
 #include "game_object.h"
 #include "tank.h"
@@ -27,10 +28,17 @@ namespace Battle_City
 
 	const String nonDestroyableWallTextureFile = "assets/wall/nonDestroyableWall.png";
 	const String destroyableWallTextureFile = "assets/wall/destroyableWall.png";
+	const String mapLimitingWallFile = "assets/wall/mapLimitingWall.png";
 
 	const short maxEnemyTanks = 5;
 	const short maxDestroyableWalls = 1;
 	const short maxNonDestroyableWalls = 4;	
+	const short maxMapLimitingWalls = 4;
+
+	const float limitingWallXOffset = 100.0f;
+	const float limitingWallYOffset = 100.0f;
+	const float limitingWallWidth = 25.0f;
+	const float limitingWallHeight = 25.0f;
 
 	class Gameplay
 	{
@@ -45,6 +53,7 @@ namespace Battle_City
 		GameObject* militaryBase;
 		GameObject* destroyableWalls[maxDestroyableWalls];
 		GameObject* nonDestroyableWalls[maxNonDestroyableWalls];
+		GameObject* mapLimitingWalls[maxMapLimitingWalls];
 		Clock clock;
 		Time dt;
 	public:
