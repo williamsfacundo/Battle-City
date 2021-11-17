@@ -65,6 +65,7 @@ namespace Battle_City
 		void DestroyDestroyableWallsWhenHit();
 		void DestroyBulletsWhenHitNonDestroyableWalls();
 		void TanksCollideWithWalls();
+		void TanksCollideWithMilitaryBase();
 		bool AllTanksDestroyed();		
 	};
 }

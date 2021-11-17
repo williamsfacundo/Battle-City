@@ -99,6 +99,7 @@ namespace Battle_City
         DestroyDestroyableWallsWhenHit();
         DestroyBulletsWhenHitNonDestroyableWalls();
         TanksCollideWithWalls();
+        TanksCollideWithMilitaryBase();
 
         if (EnemiesBulletsCollideWithPlayer())
         {
@@ -489,6 +490,24 @@ namespace Battle_City
                     { ((Wall*)nonDestroyableWalls[j])->GetXPosition(), ((Wall*)nonDestroyableWalls[j])->GetYPosition() },
                     ((Wall*)nonDestroyableWalls[j])->GetSize());
             }
+        }
+    }
+
+    void Gameplay::TanksCollideWithMilitaryBase() 
+    {
+        for (short i = 0; i < maxEnemyTanks; i++) 
+        {
+            if (enemyTank[i] != NULL && militaryBase != NULL) 
+            {
+                CollisionFunctions::CollisionTankRectangles((Tank*)enemyTank[i], { ((Base*)militaryBase)->GetXPosition(), 
+                    ((Base*)militaryBase)->GetYPosition() }, ((Base*)militaryBase)->GetSize());
+            }
+        }
+
+        if (playerTank != NULL && militaryBase != NULL)
+        {
+            CollisionFunctions::CollisionTankRectangles((Tank*)playerTank, { ((Base*)militaryBase)->GetXPosition(),
+                ((Base*)militaryBase)->GetYPosition() }, ((Base*)militaryBase)->GetSize());
         }
     }
 

@@ -18,8 +18,8 @@ namespace Battle_City
 	enum class TextureType {left1, left2, right1, right2, up1, up2, down1, down2};
 
 	const short maxTextures = 8;
-	const float bulletsWidth = 15.0f;
-	const float bulletsHeight = 15.0f;
+	const float bulletsWidth = 10.0f;
+	const float bulletsHeight = 10.0f;
 	const short maxBullets = 5;	
 	const float changeAnimationTime = 0.15f;
 
