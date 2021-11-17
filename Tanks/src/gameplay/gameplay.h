@@ -31,6 +31,7 @@ namespace Battle_City
 	const String mapLimitingWallFile = "assets/wall/mapLimitingWall.png";
 
 	const short maxEnemyTanks = 5;
+	const short maxPlayers = 4;
 	const short maxDestroyableWalls = 4;
 	const short maxNonDestroyableWalls = 4;	
 	const short maxMapLimitingWalls = 4;
@@ -38,7 +39,7 @@ namespace Battle_City
 	const float limitingWallXOffset = 100.0f;
 	const float limitingWallYOffset = 100.0f;
 	const float limitingWallWidth = 25.0f;
-	const float limitingWallHeight = 25.0f;
+	const float limitingWallHeight = 25.0f;	
 
 	class Gameplay
 	{
@@ -48,16 +49,16 @@ namespace Battle_City
 		short windowHeigth;
 		const char* title = "TANKS";
 		RenderWindow window;
-		GameObject* playerTank;
+		GameObject* playerTank[maxPlayers];
 		GameObject* enemyTank[maxEnemyTanks];
 		GameObject* militaryBase;
 		GameObject* destroyableWalls[maxDestroyableWalls];
 		GameObject* nonDestroyableWalls[maxNonDestroyableWalls];
 		GameObject* mapLimitingWalls[maxMapLimitingWalls];
 		Clock clock;
-		Time dt;
+		Time dt;		
 	public:
-		Gameplay();
+		Gameplay(short numberOfPlayers);
 		~Gameplay();
 
 		void Input();
@@ -68,7 +69,7 @@ namespace Battle_City
 		void WinCondition();
 		void DefeatCondition();		
 
-		bool EnemiesBulletsCollideWithPlayer();
+		void EnemiesBulletsCollideWithPlayers();
 		void DestroyEnemyTanksWhenHit();
 		bool BulletsCollideWithMilitaryBase();
 		void DestroyDestroyableWallsWhenHit();
@@ -76,6 +77,7 @@ namespace Battle_City
 		void TanksCollideWithWalls();
 		void TanksCollideWithMilitaryBase();
 		bool AllTanksDestroyed();		
+		void DestroyPlayerTankIfHasNoLifesLeft(short index);
 	};
 }
 

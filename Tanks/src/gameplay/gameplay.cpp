@@ -13,16 +13,29 @@
  
 namespace Battle_City 
 {
-    Gameplay::Gameplay()
-    {        
+    Gameplay::Gameplay(short numberOfPlayers)
+    {
         gameOver = false;
 
         windowWidth = 1200;
         windowHeigth = 800;
 
         window.create(VideoMode(windowWidth, windowHeigth), title);
+        
+        for (short i = 0; i < maxPlayers; i++) 
+        {
+            playerTank[i] = NULL;
+        }       
 
-        playerTank = new Player(window.getSize().x / 2.0f, window.getSize().y / 2.0f, { 50.0f, 50.0f }, playerTankColor, playerTexturesFiles);
+        if (numberOfPlayers > maxPlayers || numberOfPlayers < 1) 
+        {
+            numberOfPlayers = 1;
+        }
+
+        for (short i = 0; i < numberOfPlayers; i++)
+        {
+            playerTank[i] = new Player(window.getSize().x / 2.0f + 50 * (i+1), window.getSize().y / 2.0f, { 50.0f, 50.0f }, playerTankColor, playerTexturesFiles);
+        }        
 
         for (short i = 0; i < maxEnemyTanks; i++) 
         {
@@ -49,11 +62,14 @@ namespace Battle_City
 
     Gameplay::~Gameplay()
     {
-        if (playerTank != NULL)
-        { 
-            delete playerTank; 
-            playerTank = NULL;
-        }
+        for (short i = 0; i < maxPlayers; i++) 
+        {
+            if (playerTank[i] != NULL)
+            {
+                delete playerTank[i];
+                playerTank[i] = NULL;
+            }
+        }        
 
         if (militaryBase != NULL) 
         { 
@@ -100,12 +116,24 @@ namespace Battle_City
 
     void Gameplay::Input()
     {
-        ((Player*)playerTank)->Input();
+        for (short i = 0; i < maxPlayers; i++) 
+        {
+            if (playerTank[i] != NULL)
+            {
+                ((Player*)playerTank[i])->Input();
+            }
+        }        
     }
 
     void Gameplay::Update(Time dt)
     {
-        ((Player*)playerTank)->Update(dt, windowWidth, windowHeigth);
+        for (short i = 0; i < maxPlayers; i++)
+        {
+            if (playerTank[i] != NULL)
+            {
+                ((Player*)playerTank[i])->Update(dt, windowWidth, windowHeigth);
+            }
+        }        
 
         for (short i = 0; i < maxEnemyTanks; i++) 
         {
@@ -121,11 +149,7 @@ namespace Battle_City
         DestroyBulletsWhenHitNonDestroyableWalls();
         TanksCollideWithWalls();
         TanksCollideWithMilitaryBase();
-
-        if (EnemiesBulletsCollideWithPlayer())
-        {
-            ((Player*)playerTank)->DecreaseLifes();
-        }
+        EnemiesBulletsCollideWithPlayers();
 
         WinCondition();
         DefeatCondition();
@@ -135,7 +159,13 @@ namespace Battle_City
     {
         window.clear(Color::Black);
 
-        playerTank->Draw(window);
+        for (short i = 0; i < maxPlayers; i++)
+        {
+            if (playerTank[i] != NULL)
+            {
+                ((Player*)playerTank[i])->Draw(window);
+            }
+        }        
 
         for (short i = 0; i < maxEnemyTanks; i++) 
         {
@@ -205,16 +235,25 @@ namespace Battle_City
     
     void Gameplay::DefeatCondition()
     {
-        if (((Player*)playerTank)->GetLifes() <= 0 || BulletsCollideWithMilitaryBase())
+        bool allPlayerTanksDestroyed = true;
+
+        for (short i = 0; i < maxPlayers; i++) 
+        {
+            if (playerTank[i] != NULL)
+            {
+                allPlayerTanksDestroyed = false;
+                i = maxPlayers;
+            }
+        }
+
+        if (allPlayerTanksDestroyed || BulletsCollideWithMilitaryBase())
         {
             gameOver = true;
-        }
+        }               
     }    
 
-    bool Gameplay::EnemiesBulletsCollideWithPlayer()
+    void Gameplay::EnemiesBulletsCollideWithPlayers()
     {
-        bool isCollision = false;
-
         for (short i = 0; i < maxEnemyTanks; i++)
         {
             if (enemyTank[i] != NULL) 
@@ -223,60 +262,72 @@ namespace Battle_City
                 {
                     if (!((Tank*)enemyTank[i])->IsBulletNull(j)) 
                     {                        
-                        isCollision = CollisionFunctions::CollisionRectangles(
-                            ((Tank*)playerTank)->GetXPosition(), 
-                            ((Tank*)playerTank)->GetYPosition(),
-                            ((Tank*)playerTank)->GetSize().x, 
-                            ((Tank*)playerTank)->GetSize().y,
-                            ((Tank*)enemyTank[i])->GetBullet(j)->GetXPosition(), 
-                            ((Tank*)enemyTank[i])->GetBullet(j)->GetYPosition(),
-                            ((Bullet*)((Tank*)enemyTank[i])->GetBullet(j))->GetSize().x, 
-                            ((Bullet*)((Tank*)enemyTank[i])->GetBullet(j))->GetSize().y);                        
-
-                        if (isCollision) 
+                        for (short k = 0; k < maxPlayers; k++) 
                         {
-                            ((Tank*)enemyTank[i])->DestroyBullet(j);
-
-                            i = maxEnemyTanks;
-                            j = maxBullets;
-                        }
+                            if (playerTank[k] != NULL)
+                            {
+                                if (CollisionFunctions::CollisionRectangles(
+                                    ((Tank*)playerTank[k])->GetXPosition(),
+                                    ((Tank*)playerTank[k])->GetYPosition(),
+                                    ((Tank*)playerTank[k])->GetSize().x,
+                                    ((Tank*)playerTank[k])->GetSize().y,
+                                    ((Tank*)enemyTank[i])->GetBullet(j)->GetXPosition(),
+                                    ((Tank*)enemyTank[i])->GetBullet(j)->GetYPosition(),
+                                    ((Bullet*)((Tank*)enemyTank[i])->GetBullet(j))->GetSize().x,
+                                    ((Bullet*)((Tank*)enemyTank[i])->GetBullet(j))->GetSize().y))
+                                {
+                                    ((Player*)playerTank[k])->DecreaseLifes();
+                                    ((Tank*)enemyTank[i])->DestroyBullet(j);
+                                    
+                                    DestroyPlayerTankIfHasNoLifesLeft(k);
+                                    
+                                    k = maxPlayers;
+                                }
+                            }                            
+                        }                       
                     }                    
                 }                                
             }
-        }
-
-        return isCollision;
+        }        
     }
 
     void Gameplay::DestroyEnemyTanksWhenHit()
     {
-        for (short i = 0; i < maxEnemyTanks; i++)
+        for (short i = 0; i < maxPlayers; i++)
         {
-            if (enemyTank[i] != NULL)
+            if (playerTank[i] != NULL)
             {
                 for (short j = 0; j < maxBullets; j++)
                 {
-                    if (!((Tank*)playerTank)->IsBulletNull(j))
+                    if (!((Tank*)playerTank[i])->IsBulletNull(j))
                     {
-                        if (CollisionFunctions::CollisionRectangles(
-                            ((Tank*)enemyTank[i])->GetXPosition(),
-                            ((Tank*)enemyTank[i])->GetYPosition(),
-                            ((Tank*)enemyTank[i])->GetSize().x,
-                            ((Tank*)enemyTank[i])->GetSize().y,
-                            ((Tank*)playerTank)->GetBullet(j)->GetXPosition(),
-                            ((Tank*)playerTank)->GetBullet(j)->GetYPosition(),
-                            ((Bullet*)((Tank*)playerTank)->GetBullet(j))->GetSize().x,
-                            ((Bullet*)((Tank*)playerTank)->GetBullet(j))->GetSize().y))
+                        for (short k = 0; k < maxEnemyTanks; k++)
                         {
-                            delete enemyTank[i];
-                            enemyTank[i] = NULL;
+                            if (enemyTank[k] != NULL)
+                            {
+                                if (CollisionFunctions::CollisionRectangles(
+                                    ((Tank*)enemyTank[k])->GetXPosition(),
+                                    ((Tank*)enemyTank[k])->GetYPosition(),
+                                    ((Tank*)enemyTank[k])->GetSize().x,
+                                    ((Tank*)enemyTank[k])->GetSize().y,
+                                    ((Tank*)playerTank[i])->GetBullet(j)->GetXPosition(),
+                                    ((Tank*)playerTank[i])->GetBullet(j)->GetYPosition(),
+                                    ((Bullet*)((Tank*)playerTank[i])->GetBullet(j))->GetSize().x,
+                                    ((Bullet*)((Tank*)playerTank[i])->GetBullet(j))->GetSize().y))
+                                {                                    
+                                    ((Tank*)playerTank[i])->DestroyBullet(j);                                    
 
-                            ((Tank*)playerTank)->DestroyBullet(j);
-                        }                        
+                                    delete enemyTank[k];
+                                    enemyTank[k] = NULL;
+
+                                    k = maxEnemyTanks;
+                                }
+                            }
+                        }
                     }
                 }
             }
-        }
+        }        
     }
 
     bool Gameplay::BulletsCollideWithMilitaryBase()
@@ -311,28 +362,35 @@ namespace Battle_City
             }
         }
 
-        if (!isCollision && playerTank != NULL) 
+        if (!isCollision) 
         {
-            for (short j = 0; j < maxBullets; j++)
+            for (short i = 0; i < maxPlayers; i++) 
             {
-                if (!((Tank*)playerTank)->IsBulletNull(j))
+                if (playerTank[i] != NULL)
                 {
-                    isCollision = CollisionFunctions::CollisionRectangles(
-                        ((Tank*)militaryBase)->GetXPosition(),
-                        ((Tank*)militaryBase)->GetYPosition(),
-                        ((Tank*)militaryBase)->GetSize().x,
-                        ((Tank*)militaryBase)->GetSize().y,
-                        ((Tank*)playerTank)->GetBullet(j)->GetXPosition(),
-                        ((Tank*)playerTank)->GetBullet(j)->GetYPosition(),
-                        ((Bullet*)((Tank*)playerTank)->GetBullet(j))->GetSize().x,
-                        ((Bullet*)((Tank*)playerTank)->GetBullet(j))->GetSize().y);
+                    for (short j = 0; j < maxBullets; j++)
+                    {
+                        if (!((Tank*)playerTank[i])->IsBulletNull(j))
+                        {
+                            isCollision = CollisionFunctions::CollisionRectangles(
+                                ((Tank*)militaryBase)->GetXPosition(),
+                                ((Tank*)militaryBase)->GetYPosition(),
+                                ((Tank*)militaryBase)->GetSize().x,
+                                ((Tank*)militaryBase)->GetSize().y,
+                                ((Tank*)playerTank[i])->GetBullet(j)->GetXPosition(),
+                                ((Tank*)playerTank[i])->GetBullet(j)->GetYPosition(),
+                                ((Bullet*)((Tank*)playerTank[i])->GetBullet(j))->GetSize().x,
+                                ((Bullet*)((Tank*)playerTank[i])->GetBullet(j))->GetSize().y);
 
-                    if (isCollision)
-                    {                      
-                        j = maxBullets;
+                            if (isCollision)
+                            {
+                                j = maxBullets;
+                                i = maxPlayers;
+                            }
+                        }
                     }
                 }
-            }
+            }            
         }
 
         return isCollision;
@@ -377,36 +435,42 @@ namespace Battle_City
             }
         }
 
-        for (short j = 0; j < maxBullets; j++)
+        for (short i = 0; i < maxPlayers; i++) 
         {
-            if (!((Tank*)playerTank)->IsBulletNull(j))
+            if (playerTank[i] != NULL)
             {
-                for (short k = 0; k < maxDestroyableWalls; k++)
+                for (short j = 0; j < maxBullets; j++)
                 {
-                    if (destroyableWalls[k] != NULL)
+                    if (!((Tank*)playerTank[i])->IsBulletNull(j))
                     {
-                        if (CollisionFunctions::CollisionRectangles(
-                            ((Wall*)destroyableWalls[k])->GetXPosition(),
-                            ((Wall*)destroyableWalls[k])->GetYPosition(),
-                            ((Wall*)destroyableWalls[k])->GetSize().x,
-                            ((Wall*)destroyableWalls[k])->GetSize().y,
-                            ((Tank*)playerTank)->GetBullet(j)->GetXPosition(),
-                            ((Tank*)playerTank)->GetBullet(j)->GetYPosition(),
-                            ((Bullet*)((Tank*)playerTank)->GetBullet(j))->GetSize().x,
-                            ((Bullet*)((Tank*)playerTank)->GetBullet(j))->GetSize().y))
+                        for (short k = 0; k < maxDestroyableWalls; k++)
                         {
-                            ((Tank*)playerTank)->DestroyBullet(j);
+                            if (destroyableWalls[k] != NULL)
+                            {
+                                if (CollisionFunctions::CollisionRectangles(
+                                    ((Wall*)destroyableWalls[k])->GetXPosition(),
+                                    ((Wall*)destroyableWalls[k])->GetYPosition(),
+                                    ((Wall*)destroyableWalls[k])->GetSize().x,
+                                    ((Wall*)destroyableWalls[k])->GetSize().y,
+                                    ((Tank*)playerTank[i])->GetBullet(j)->GetXPosition(),
+                                    ((Tank*)playerTank[i])->GetBullet(j)->GetYPosition(),
+                                    ((Bullet*)((Tank*)playerTank[i])->GetBullet(j))->GetSize().x,
+                                    ((Bullet*)((Tank*)playerTank[i])->GetBullet(j))->GetSize().y))
+                                {
+                                    ((Tank*)playerTank[i])->DestroyBullet(j);
 
-                            delete destroyableWalls[k];
-                            destroyableWalls[k] = NULL;
+                                    delete destroyableWalls[k];
+                                    destroyableWalls[k] = NULL;
 
-                            k = maxDestroyableWalls;
+                                    k = maxDestroyableWalls;
+                                }
+                            }
                         }
+
                     }
                 }
-
-            }
-        }        
+            }            
+        }                
     }
 
     void Gameplay::DestroyBulletsWhenHitNonDestroyableWalls() 
@@ -468,56 +532,62 @@ namespace Battle_City
             }
         }        
 
-        for (short j = 0; j < maxBullets; j++)
+        for (short i = 0; i < maxPlayers; i++)
         {
-            if (!((Tank*)playerTank)->IsBulletNull(j))
+            if (playerTank[i] != NULL)
             {
-                for (short k = 0; k < maxNonDestroyableWalls; k++)
+                for (short j = 0; j < maxBullets; j++)
                 {
-                    if (nonDestroyableWalls[k] != NULL)
+                    if (!((Tank*)playerTank[i])->IsBulletNull(j))
                     {
-                        if (CollisionFunctions::CollisionRectangles(
-                            ((Wall*)nonDestroyableWalls[k])->GetXPosition(),
-                            ((Wall*)nonDestroyableWalls[k])->GetYPosition(),
-                            ((Wall*)nonDestroyableWalls[k])->GetSize().x,
-                            ((Wall*)nonDestroyableWalls[k])->GetSize().y,
-                            ((Tank*)playerTank)->GetBullet(j)->GetXPosition(),
-                            ((Tank*)playerTank)->GetBullet(j)->GetYPosition(),
-                            ((Bullet*)((Tank*)playerTank)->GetBullet(j))->GetSize().x,
-                            ((Bullet*)((Tank*)playerTank)->GetBullet(j))->GetSize().y))
+                        for (short k = 0; k < maxNonDestroyableWalls; k++)
                         {
-                            ((Tank*)playerTank)->DestroyBullet(j);                            
+                            if (nonDestroyableWalls[k] != NULL)
+                            {
+                                if (CollisionFunctions::CollisionRectangles(
+                                    ((Wall*)nonDestroyableWalls[k])->GetXPosition(),
+                                    ((Wall*)nonDestroyableWalls[k])->GetYPosition(),
+                                    ((Wall*)nonDestroyableWalls[k])->GetSize().x,
+                                    ((Wall*)nonDestroyableWalls[k])->GetSize().y,
+                                    ((Tank*)playerTank[i])->GetBullet(j)->GetXPosition(),
+                                    ((Tank*)playerTank[i])->GetBullet(j)->GetYPosition(),
+                                    ((Bullet*)((Tank*)playerTank[i])->GetBullet(j))->GetSize().x,
+                                    ((Bullet*)((Tank*)playerTank[i])->GetBullet(j))->GetSize().y))
+                                {
+                                    ((Tank*)playerTank[i])->DestroyBullet(j);
 
-                            k = maxNonDestroyableWalls;
+                                    k = maxNonDestroyableWalls;
+                                }
+                            }
                         }
                     }
-                }                
-            }
 
-            if (!((Tank*)playerTank)->IsBulletNull(j)) 
-            {
-                for (short k = 0; k < maxMapLimitingWalls; k++)
-                {
-                    if (mapLimitingWalls[k] != NULL)
+                    if (!((Tank*)playerTank[i])->IsBulletNull(j))
                     {
-                        if (CollisionFunctions::CollisionRectangles(
-                            ((Wall*)mapLimitingWalls[k])->GetXPosition(),
-                            ((Wall*)mapLimitingWalls[k])->GetYPosition(),
-                            ((Wall*)mapLimitingWalls[k])->GetSize().x,
-                            ((Wall*)mapLimitingWalls[k])->GetSize().y,
-                            ((Tank*)playerTank)->GetBullet(j)->GetXPosition(),
-                            ((Tank*)playerTank)->GetBullet(j)->GetYPosition(),
-                            ((Bullet*)((Tank*)playerTank)->GetBullet(j))->GetSize().x,
-                            ((Bullet*)((Tank*)playerTank)->GetBullet(j))->GetSize().y))
+                        for (short k = 0; k < maxMapLimitingWalls; k++)
                         {
-                            ((Tank*)playerTank)->DestroyBullet(j);
+                            if (mapLimitingWalls[k] != NULL)
+                            {
+                                if (CollisionFunctions::CollisionRectangles(
+                                    ((Wall*)mapLimitingWalls[k])->GetXPosition(),
+                                    ((Wall*)mapLimitingWalls[k])->GetYPosition(),
+                                    ((Wall*)mapLimitingWalls[k])->GetSize().x,
+                                    ((Wall*)mapLimitingWalls[k])->GetSize().y,
+                                    ((Tank*)playerTank[i])->GetBullet(j)->GetXPosition(),
+                                    ((Tank*)playerTank[i])->GetBullet(j)->GetYPosition(),
+                                    ((Bullet*)((Tank*)playerTank[i])->GetBullet(j))->GetSize().x,
+                                    ((Bullet*)((Tank*)playerTank[i])->GetBullet(j))->GetSize().y))
+                                {
+                                    ((Tank*)playerTank[i])->DestroyBullet(j);
 
-                            k = maxMapLimitingWalls;
+                                    k = maxMapLimitingWalls;
+                                }
+                            }
                         }
                     }
                 }
             }
-        }
+        }        
     }    
 
     void Gameplay::TanksCollideWithWalls() 
@@ -559,36 +629,54 @@ namespace Battle_City
             }            
         }       
 
-        for (short j = 0; j < maxDestroyableWalls; j++)
+        for (short i = 0; i < maxPlayers; i++) 
         {
-            if (destroyableWalls[j] != NULL)
+            if (playerTank[i] != NULL)
             {
-                CollisionFunctions::CollisionTankRectangles((Tank*)playerTank,
-                    { ((Wall*)destroyableWalls[j])->GetXPosition(), ((Wall*)destroyableWalls[j])->GetYPosition() },
-                    ((Wall*)destroyableWalls[j])->GetSize());
+                for (short j = 0; j < maxDestroyableWalls; j++)
+                {
+                    if (destroyableWalls[j] != NULL)
+                    {
+                        CollisionFunctions::CollisionTankRectangles((Tank*)playerTank[i],
+                            { ((Wall*)destroyableWalls[j])->GetXPosition(), ((Wall*)destroyableWalls[j])->GetYPosition() },
+                            ((Wall*)destroyableWalls[j])->GetSize());
+                    }
+
+                }
             }
+        }        
 
-        }
-
-        for (short j = 0; j < maxNonDestroyableWalls; j++)
+        for (short i = 0; i < maxPlayers; i++)
         {
-            if (nonDestroyableWalls[j] != NULL)
+            if (playerTank[i] != NULL)
             {
-                CollisionFunctions::CollisionTankRectangles((Tank*)playerTank,
-                    { ((Wall*)nonDestroyableWalls[j])->GetXPosition(), ((Wall*)nonDestroyableWalls[j])->GetYPosition() },
-                    ((Wall*)nonDestroyableWalls[j])->GetSize());
+                for (short j = 0; j < maxNonDestroyableWalls; j++)
+                {
+                    if (nonDestroyableWalls[j] != NULL)
+                    {
+                        CollisionFunctions::CollisionTankRectangles((Tank*)playerTank[i],
+                            { ((Wall*)nonDestroyableWalls[j])->GetXPosition(), ((Wall*)nonDestroyableWalls[j])->GetYPosition() },
+                            ((Wall*)nonDestroyableWalls[j])->GetSize());
+                    }
+                }
             }
-        }
+        }        
 
-        for (short j = 0; j < maxMapLimitingWalls; j++)
+        for (short i = 0; i < maxPlayers; i++)
         {
-            if (mapLimitingWalls[j] != NULL)
+            if (playerTank[i] != NULL)
             {
-                CollisionFunctions::CollisionTankRectangles((Tank*)playerTank,
-                    { ((Wall*)mapLimitingWalls[j])->GetXPosition(), ((Wall*)mapLimitingWalls[j])->GetYPosition() },
-                    ((Wall*)mapLimitingWalls[j])->GetSize());
+                for (short j = 0; j < maxMapLimitingWalls; j++)
+                {
+                    if (mapLimitingWalls[j] != NULL)
+                    {
+                        CollisionFunctions::CollisionTankRectangles((Tank*)playerTank[i],
+                            { ((Wall*)mapLimitingWalls[j])->GetXPosition(), ((Wall*)mapLimitingWalls[j])->GetYPosition() },
+                            ((Wall*)mapLimitingWalls[j])->GetSize());
+                    }
+                }
             }
-        }
+        }       
     }
 
     void Gameplay::TanksCollideWithMilitaryBase() 
@@ -602,11 +690,14 @@ namespace Battle_City
             }
         }
 
-        if (playerTank != NULL && militaryBase != NULL)
+        for (short i = 0; i < maxPlayers; i++)
         {
-            CollisionFunctions::CollisionTankRectangles((Tank*)playerTank, { ((Base*)militaryBase)->GetXPosition(),
-                ((Base*)militaryBase)->GetYPosition() }, ((Base*)militaryBase)->GetSize());
-        }
+            if (playerTank[i] != NULL && militaryBase != NULL)
+            {
+                CollisionFunctions::CollisionTankRectangles((Tank*)playerTank[i], { ((Base*)militaryBase)->GetXPosition(),
+                    ((Base*)militaryBase)->GetYPosition() }, ((Base*)militaryBase)->GetSize());
+            }
+        }        
     }
 
     bool Gameplay::AllTanksDestroyed() 
@@ -624,5 +715,14 @@ namespace Battle_City
         }
 
         return allDestroyed;
-    }    
+    }
+
+    void Gameplay::DestroyPlayerTankIfHasNoLifesLeft(short index)
+    {
+        if (((Player*)playerTank[index])->GetLifes() <= 0) 
+        {
+            delete playerTank[index];
+            playerTank[index] = NULL;
+        }
+    }
 }
