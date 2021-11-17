@@ -1,6 +1,8 @@
 #include "gameplay.h"
 
 #include <SFML/Window/Event.hpp>
+#include <SFML/Window/VideoMode.hpp>
+#include <SFML/System/Time.hpp>
 
 #include "tank.h"
 #include "player.h"

@@ -1,6 +1,9 @@
 #include "enemy.h"
 
 #include <SFML/System/String.hpp>
+#include <SFML/Graphics/Color.hpp>
+#include <SFML/System/Vector2.hpp>
+#include <SFML/System/Time.hpp>
 
 #include "tank.h"
 
