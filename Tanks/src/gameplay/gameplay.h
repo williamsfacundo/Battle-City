@@ -6,9 +6,11 @@
 #include <SFML/System/Clock.hpp>
 #include <SFML/System/String.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Window/Keyboard.hpp>
 
 #include "game_object.h"
 #include "tank.h"
+#include "player.h"
 
 using namespace sf;
 
@@ -29,6 +31,11 @@ namespace Battle_City
 	const String nonDestroyableWallTextureFile = "assets/wall/nonDestroyableWall.png";
 	const String destroyableWallTextureFile = "assets/wall/destroyableWall.png";
 	const String mapLimitingWallFile = "assets/wall/mapLimitingWall.png";
+
+	const Keyboard::Key playerOneInputKeys[maxInputKeys]{ Keyboard::Key::RControl, Keyboard::Key::Left, Keyboard::Key::Right, Keyboard::Key::Up, Keyboard::Key::Down};
+	const Keyboard::Key playerTwoInputKeys[maxInputKeys]{ Keyboard::Key::LControl, Keyboard::Key::A, Keyboard::Key::D, Keyboard::Key::W, Keyboard::Key::S };
+	const Keyboard::Key playerThreeInputKeys[maxInputKeys]{ Keyboard::Key::Space, Keyboard::Key::F, Keyboard::Key::H, Keyboard::Key::T, Keyboard::Key::G };
+	const Keyboard::Key playerFourInputKeys[maxInputKeys]{ Keyboard::Key::P, Keyboard::Key::J, Keyboard::Key::L, Keyboard::Key::I, Keyboard::Key::K };
 
 	const short maxEnemyTanks = 5;
 	const short maxPlayers = 4;

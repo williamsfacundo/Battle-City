@@ -34,7 +34,21 @@ namespace Battle_City
 
         for (short i = 0; i < numberOfPlayers; i++)
         {
-            playerTank[i] = new Player(window.getSize().x / 2.0f + 50 * (i+1), window.getSize().y / 2.0f, { 50.0f, 50.0f }, playerTankColor, playerTexturesFiles);
+            switch (i)
+            {
+            case 0:
+                playerTank[i] = new Player(window.getSize().x / 2.0f + 50 * (i + 1), window.getSize().y / 2.0f, { 50.0f, 50.0f }, playerTankColor, playerTexturesFiles, playerOneInputKeys);
+                break;
+            case 1:
+                playerTank[i] = new Player(window.getSize().x / 2.0f + 50 * (i + 1), window.getSize().y / 2.0f, { 50.0f, 50.0f }, playerTankColor, playerTexturesFiles, playerTwoInputKeys);
+                break;
+            case 2:
+                playerTank[i] = new Player(window.getSize().x / 2.0f + 50 * (i + 1), window.getSize().y / 2.0f, { 50.0f, 50.0f }, playerTankColor, playerTexturesFiles, playerThreeInputKeys);
+                break;
+            case 3:
+                playerTank[i] = new Player(window.getSize().x / 2.0f + 50 * (i + 1), window.getSize().y / 2.0f, { 50.0f, 50.0f }, playerTankColor, playerTexturesFiles, playerFourInputKeys);
+                break;            
+            }            
         }        
 
         for (short i = 0; i < maxEnemyTanks; i++) 

@@ -25,20 +25,17 @@ namespace Battle_City
 
 	const Color playerTankColor = Color::Green;
 
-	const Keyboard::Key moveUp = Keyboard::Up;
-	const Keyboard::Key moveDown = Keyboard::Down;
-	const Keyboard::Key moveRight = Keyboard::Right;
-	const Keyboard::Key moveLeft = Keyboard::Left;
-	const Keyboard::Key shootKey = Keyboard::Space;
+	const short maxInputKeys = 5;	
 
 	class Player : public Tank
 	{
 	private:
 		PlayerMovementSet moveStatus;
+		Keyboard::Key inputKeys[maxInputKeys];
 		float shootingTimer;
 		short lifes;		
 	public:
-		Player(float xPosition, float yPosition, Vector2f size, Color color, const String imageFiles[maxTextures]);
+		Player(float xPosition, float yPosition, Vector2f size, Color color, const String imageFiles[maxTextures], const Keyboard::Key inputKeys[maxInputKeys]);
 		~Player(); 		
 
 		void DecreaseLifes();

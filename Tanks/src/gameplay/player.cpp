@@ -11,10 +11,16 @@ using namespace sf;
 
 namespace Battle_City 
 {
-	Player::Player(float xPosition, float yPosition, Vector2f size, Color color, const String imageFiles[maxTextures]) : Tank(xPosition, yPosition, size, color, imageFiles)
+	Player::Player(float xPosition, float yPosition, Vector2f size, Color color, const String imageFiles[maxTextures], const Keyboard::Key inputKeys[maxInputKeys]) : Tank(xPosition, yPosition, size, color, imageFiles)
 	{
-		shootingTimer = 0.0f;
-		moveStatus = PlayerMovementSet::none;		
+		moveStatus = PlayerMovementSet::none;
+
+		for (short i = 0; i < maxInputKeys; i++) 
+		{
+			this->inputKeys[i] = inputKeys[i];
+		}
+		
+		shootingTimer = 0.0f;			
 		lifes = initialLifes;				
 	}
 
@@ -60,7 +66,7 @@ namespace Battle_City
 
 	void Player::Shoot()
 	{
-		if (Keyboard::isKeyPressed(shootKey) && shootingTimer == 0.0f)
+		if (Keyboard::isKeyPressed(inputKeys[0]) && shootingTimer == 0.0f)
 		{
 			if (FindEmpyBulletIndex() != maxBullets)
 			{
@@ -100,19 +106,19 @@ namespace Battle_City
 
 	void Player::MovementInput()
 	{
-		if (Keyboard::isKeyPressed(moveLeft))
+		if (Keyboard::isKeyPressed(inputKeys[1]))
 		{
 			setMoveStatus(PlayerMovementSet::left);			
 		}
-		else if (Keyboard::isKeyPressed(moveRight))
+		else if (Keyboard::isKeyPressed(inputKeys[2]))
 		{
 			setMoveStatus(PlayerMovementSet::right);			
 		}
-		else if (Keyboard::isKeyPressed(moveUp))
+		else if (Keyboard::isKeyPressed(inputKeys[3]))
 		{
 			setMoveStatus(PlayerMovementSet::up);			
 		}
-		else if (Keyboard::isKeyPressed(moveDown))
+		else if (Keyboard::isKeyPressed(inputKeys[4]))
 		{
 			setMoveStatus(PlayerMovementSet::down);			
 		}
