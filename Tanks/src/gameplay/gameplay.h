@@ -31,7 +31,7 @@ namespace Battle_City
 	const String mapLimitingWallFile = "assets/wall/mapLimitingWall.png";
 
 	const short maxEnemyTanks = 5;
-	const short maxDestroyableWalls = 1;
+	const short maxDestroyableWalls = 4;
 	const short maxNonDestroyableWalls = 4;	
 	const short maxMapLimitingWalls = 4;
 
