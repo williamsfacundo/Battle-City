@@ -37,23 +37,23 @@ namespace Battle_City
             switch (i)
             {
             case 0:
-                playerTank[i] = new Player(window.getSize().x / 2.0f + 50 * (i + 1), window.getSize().y / 2.0f, { 50.0f, 50.0f }, playerTankColor, playerTexturesFiles, playerOneInputKeys);
+                playerTank[i] = new Player(window.getSize().x / 2.0f + 50 * (i + 1), window.getSize().y / 2.0f, { 40.0f, 40.0f }, playerTankColor, playerTexturesFiles, playerOneInputKeys);
                 break;
             case 1:
-                playerTank[i] = new Player(window.getSize().x / 2.0f + 50 * (i + 1), window.getSize().y / 2.0f, { 50.0f, 50.0f }, playerTankColor, playerTexturesFiles, playerTwoInputKeys);
+                playerTank[i] = new Player(window.getSize().x / 2.0f + 50 * (i + 1), window.getSize().y / 2.0f, { 40.0f, 40.0f }, playerTankColor, playerTexturesFiles, playerTwoInputKeys);
                 break;
             case 2:
-                playerTank[i] = new Player(window.getSize().x / 2.0f + 50 * (i + 1), window.getSize().y / 2.0f, { 50.0f, 50.0f }, playerTankColor, playerTexturesFiles, playerThreeInputKeys);
+                playerTank[i] = new Player(window.getSize().x / 2.0f + 50 * (i + 1), window.getSize().y / 2.0f, { 40.0f, 40.0f }, playerTankColor, playerTexturesFiles, playerThreeInputKeys);
                 break;
             case 3:
-                playerTank[i] = new Player(window.getSize().x / 2.0f + 50 * (i + 1), window.getSize().y / 2.0f, { 50.0f, 50.0f }, playerTankColor, playerTexturesFiles, playerFourInputKeys);
+                playerTank[i] = new Player(window.getSize().x / 2.0f + 50 * (i + 1), window.getSize().y / 2.0f, { 40.0f, 40.0f }, playerTankColor, playerTexturesFiles, playerFourInputKeys);
                 break;            
             }            
         }        
 
         for (short i = 0; i < maxEnemyTanks; i++) 
         {
-            enemyTank[i] = new Enemy((window.getSize().x / 15.0f) * (i+1) + 75, window.getSize().y / 3.0f, { 50.0f, 50.0f }, enemyTankColor, enemyTexturesFiles);
+            enemyTank[i] = new Enemy((window.getSize().x / 15.0f) * (i+1) + 125, window.getSize().y / 3.0f, { 40.0f, 40.0f }, enemyTankColor, enemyTexturesFiles);
         }       
 
         militaryBase = new Base(window.getSize().x /2.0f + 300.0f, window.getSize().y / 2.0f, {50.0f, 50.0f});
@@ -70,8 +70,8 @@ namespace Battle_City
         
         mapLimitingWalls[0] = new Wall(limitingWallXOffset, limitingWallYOffset, {window.getSize().x - (limitingWallXOffset * 2.0f), limitingWallHeight}, mapLimitingWallFile, false);
         mapLimitingWalls[1] = new Wall(limitingWallXOffset, limitingWallYOffset, { limitingWallWidth, window.getSize().y - (limitingWallYOffset * 2.0f) }, mapLimitingWallFile, false);
-        mapLimitingWalls[2] = new Wall(limitingWallXOffset, window.getSize().y - limitingWallYOffset, { window.getSize().x - (limitingWallXOffset * 2.0f) + limitingWallWidth, limitingWallHeight }, mapLimitingWallFile, false);
-        mapLimitingWalls[3] = new Wall(window.getSize().x - limitingWallXOffset, limitingWallYOffset, { limitingWallWidth, window.getSize().y - (limitingWallYOffset * 2.0f) }, mapLimitingWallFile, false);
+        mapLimitingWalls[2] = new Wall(limitingWallXOffset, window.getSize().y - limitingWallYOffset, { window.getSize().x - (limitingWallXOffset * 2.0f), limitingWallHeight }, mapLimitingWallFile, false);
+        mapLimitingWalls[3] = new Wall(window.getSize().x - limitingWallXOffset - limitingWallWidth, limitingWallYOffset, { limitingWallWidth, window.getSize().y - (limitingWallYOffset * 2.0f) }, mapLimitingWallFile, false);
     }
 
     Gameplay::~Gameplay()

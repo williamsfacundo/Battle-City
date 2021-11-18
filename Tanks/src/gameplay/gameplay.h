@@ -43,10 +43,10 @@ namespace Battle_City
 	const short maxNonDestroyableWalls = 4;	
 	const short maxMapLimitingWalls = 4;
 
-	const float limitingWallXOffset = 100.0f;
+	const float limitingWallXOffset = 125.0f;
 	const float limitingWallYOffset = 100.0f;
-	const float limitingWallWidth = 25.0f;
-	const float limitingWallHeight = 25.0f;	
+	const float limitingWallWidth = 15.0f;
+	const float limitingWallHeight = 15.0f;	
 
 	class Gameplay
 	{
