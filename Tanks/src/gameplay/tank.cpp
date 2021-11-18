@@ -143,6 +143,11 @@ namespace Battle_City
 		return moveSpeed;
 	}
 
+	/*Direction Tank::GetTankDirectionWhenCollision()
+	{
+		return tankDirectionWhenCollision;
+	}*/
+
 	void Tank::Draw(RenderWindow& window)
 	{
 #if _DEBUG

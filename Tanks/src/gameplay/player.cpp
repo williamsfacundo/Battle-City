@@ -105,9 +105,9 @@ namespace Battle_City
 	}
 
 	void Player::MovementInput()
-	{
+	{		
 		if (Keyboard::isKeyPressed(inputKeys[1]))
-		{
+		{		
 			setMoveStatus(PlayerMovementSet::left);			
 		}
 		else if (Keyboard::isKeyPressed(inputKeys[2]))

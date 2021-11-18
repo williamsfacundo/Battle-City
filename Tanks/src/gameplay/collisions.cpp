@@ -15,27 +15,26 @@ namespace Battle_City
 				y1 < y2 + height2 && y1 + height1 > y2);
 		}
 
-		void CollisionTankRectangles(Tank* tank, Vector2f recPosition, Vector2f recSize)
+		void CollisionTankWithStaticRectangleObject(Tank* tank, Vector2f recPosition, Vector2f recSize)
 		{
 			if (CollisionRectangles(tank->GetXPosition(), tank->GetYPosition(),
 				((Tank*)tank)->GetSize().x, ((Tank*)tank)->GetSize().y, recPosition.x, recPosition.y, recSize.x, recSize.y))
 			{
-				TankBehaviourWhenCollision(tank, recPosition, recSize);
+				TankBehaviourWhenCollisionWithStaticRectangleObject(tank, recPosition, recSize);
 			}						
 		}
 
-		void CollisionTankRectangles(Tank* tankOne, Tank* tankTwo) 
+		void TanksCollision(Tank* tankOne, Tank* tankTwo) 
 		{
 			if (CollisionRectangles(tankOne->GetXPosition(), tankOne->GetYPosition(),
 				((Tank*)tankOne)->GetSize().x, ((Tank*)tankOne)->GetSize().y, tankTwo->GetXPosition(), tankTwo->GetYPosition(),
 				((Tank*)tankTwo)->GetSize().x, ((Tank*)tankTwo)->GetSize().y))
 			{
-				TankBehaviourWhenCollision(tankOne, { tankTwo->GetXPosition(), tankTwo->GetYPosition() }, tankTwo->GetSize());
-				TankBehaviourWhenCollision(tankTwo, { tankOne->GetXPosition(), tankOne->GetYPosition() }, tankOne->GetSize());
+				TanksBehaviourWhenCollision(tankOne, tankTwo);
 			}			
 		}
 
-		void TankBehaviourWhenCollision(Tank* tank, Vector2f objectCollidingWithPosition, Vector2f objectCollidingWithSize)
+		void TankBehaviourWhenCollisionWithStaticRectangleObject(Tank* tank, Vector2f objectCollidingWithPosition, Vector2f objectCollidingWithSize)
 		{
 			Vector2f newPosition = { 0.0f, 0.0f };
 
@@ -94,6 +93,11 @@ namespace Battle_City
 
 				break;
 			}
+		}
+
+		void TanksBehaviourWhenCollision(Tank* tankOne, Tank* tankTwo) 
+		{
+
 		}
 	}
 }

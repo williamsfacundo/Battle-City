@@ -11,18 +11,20 @@
 namespace Battle_City 
 {
 	const Color enemyTankColor = Color::Yellow;	
+	const float maxMoveDistance = 100.0f;
 
 	const float enemyMoveSpeed = 150.5f;
 	const float minMoveTimer = 1.0f;
 	const float maxMoveTimer = 3.0f;
 	const float minShootingTimer = 1.0f;
-	const float maxShootingTimer = 5.0f;
+	const float maxShootingTimer = 3.0f;
 
 	class Enemy : public Tank
 	{
 	private:
 		float moveTimer;
 		float shootingTimer;		
+		float moveDistance;
 	public:
 		Enemy(float xPosition, float yPosition, Vector2f size, Color color, const String imageFiles[maxTextures]);
 

@@ -12,18 +12,23 @@ namespace Battle_City
 	Enemy::Enemy(float xPosition, float yPosition, Vector2f size, Color color, const String imageFiles[maxTextures]) : Tank(xPosition, yPosition, size, color, imageFiles)
 	{
 		moveTimer = GetRandomTimer(minMoveTimer, maxMoveTimer);
-		shootingTimer = GetRandomTimer(minShootingTimer, maxShootingTimer);		
+		shootingTimer = GetRandomTimer(minShootingTimer, maxShootingTimer);	
+		moveDistance = maxMoveDistance;
 	}
 
 	void Enemy::Update(Time dt, float xLimit, float yLimit)
 	{
-		UpdateTimer(dt, moveTimer);
+		if (!GetTankMoving()) 
+		{ 
+			UpdateTimer(dt, moveTimer); 
+		}
+
 		UpdateTimer(dt, shootingTimer);
 
 		MoveTank(dt);
 		MoveBullets(dt);			
 		DestroyBulletsOutOfMapLimits(xLimit, yLimit);		
-		Shoot();
+		//Shoot();
 	}
 
 	void Enemy::Shoot()
@@ -68,19 +73,26 @@ namespace Battle_City
 
 	void Enemy::MoveTank(Time dt) 
 	{
-		if (moveTimer == 0.0f) 
+		if (moveTimer == 0.0f && !GetTankMoving()) 
 		{
-			switch (GetRandomDirection())
+			SetTankMoving(true);
+			setDirection(GetRandomDirection()); 
+			
+			SetSpriteDependingDirection();
+			UpdateSpriteSize();			
+		}	
+
+		if (GetTankMoving()) 
+		{
+			switch (getDirection())
 			{
 			case Direction::left:
 
-				setDirection(Direction::left);
 				SetMoveSpeed(-enemyMoveSpeed * dt.asSeconds());
-				AddXPosition(-enemyMoveSpeed * dt.asSeconds());
+				AddXPosition(-enemyMoveSpeed * dt.asSeconds());				
 				break;
 			case Direction::right:
-								
-				setDirection(Direction::right);
+
 				SetMoveSpeed(enemyMoveSpeed * dt.asSeconds());
 				AddXPosition(enemyMoveSpeed * dt.asSeconds());
 				break;
@@ -88,26 +100,27 @@ namespace Battle_City
 
 				AddYPosition(-enemyMoveSpeed * dt.asSeconds());
 				SetMoveSpeed(-enemyMoveSpeed * dt.asSeconds());
-				setDirection(Direction::up);
 				break;
 			case Direction::down:
 
 				AddYPosition(enemyMoveSpeed * dt.asSeconds());
 				SetMoveSpeed(enemyMoveSpeed * dt.asSeconds());
-				setDirection(Direction::down);
-				break;
-			default:
-
-				setDirection(Direction::left);
-				break;
+				break;			
 			}
+
+			moveDistance -= enemyMoveSpeed * dt.asSeconds();
 
 			SetRectanglePosition(GetXPosition(), GetYPosition());
 			SetSpritePosition(GetXPosition(), GetYPosition());
-			SetSpriteDependingDirection();
-			UpdateSpriteSize();
+			Animation(dt);
+		}
+
+		if (moveDistance <= 0) 
+		{
+			SetTankMoving(false);
+			moveDistance = maxMoveDistance;
 			moveTimer = maxMoveTimer;
-		}		
+		}
 	}
 
 	Direction Enemy::GetRandomDirection() 

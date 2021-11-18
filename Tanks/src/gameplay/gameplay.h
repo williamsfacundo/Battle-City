@@ -37,7 +37,7 @@ namespace Battle_City
 	const Keyboard::Key playerThreeInputKeys[maxInputKeys]{ Keyboard::Key::Space, Keyboard::Key::F, Keyboard::Key::H, Keyboard::Key::T, Keyboard::Key::G };
 	const Keyboard::Key playerFourInputKeys[maxInputKeys]{ Keyboard::Key::P, Keyboard::Key::J, Keyboard::Key::L, Keyboard::Key::I, Keyboard::Key::K };
 
-	const short maxEnemyTanks = 5;
+	const short maxEnemyTanks = 1;
 	const short maxPlayers = 4;
 	const short maxDestroyableWalls = 4;
 	const short maxNonDestroyableWalls = 4;	

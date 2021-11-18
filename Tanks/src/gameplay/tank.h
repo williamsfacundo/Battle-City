@@ -30,6 +30,7 @@ namespace Battle_City
 		Vector2f size;
 		RectangleShape rectangle;		
 		Direction direction;
+		//Direction tankDirectionWhenCollision;
 		Color color;
 		GameObject* bullets[maxBullets];
 		String imageFiles[maxTextures];
@@ -56,6 +57,7 @@ namespace Battle_City
 		RectangleShape GetRectangle();		
 		bool GetTankMoving();
 		float GetMoveSpeed();
+		//Direction GetTankDirectionWhenCollision();
 
 		virtual void Update(Time dt, float xLimit, float yLimit) = 0;
 		virtual void Draw(RenderWindow& window);		
