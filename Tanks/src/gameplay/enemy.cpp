@@ -28,7 +28,7 @@ namespace Battle_City
 		MoveTank(dt);
 		MoveBullets(dt);			
 		DestroyBulletsOutOfMapLimits(xLimit, yLimit);		
-		//Shoot();
+		Shoot();
 	}
 
 	void Enemy::Shoot()

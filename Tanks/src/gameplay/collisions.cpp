@@ -97,7 +97,21 @@ namespace Battle_City
 
 		void TanksBehaviourWhenCollision(Tank* tankOne, Tank* tankTwo) 
 		{
+			switch (((Tank*)tankOne)->getDirection())
+			{
+			case Direction::left:				
 
+				break;
+			case Direction::right:				
+
+				break;
+			case Direction::up:				
+
+				break;			
+			case Direction::down:				
+
+				break;
+			}
 		}
 	}
 }
