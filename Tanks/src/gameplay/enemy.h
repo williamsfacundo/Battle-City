@@ -12,7 +12,7 @@ namespace Battle_City
 {
 	const Color enemyTankColor = Color::Yellow;	
 
-	const float enemyMoveSpeed = 650.5f;
+	const float enemyMoveSpeed = 150.5f;
 	const float minMoveTimer = 1.0f;
 	const float maxMoveTimer = 3.0f;
 	const float minShootingTimer = 1.0f;

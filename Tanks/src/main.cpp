@@ -9,7 +9,7 @@ int main()
 {
     srand(time(NULL));
 
-    Gameplay* gameplay = new Gameplay(2);
+    Gameplay* gameplay = new Gameplay(1);
 
     gameplay->Run();
 

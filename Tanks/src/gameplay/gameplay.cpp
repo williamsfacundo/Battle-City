@@ -164,6 +164,7 @@ namespace Battle_City
         TanksCollideWithWalls();
         TanksCollideWithMilitaryBase();
         EnemiesBulletsCollideWithPlayers();
+        TanksCollideWithEachOther();
 
         WinCondition();
         DefeatCondition();
@@ -712,6 +713,24 @@ namespace Battle_City
                     ((Base*)militaryBase)->GetYPosition() }, ((Base*)militaryBase)->GetSize());
             }
         }        
+    }
+
+    void Gameplay::TanksCollideWithEachOther() 
+    {
+        for (short i = 0; i < maxPlayers; i++) 
+        {
+            if (playerTank[i] != NULL) 
+            {
+                for (short j = 0; j < maxEnemyTanks; j++)
+                {
+                    if (enemyTank[j] != NULL)
+                    {
+                        CollisionFunctions::CollisionTankRectangles((Tank*)playerTank[i], { enemyTank[j]->GetXPosition(), enemyTank[j]->GetYPosition()},
+                            ((Tank*)enemyTank[j])->GetSize());
+                    }
+                }
+            }            
+        }
     }
 
     bool Gameplay::AllTanksDestroyed() 

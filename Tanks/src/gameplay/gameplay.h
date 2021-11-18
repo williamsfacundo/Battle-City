@@ -83,6 +83,7 @@ namespace Battle_City
 		void DestroyBulletsWhenHitNonDestroyableWalls();
 		void TanksCollideWithWalls();
 		void TanksCollideWithMilitaryBase();
+		void TanksCollideWithEachOther();
 		bool AllTanksDestroyed();		
 		void DestroyPlayerTankIfHasNoLifesLeft(short index);
 	};

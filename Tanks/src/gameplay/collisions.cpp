@@ -19,65 +19,81 @@ namespace Battle_City
 		{
 			if (CollisionRectangles(tank->GetXPosition(), tank->GetYPosition(),
 				((Tank*)tank)->GetSize().x, ((Tank*)tank)->GetSize().y, recPosition.x, recPosition.y, recSize.x, recSize.y))
-			{				
-				Vector2f newPosition = { 0.0f, 0.0f };
-
-				switch (((Tank*)tank)->getDirection())
-				{
-				case Direction::left:
-										
-					if (((Tank*)tank)->GetTankMoving())
-					{
-						((Tank*)tank)->AddXPosition(-((Tank*)tank)->GetMoveSpeed());
-					}
-					else 
-					{
-						newPosition = { (recPosition.x + recSize.x) + minSeparation, tank->GetYPosition() };
-						tank->SetPosition(newPosition.x, newPosition.y);
-					}
-					
-					break;
-				case Direction::right:
-					
-					if (((Tank*)tank)->GetTankMoving())
-					{
-						((Tank*)tank)->AddXPosition(-((Tank*)tank)->GetMoveSpeed());
-					}
-					else
-					{
-						newPosition = { recPosition.x - ((Tank*)tank)->GetSize().x - minSeparation, tank->GetYPosition() };
-						tank->SetPosition(newPosition.x, newPosition.y);
-					}
-					
-					break;
-				case Direction::up:
-
-					if (((Tank*)tank)->GetTankMoving())
-					{
-						((Tank*)tank)->AddYPosition(-((Tank*)tank)->GetMoveSpeed());
-					}
-					else
-					{
-						newPosition = { tank->GetXPosition(), recPosition.y + recSize.y + minSeparation };
-						tank->SetPosition(newPosition.x, newPosition.y);
-					}
-					
-					break;
-				case Direction::down:
-					
-					if (((Tank*)tank)->GetTankMoving())
-					{
-						((Tank*)tank)->AddYPosition(-((Tank*)tank)->GetMoveSpeed());
-					}
-					else
-					{
-						newPosition = { tank->GetXPosition(), recPosition.y - ((Tank*)tank)->GetSize().y - minSeparation };
-						tank->SetPosition(newPosition.x, newPosition.y);
-					}
-					
-					break;
-				}					
+			{
+				TankBehaviourWhenCollision(tank, recPosition, recSize);
 			}						
+		}
+
+		void CollisionTankRectangles(Tank* tankOne, Tank* tankTwo) 
+		{
+			if (CollisionRectangles(tankOne->GetXPosition(), tankOne->GetYPosition(),
+				((Tank*)tankOne)->GetSize().x, ((Tank*)tankOne)->GetSize().y, tankTwo->GetXPosition(), tankTwo->GetYPosition(),
+				((Tank*)tankTwo)->GetSize().x, ((Tank*)tankTwo)->GetSize().y))
+			{
+				TankBehaviourWhenCollision(tankOne, { tankTwo->GetXPosition(), tankTwo->GetYPosition() }, tankTwo->GetSize());
+				TankBehaviourWhenCollision(tankTwo, { tankOne->GetXPosition(), tankOne->GetYPosition() }, tankOne->GetSize());
+			}			
+		}
+
+		void TankBehaviourWhenCollision(Tank* tank, Vector2f objectCollidingWithPosition, Vector2f objectCollidingWithSize)
+		{
+			Vector2f newPosition = { 0.0f, 0.0f };
+
+			switch (((Tank*)tank)->getDirection())
+			{
+			case Direction::left:
+
+				if (((Tank*)tank)->GetTankMoving())
+				{
+					((Tank*)tank)->AddXPosition(-((Tank*)tank)->GetMoveSpeed());
+				}
+				else
+				{
+					newPosition = { (objectCollidingWithPosition.x + objectCollidingWithSize.x) + minSeparation, tank->GetYPosition() };
+					tank->SetPosition(newPosition.x, newPosition.y);
+				}
+
+				break;
+			case Direction::right:
+
+				if (((Tank*)tank)->GetTankMoving())
+				{
+					((Tank*)tank)->AddXPosition(-((Tank*)tank)->GetMoveSpeed());
+				}
+				else
+				{
+					newPosition = { objectCollidingWithPosition.x - ((Tank*)tank)->GetSize().x - minSeparation, tank->GetYPosition() };
+					tank->SetPosition(newPosition.x, newPosition.y);
+				}
+
+				break;
+			case Direction::up:
+
+				if (((Tank*)tank)->GetTankMoving())
+				{
+					((Tank*)tank)->AddYPosition(-((Tank*)tank)->GetMoveSpeed());
+				}
+				else
+				{
+					newPosition = { tank->GetXPosition(), objectCollidingWithPosition.y + objectCollidingWithSize.y + minSeparation };
+					tank->SetPosition(newPosition.x, newPosition.y);
+				}
+
+				break;
+			case Direction::down:
+
+				if (((Tank*)tank)->GetTankMoving())
+				{
+					((Tank*)tank)->AddYPosition(-((Tank*)tank)->GetMoveSpeed());
+				}
+				else
+				{
+					newPosition = { tank->GetXPosition(), objectCollidingWithPosition.y - ((Tank*)tank)->GetSize().y - minSeparation };
+					tank->SetPosition(newPosition.x, newPosition.y);
+				}
+
+				break;
+			}
 		}
 	}
 }
