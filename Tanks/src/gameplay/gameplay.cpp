@@ -110,16 +110,16 @@ namespace Battle_City
             switch (i)
             {
             case 0:
-                playerTank[i] = new Player(window.getSize().x / 2.0f + 50 * (i + 1), window.getSize().y / 2.0f, { 40.0f, 40.0f }, playerTankColor, playerTexturesFiles, playerOneInputKeys);
+                playerTank[i] = new Player(window.getSize().x / 2.0f + 50 * (i + 1), window.getSize().y / 2.0f, { 40.0f, 40.0f }, playerTankColor, playerOneTexturesFiles, playerOneInputKeys);
                 break;
             case 1:
-                playerTank[i] = new Player(window.getSize().x / 2.0f + 50 * (i + 1), window.getSize().y / 2.0f, { 40.0f, 40.0f }, playerTankColor, playerTexturesFiles, playerTwoInputKeys);
+                playerTank[i] = new Player(window.getSize().x / 2.0f + 50 * (i + 1), window.getSize().y / 2.0f, { 40.0f, 40.0f }, playerTankColor, playerTwoTexturesFiles, playerTwoInputKeys);
                 break;
             case 2:
-                playerTank[i] = new Player(window.getSize().x / 2.0f + 50 * (i + 1), window.getSize().y / 2.0f, { 40.0f, 40.0f }, playerTankColor, playerTexturesFiles, playerThreeInputKeys);
+                playerTank[i] = new Player(window.getSize().x / 2.0f + 50 * (i + 1), window.getSize().y / 2.0f, { 40.0f, 40.0f }, playerTankColor, playerThreeTexturesFiles, playerThreeInputKeys);
                 break;
             case 3:
-                playerTank[i] = new Player(window.getSize().x / 2.0f + 50 * (i + 1), window.getSize().y / 2.0f, { 40.0f, 40.0f }, playerTankColor, playerTexturesFiles, playerFourInputKeys);
+                playerTank[i] = new Player(window.getSize().x / 2.0f + 50 * (i + 1), window.getSize().y / 2.0f, { 40.0f, 40.0f }, playerTankColor, playerFourTexturesFiles, playerFourInputKeys);
                 break;            
             }            
         }        

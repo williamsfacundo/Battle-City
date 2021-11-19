@@ -28,11 +28,32 @@ namespace Battle_City
 	"assets/UI/letters/HLetter.png", "assets/UI/letters/I_Letter.png", "assets/UI/letters/JLetter.png", "assets/UI/letters/KLetter.png", "assets/UI/letters/L_Letter.png", 
 	"assets/UI/letters/LCtrl.png", "assets/UI/letters/LeftArrow.png", "assets/UI/letters/P_Letter.png", "assets/UI/letters/RCtrl.png", "assets/UI/letters/RightArrow.png", 
 	"assets/UI/letters/SLetter.png", "assets/UI/letters/Space.png", "assets/UI/letters/TLetter.png", "assets/UI/letters/UpArrow.png", "assets/UI/letters/WLetter.png" };			
-	const String playerTexturesFiles[maxTextures] = {
-		"assets/player/playerTankDownOne.png", "assets/player/playerTankDownTwo.png",
-		"assets/player/playerTankLeftOne.png", "assets/player/playerTankLeftTwo.png",
-		"assets/player/playerTankRightOne.png", "assets/player/playerTankRightTwo.png",
-		"assets/player/playerTankUpOne.png", "assets/player/playerTankUpTwo.png" };
+	
+	const String playerOneTexturesFiles[maxTextures] = {
+		"assets/player/playerOneTankDownOne.png", "assets/player/playerOneTankDownTwo.png",
+		"assets/player/playerOneTankLeftOne.png", "assets/player/playerOneTankLeftTwo.png",
+		"assets/player/playerOneTankRightOne.png", "assets/player/playerOneTankRightTwo.png",
+		"assets/player/playerOneTankUpOne.png", "assets/player/playerOneTankUpTwo.png" };
+
+	const String playerTwoTexturesFiles[maxTextures] = {
+		"assets/player/playerTwoTankDownOne.png", "assets/player/playerTwoTankDownTwo.png",
+		"assets/player/playerTwoTankLeftOne.png", "assets/player/playerTwoTankLeftTwo.png",
+		"assets/player/playerTwoTankRightOne.png", "assets/player/playerTwoTankRightTwo.png",
+		"assets/player/playerTwoTankUpOne.png", "assets/player/playerTwoTankUpTwo.png" };
+
+	const String playerThreeTexturesFiles[maxTextures] = {
+		"assets/player/playerThreeTankDownOne.png", "assets/player/playerThreeTankDownTwo.png",
+		"assets/player/playerThreeTankLeftOne.png", "assets/player/playerThreeTankLeftTwo.png",
+		"assets/player/playerThreeTankRightOne.png", "assets/player/playerThreeTankRightTwo.png",
+		"assets/player/playerThreeTankUpOne.png", "assets/player/playerThreeTankUpTwo.png" };
+
+	const String playerFourTexturesFiles[maxTextures] = {
+		"assets/player/playerFourTankDownOne.png", "assets/player/playerFourTankDownTwo.png",
+		"assets/player/playerFourTankLeftOne.png", "assets/player/playerFourTankLeftTwo.png",
+		"assets/player/playerFourTankRightOne.png", "assets/player/playerFourTankRightTwo.png",
+		"assets/player/playerFourTankUpOne.png", "assets/player/playerFourTankUpTwo.png" };
+
+
 
 	const String enemyTexturesFiles[maxTextures] = {
 		"assets/enemy/enemyTankDownOne.png", "assets/enemy/enemyTankDownTwo.png",
