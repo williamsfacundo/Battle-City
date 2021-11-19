@@ -20,6 +20,7 @@ using namespace sf;
 namespace Battle_City 
 {	
 	const short maxKeys = 20;
+
 	const String keysUIFiles[maxKeys] = {"assets/UI/letters/ALetter.png", "assets/UI/letters/DLetter.png", "assets/UI/letters/DownArrow.png", "assets/UI/letters/FLetter.png", "assets/UI/letters/GLetter.png",
 	"assets/UI/letters/HLetter.png", "assets/UI/letters/I_Letter.png", "assets/UI/letters/JLetter.png", "assets/UI/letters/KLetter.png", "assets/UI/letters/L_Letter.png", 
 	"assets/UI/letters/LCtrl.png", "assets/UI/letters/LeftArrow.png", "assets/UI/letters/P_Letter.png", "assets/UI/letters/RCtrl.png", "assets/UI/letters/RightArrow.png", 
@@ -40,6 +41,10 @@ namespace Battle_City
 	const String destroyableWallTextureFile = "assets/wall/destroyableWall.png";
 	const String mapLimitingWallFile = "assets/wall/mapLimitingWall.png";
 
+	const short maxHearts = 4;
+	const String heartsFiles[maxHearts] = { "assets/UI/hearts/yellow_heart_ pixel_art.png", "assets/UI/hearts/blue_heart_ pixel_art.png" , 
+		"assets/UI/hearts/green_heart_ pixel_art.png" , "assets/UI/hearts/red_heart_ pixel_art.png" };
+
 	const Keyboard::Key playerOneInputKeys[maxInputKeys]{ Keyboard::Key::RControl, Keyboard::Key::Left, Keyboard::Key::Right, Keyboard::Key::Up, Keyboard::Key::Down};
 	const Keyboard::Key playerTwoInputKeys[maxInputKeys]{ Keyboard::Key::LControl, Keyboard::Key::A, Keyboard::Key::D, Keyboard::Key::W, Keyboard::Key::S };
 	const Keyboard::Key playerThreeInputKeys[maxInputKeys]{ Keyboard::Key::Space, Keyboard::Key::F, Keyboard::Key::H, Keyboard::Key::T, Keyboard::Key::G };
@@ -56,7 +61,9 @@ namespace Battle_City
 	const float limitingWallWidth = 15.0f;
 	const float limitingWallHeight = 15.0f;		
 
-	const Vector2f UISpriteSize = {55, 55};
+	const Vector2f UISpriteSize = {55.0f, 55.0f};	
+	const Vector2f heartsSpriteSize = {69.0f, 69.0f};
+	const Vector2f heartsSpritesSeparation = { 5.0f, 15.0f};
 
 	class Gameplay
 	{
@@ -68,6 +75,8 @@ namespace Battle_City
 		const char* title = "TANKS";
 		Texture inputKeysUITextures[maxKeys];
 		Sprite inputKeysUISprites[maxKeys];
+		Texture heartsTextures[maxHearts];
+		Sprite heartsSprites[maxHearts];
 		RenderWindow window;
 		GameObject* playerTank[maxPlayers];
 		GameObject* enemyTank[maxEnemyTanks];
@@ -101,6 +110,7 @@ namespace Battle_City
 		void DestroyPlayerTankIfHasNoLifesLeft(short index);
 
 		void DrawTanksMoveKeysUI();
+		void DrawHearts();
 	};
 }
 

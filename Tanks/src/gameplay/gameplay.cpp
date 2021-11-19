@@ -22,26 +22,26 @@ namespace Battle_City
 
         Vector2f UIkeysSeparation = {4.5f, 4.5f};
         Vector2f playerInputUIPositions[maxKeys] = { 
-          /*0*/  {windowWidth - (UISpriteSize.x * 2) - (UIkeysSeparation.x * 2), limitingWallYOffset + (UIkeysSeparation.y * 8) + (UISpriteSize.y * 7)},
-          /*1*/  {windowWidth - UISpriteSize.x - UIkeysSeparation.x, limitingWallYOffset + (UIkeysSeparation.y * 8) + (UISpriteSize.y * 7)},
-          /*2*/  {windowWidth - (UISpriteSize.x * 1.5f) - UIkeysSeparation.x, limitingWallYOffset + (UIkeysSeparation.y * 3) + (UISpriteSize.y * 2)},
-          /*3*/  {UIkeysSeparation.x, limitingWallYOffset + (UIkeysSeparation.y * 2) + UISpriteSize.y},
-          /*4*/  {(UISpriteSize.x * 0.5f) + UIkeysSeparation.x, limitingWallYOffset + (UIkeysSeparation.y * 3) + (UISpriteSize.y * 2)},
-          /*5*/  {UISpriteSize.x + (UIkeysSeparation.x * 2), limitingWallYOffset + (UIkeysSeparation.y * 2) + UISpriteSize.y},
-          /*6*/  {(UISpriteSize.x * 0.5f) + UIkeysSeparation.x, limitingWallYOffset + (UIkeysSeparation.y * 7) + (UISpriteSize.y * 6)},
-          /*7*/  {UIkeysSeparation.x, limitingWallYOffset + (UIkeysSeparation.y * 8) + (UISpriteSize.y * 7)},
-          /*8*/  {(UISpriteSize.x * 0.5f) + UIkeysSeparation.x, limitingWallYOffset + (UIkeysSeparation.y * 9) + (UISpriteSize.y * 8)},
-          /*9*/  {UISpriteSize.x + (UIkeysSeparation.x * 2), limitingWallYOffset + (UIkeysSeparation.y * 8) + (UISpriteSize.y * 7)},
-          /*10*/  {windowWidth - (UISpriteSize.x * 1.5f) - UIkeysSeparation.x, limitingWallYOffset + (UIkeysSeparation.y * 11) + (UISpriteSize.y * 10)},
-          /*11*/  {windowWidth - (UISpriteSize.x * 2) - (UIkeysSeparation.x * 2), limitingWallYOffset + (UIkeysSeparation.y * 2) + UISpriteSize.y},
-          /*12*/  {(UISpriteSize.x * 0.5f) + UIkeysSeparation.x, limitingWallYOffset + (UIkeysSeparation.y * 11) + (UISpriteSize.y * 10)},
-          /*13*/  {windowWidth - (UISpriteSize.x * 1.5f) - UIkeysSeparation.x, limitingWallYOffset + (UIkeysSeparation.y * 5) + (UISpriteSize.y * 4)},
-          /*14*/  {windowWidth - UISpriteSize.x - UIkeysSeparation.x, limitingWallYOffset + (UIkeysSeparation.y * 2) + UISpriteSize.y},
-          /*15*/  {windowWidth - (UISpriteSize.x * 1.5f) - UIkeysSeparation.x, limitingWallYOffset + (UIkeysSeparation.y * 9) + (UISpriteSize.y * 8)},
-          /*16*/  {(UISpriteSize.x * 0.5f) + UIkeysSeparation.x, limitingWallYOffset + (UIkeysSeparation.y * 5) + (UISpriteSize.y * 4)},
-          /*17*/ {(UISpriteSize.x * 0.5f) + UIkeysSeparation.x, limitingWallYOffset + UIkeysSeparation.y},
-          /*18*/  {windowWidth - (UISpriteSize.x * 1.5f) - UIkeysSeparation.x, limitingWallYOffset + UIkeysSeparation.y},
-          /*19*/  {windowWidth - (UISpriteSize.x * 1.5f) - UIkeysSeparation.x, limitingWallYOffset + (UIkeysSeparation.y * 7) + (UISpriteSize.y * 6)}};
+          {windowWidth - (UISpriteSize.x * 2) - (UIkeysSeparation.x * 2), limitingWallYOffset + (UIkeysSeparation.y * 8) + (UISpriteSize.y * 7)},
+          {windowWidth - UISpriteSize.x - UIkeysSeparation.x, limitingWallYOffset + (UIkeysSeparation.y * 8) + (UISpriteSize.y * 7)},
+          {windowWidth - (UISpriteSize.x * 1.5f) - UIkeysSeparation.x, limitingWallYOffset + (UIkeysSeparation.y * 3) + (UISpriteSize.y * 2)},
+          {UIkeysSeparation.x, limitingWallYOffset + (UIkeysSeparation.y * 2) + UISpriteSize.y},
+          {(UISpriteSize.x * 0.5f) + UIkeysSeparation.x, limitingWallYOffset + (UIkeysSeparation.y * 3) + (UISpriteSize.y * 2)},
+          {UISpriteSize.x + (UIkeysSeparation.x * 2), limitingWallYOffset + (UIkeysSeparation.y * 2) + UISpriteSize.y},
+          {(UISpriteSize.x * 0.5f) + UIkeysSeparation.x, limitingWallYOffset + (UIkeysSeparation.y * 7) + (UISpriteSize.y * 6)},
+          {UIkeysSeparation.x, limitingWallYOffset + (UIkeysSeparation.y * 8) + (UISpriteSize.y * 7)},
+          {(UISpriteSize.x * 0.5f) + UIkeysSeparation.x, limitingWallYOffset + (UIkeysSeparation.y * 9) + (UISpriteSize.y * 8)},
+          {UISpriteSize.x + (UIkeysSeparation.x * 2), limitingWallYOffset + (UIkeysSeparation.y * 8) + (UISpriteSize.y * 7)},
+          {windowWidth - (UISpriteSize.x * 1.5f) - UIkeysSeparation.x, limitingWallYOffset + (UIkeysSeparation.y * 11) + (UISpriteSize.y * 10)},
+          {windowWidth - (UISpriteSize.x * 2) - (UIkeysSeparation.x * 2), limitingWallYOffset + (UIkeysSeparation.y * 2) + UISpriteSize.y},
+          {(UISpriteSize.x * 0.5f) + UIkeysSeparation.x, limitingWallYOffset + (UIkeysSeparation.y * 11) + (UISpriteSize.y * 10)},
+          {windowWidth - (UISpriteSize.x * 1.5f) - UIkeysSeparation.x, limitingWallYOffset + (UIkeysSeparation.y * 5) + (UISpriteSize.y * 4)},
+          {windowWidth - UISpriteSize.x - UIkeysSeparation.x, limitingWallYOffset + (UIkeysSeparation.y * 2) + UISpriteSize.y},
+          {windowWidth - (UISpriteSize.x * 1.5f) - UIkeysSeparation.x, limitingWallYOffset + (UIkeysSeparation.y * 9) + (UISpriteSize.y * 8)},
+          {(UISpriteSize.x * 0.5f) + UIkeysSeparation.x, limitingWallYOffset + (UIkeysSeparation.y * 5) + (UISpriteSize.y * 4)},
+          {(UISpriteSize.x * 0.5f) + UIkeysSeparation.x, limitingWallYOffset + UIkeysSeparation.y},
+          {windowWidth - (UISpriteSize.x * 1.5f) - UIkeysSeparation.x, limitingWallYOffset + UIkeysSeparation.y},
+          {windowWidth - (UISpriteSize.x * 1.5f) - UIkeysSeparation.x, limitingWallYOffset + (UIkeysSeparation.y * 7) + (UISpriteSize.y * 6)}};
 
         this->numberOfPlayers = numberOfPlayers;
 
@@ -63,6 +63,21 @@ namespace Battle_City
 
             inputKeysUISprites[i].setScale(UISpriteSize.x / actualSize.x, UISpriteSize.y / actualSize.y);
             inputKeysUISprites[i].setPosition(playerInputUIPositions[i].x, playerInputUIPositions[i].y);
+        }        
+
+        for (short i = 0; i < maxHearts; i++) 
+        {
+            heartsTextures[i].loadFromFile(heartsFiles[i]);
+        }        
+        
+        for (short i = 0; i < maxHearts; i++)
+        {
+            heartsSprites[i].setTexture(heartsTextures[i]);
+
+            actualSize.x = heartsSprites[i].getTextureRect().width;
+            actualSize.y = heartsSprites[i].getTextureRect().height;
+
+            heartsSprites[i].setScale(heartsSpriteSize.x / actualSize.x, heartsSpriteSize.y / actualSize.y);
         }        
 
         for (short i = 0; i < maxPlayers; i++) 
@@ -260,6 +275,7 @@ namespace Battle_City
         }
 
         DrawTanksMoveKeysUI();
+        DrawHearts();
 
         window.display();
     }
@@ -838,5 +854,25 @@ namespace Battle_City
                 break;            
             }                      
         }        
+    }
+
+    void Gameplay::DrawHearts() 
+    {
+        short aux = 0;
+
+        for (short i = 0; i <  maxPlayers; i++) 
+        {
+            if (playerTank[i] != NULL) 
+            {
+                for (short j = 0; j < ((Player*)playerTank[i])->GetLifes(); j++)
+                {                    
+                    heartsSprites[i].setPosition(limitingWallXOffset + (heartsSpriteSize.x * aux) + (heartsSpritesSeparation.x * (aux + 1)) + (heartsSpritesSeparation.y*i), heartsSpritesSeparation.y);
+                    
+                    window.draw(heartsSprites[i]);
+
+                    aux += 1;
+                }
+            }
+        }
     }
 }
