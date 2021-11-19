@@ -108,7 +108,7 @@ namespace Battle_City
         
         for (short i = 0; i < maxNonDestroyableWalls; i++) 
         {
-            nonDestroyableWalls[i] = new Wall((window.getSize().x / 15.0f) * (i + 1) + 100, window.getSize().y / 3.0f + 200, { 45.0f, 45.0f }, nonDestroyableWallTextureFile, false);
+            nonDestroyableWalls[i] = new Wall((window.getSize().x / 12.0f) * (i + 1) + 100, window.getSize().y / 3.0f + 200, { 45.0f, 45.0f }, nonDestroyableWallTextureFile, false);
         }        
         
         mapLimitingWalls[0] = new Wall(limitingWallXOffset, limitingWallYOffset, {window.getSize().x - (limitingWallXOffset * 2.0f), limitingWallHeight}, mapLimitingWallFile, false);
