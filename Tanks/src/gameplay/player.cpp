@@ -49,6 +49,11 @@ namespace Battle_City
 		return lifes;
 	}
 
+	Keyboard::Key Player::GetInputKeys(short index)
+	{
+		return inputKeys[index];
+	}
+
 	void Player::Input()
 	{
 		MovementInput();

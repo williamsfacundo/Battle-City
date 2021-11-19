@@ -42,6 +42,7 @@ namespace Battle_City
 		void setMoveStatus(PlayerMovementSet moveStatus);
 		PlayerMovementSet GetMoveStatus();
 		short GetLifes();
+		Keyboard::Key GetInputKeys(short index);
 		 
 		void Input();
 		virtual void Update(Time dt, float xLimit, float yLimit);

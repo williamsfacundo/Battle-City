@@ -20,8 +20,51 @@ namespace Battle_City
         windowWidth = 1200;
         windowHeigth = 800;
 
+        Vector2f UIkeysSeparation = {4.5f, 4.5f};
+        Vector2f playerInputUIPositions[maxKeys] = { 
+          /*0*/  {windowWidth - (UISpriteSize.x * 2) - (UIkeysSeparation.x * 2), limitingWallYOffset + (UIkeysSeparation.y * 8) + (UISpriteSize.y * 7)},
+          /*1*/  {windowWidth - UISpriteSize.x - UIkeysSeparation.x, limitingWallYOffset + (UIkeysSeparation.y * 8) + (UISpriteSize.y * 7)},
+          /*2*/  {windowWidth - (UISpriteSize.x * 1.5f) - UIkeysSeparation.x, limitingWallYOffset + (UIkeysSeparation.y * 3) + (UISpriteSize.y * 2)},
+          /*3*/  {UIkeysSeparation.x, limitingWallYOffset + (UIkeysSeparation.y * 2) + UISpriteSize.y},
+          /*4*/  {(UISpriteSize.x * 0.5f) + UIkeysSeparation.x, limitingWallYOffset + (UIkeysSeparation.y * 3) + (UISpriteSize.y * 2)},
+          /*5*/  {UISpriteSize.x + (UIkeysSeparation.x * 2), limitingWallYOffset + (UIkeysSeparation.y * 2) + UISpriteSize.y},
+          /*6*/  {(UISpriteSize.x * 0.5f) + UIkeysSeparation.x, limitingWallYOffset + (UIkeysSeparation.y * 7) + (UISpriteSize.y * 6)},
+          /*7*/  {UIkeysSeparation.x, limitingWallYOffset + (UIkeysSeparation.y * 8) + (UISpriteSize.y * 7)},
+          /*8*/  {(UISpriteSize.x * 0.5f) + UIkeysSeparation.x, limitingWallYOffset + (UIkeysSeparation.y * 9) + (UISpriteSize.y * 8)},
+          /*9*/  {UISpriteSize.x + (UIkeysSeparation.x * 2), limitingWallYOffset + (UIkeysSeparation.y * 8) + (UISpriteSize.y * 7)},
+          /*10*/  {windowWidth - (UISpriteSize.x * 1.5f) - UIkeysSeparation.x, limitingWallYOffset + (UIkeysSeparation.y * 11) + (UISpriteSize.y * 10)},
+          /*11*/  {windowWidth - (UISpriteSize.x * 2) - (UIkeysSeparation.x * 2), limitingWallYOffset + (UIkeysSeparation.y * 2) + UISpriteSize.y},
+          /*12*/  {(UISpriteSize.x * 0.5f) + UIkeysSeparation.x, limitingWallYOffset + (UIkeysSeparation.y * 11) + (UISpriteSize.y * 10)},
+          /*13*/  {windowWidth - (UISpriteSize.x * 1.5f) - UIkeysSeparation.x, limitingWallYOffset + (UIkeysSeparation.y * 5) + (UISpriteSize.y * 4)},
+          /*14*/  {windowWidth - UISpriteSize.x - UIkeysSeparation.x, limitingWallYOffset + (UIkeysSeparation.y * 2) + UISpriteSize.y},
+          /*15*/  {windowWidth - (UISpriteSize.x * 1.5f) - UIkeysSeparation.x, limitingWallYOffset + (UIkeysSeparation.y * 9) + (UISpriteSize.y * 8)},
+          /*16*/  {(UISpriteSize.x * 0.5f) + UIkeysSeparation.x, limitingWallYOffset + (UIkeysSeparation.y * 5) + (UISpriteSize.y * 4)},
+          /*17*/ {(UISpriteSize.x * 0.5f) + UIkeysSeparation.x, limitingWallYOffset + UIkeysSeparation.y},
+          /*18*/  {windowWidth - (UISpriteSize.x * 1.5f) - UIkeysSeparation.x, limitingWallYOffset + UIkeysSeparation.y},
+          /*19*/  {windowWidth - (UISpriteSize.x * 1.5f) - UIkeysSeparation.x, limitingWallYOffset + (UIkeysSeparation.y * 7) + (UISpriteSize.y * 6)}};
+
+        this->numberOfPlayers = numberOfPlayers;
+
         window.create(VideoMode(windowWidth, windowHeigth), title);
         
+        for (short i = 0; i < maxKeys; i++) 
+        { 
+            inputKeysUITextures[i].loadFromFile(keysUIFiles[i]);            
+        }
+
+        Vector2f actualSize;
+
+        for (short i = 0; i < maxKeys; i++) 
+        {
+            inputKeysUISprites[i].setTexture(inputKeysUITextures[i]);           
+
+            actualSize.x = inputKeysUISprites[i].getTextureRect().width;
+            actualSize.y = inputKeysUISprites[i].getTextureRect().height;
+
+            inputKeysUISprites[i].setScale(UISpriteSize.x / actualSize.x, UISpriteSize.y / actualSize.y);
+            inputKeysUISprites[i].setPosition(playerInputUIPositions[i].x, playerInputUIPositions[i].y);
+        }        
+
         for (short i = 0; i < maxPlayers; i++) 
         {
             playerTank[i] = NULL;
@@ -56,16 +99,16 @@ namespace Battle_City
             enemyTank[i] = new Enemy((window.getSize().x / 15.0f) * (i+1) + 125, window.getSize().y / 3.0f, { 40.0f, 40.0f }, enemyTankColor, enemyTexturesFiles);
         }       
 
-        militaryBase = new Base(window.getSize().x /2.0f + 300.0f, window.getSize().y / 2.0f, {50.0f, 50.0f});
+        militaryBase = new Base(window.getSize().x /2.0f + 300.0f, window.getSize().y / 2.0f, {45.0f, 45.0f});
 
         for (short i = 0; i < maxDestroyableWalls; i++) 
         {
-            destroyableWalls[i] = new Wall(window.getSize().x / 2.0f + 55 * (i + 1), window.getSize().y / 3.0f + 350, {50.0f, 50.0f}, destroyableWallTextureFile,true);
+            destroyableWalls[i] = new Wall(window.getSize().x / 2.0f + 55 * (i + 1), window.getSize().y / 3.0f + 350, {45.0f, 45.0f}, destroyableWallTextureFile,true);
         }
         
         for (short i = 0; i < maxNonDestroyableWalls; i++) 
         {
-            nonDestroyableWalls[i] = new Wall((window.getSize().x / 15.0f) * (i + 1) + 100, window.getSize().y / 3.0f + 200, { 50.0f, 50.0f }, nonDestroyableWallTextureFile, false);
+            nonDestroyableWalls[i] = new Wall((window.getSize().x / 15.0f) * (i + 1) + 100, window.getSize().y / 3.0f + 200, { 45.0f, 45.0f }, nonDestroyableWallTextureFile, false);
         }        
         
         mapLimitingWalls[0] = new Wall(limitingWallXOffset, limitingWallYOffset, {window.getSize().x - (limitingWallXOffset * 2.0f), limitingWallHeight}, mapLimitingWallFile, false);
@@ -215,6 +258,8 @@ namespace Battle_City
                 mapLimitingWalls[i]->Draw(window);
             }
         }
+
+        DrawTanksMoveKeysUI();
 
         window.display();
     }
@@ -755,5 +800,43 @@ namespace Battle_City
             delete playerTank[index];
             playerTank[index] = NULL;
         }
+    }
+
+    void Gameplay::DrawTanksMoveKeysUI()
+    {
+        for (short i = 0; i < numberOfPlayers; i++) 
+        {
+            switch (i)
+            {
+            case 0:                
+                window.draw(inputKeysUISprites[13]);
+                window.draw(inputKeysUISprites[11]);
+                window.draw(inputKeysUISprites[14]);
+                window.draw(inputKeysUISprites[18]);
+                window.draw(inputKeysUISprites[2]);
+                break;
+            case 1:
+                window.draw(inputKeysUISprites[10]);
+                window.draw(inputKeysUISprites[0]);
+                window.draw(inputKeysUISprites[1]);
+                window.draw(inputKeysUISprites[19]);
+                window.draw(inputKeysUISprites[15]);                
+                break;
+            case 2:
+                window.draw(inputKeysUISprites[16]);
+                window.draw(inputKeysUISprites[3]);
+                window.draw(inputKeysUISprites[5]);
+                window.draw(inputKeysUISprites[17]);
+                window.draw(inputKeysUISprites[4]);                
+                break;
+            case 3:
+                window.draw(inputKeysUISprites[12]);
+                window.draw(inputKeysUISprites[7]);
+                window.draw(inputKeysUISprites[9]);
+                window.draw(inputKeysUISprites[6]);
+                window.draw(inputKeysUISprites[8]);
+                break;            
+            }                      
+        }        
     }
 }

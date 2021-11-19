@@ -7,6 +7,9 @@
 #include <SFML/System/String.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Window/Keyboard.hpp>
+#include <SFML/Graphics/Sprite.hpp>
+#include <SFML/System/Vector2.hpp>
+#include <SFML/Graphics/Texture.hpp>
 
 #include "game_object.h"
 #include "tank.h"
@@ -16,6 +19,11 @@ using namespace sf;
 
 namespace Battle_City 
 {	
+	const short maxKeys = 20;
+	const String keysUIFiles[maxKeys] = {"assets/UI/letters/ALetter.png", "assets/UI/letters/DLetter.png", "assets/UI/letters/DownArrow.png", "assets/UI/letters/FLetter.png", "assets/UI/letters/GLetter.png",
+	"assets/UI/letters/HLetter.png", "assets/UI/letters/I_Letter.png", "assets/UI/letters/JLetter.png", "assets/UI/letters/KLetter.png", "assets/UI/letters/L_Letter.png", 
+	"assets/UI/letters/LCtrl.png", "assets/UI/letters/LeftArrow.png", "assets/UI/letters/P_Letter.png", "assets/UI/letters/RCtrl.png", "assets/UI/letters/RightArrow.png", 
+	"assets/UI/letters/SLetter.png", "assets/UI/letters/Space.png", "assets/UI/letters/TLetter.png", "assets/UI/letters/UpArrow.png", "assets/UI/letters/WLetter.png" };			
 	const String playerTexturesFiles[maxTextures] = {
 		"assets/player/playerTankDownOne.png", "assets/player/playerTankDownTwo.png",
 		"assets/player/playerTankLeftOne.png", "assets/player/playerTankLeftTwo.png",
@@ -43,10 +51,12 @@ namespace Battle_City
 	const short maxNonDestroyableWalls = 4;	
 	const short maxMapLimitingWalls = 4;
 
-	const float limitingWallXOffset = 125.0f;
+	const float limitingWallXOffset = 135.0f;
 	const float limitingWallYOffset = 100.0f;
 	const float limitingWallWidth = 15.0f;
-	const float limitingWallHeight = 15.0f;	
+	const float limitingWallHeight = 15.0f;		
+
+	const Vector2f UISpriteSize = {55, 55};
 
 	class Gameplay
 	{
@@ -54,7 +64,10 @@ namespace Battle_City
 		bool gameOver;
 		short windowWidth;
 		short windowHeigth;
+		short numberOfPlayers;
 		const char* title = "TANKS";
+		Texture inputKeysUITextures[maxKeys];
+		Sprite inputKeysUISprites[maxKeys];
 		RenderWindow window;
 		GameObject* playerTank[maxPlayers];
 		GameObject* enemyTank[maxEnemyTanks];
@@ -86,6 +99,8 @@ namespace Battle_City
 		void TanksCollideWithEachOther();
 		bool AllTanksDestroyed();		
 		void DestroyPlayerTankIfHasNoLifesLeft(short index);
+
+		void DrawTanksMoveKeysUI();
 	};
 }
 
