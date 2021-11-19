@@ -10,12 +10,15 @@
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Graphics/Texture.hpp>
+#include <SFML/Graphics/Font.hpp>
+#include <SFML/Graphics/Text.hpp>
 
 #include "game_object.h"
 #include "tank.h"
 #include "player.h"
 
 using namespace sf;
+using namespace std;
 
 namespace Battle_City 
 {	
@@ -41,7 +44,11 @@ namespace Battle_City
 	const String destroyableWallTextureFile = "assets/wall/destroyableWall.png";
 	const String mapLimitingWallFile = "assets/wall/mapLimitingWall.png";
 
+	const String textFontFile = "assets/fonts/PressStart2P.ttf";
+
+	//assets https://opengameart.org/content/heart-pixel-arts
 	const short maxHearts = 4;
+
 	const String heartsFiles[maxHearts] = { "assets/UI/hearts/yellow_heart_ pixel_art.png", "assets/UI/hearts/blue_heart_ pixel_art.png" , 
 		"assets/UI/hearts/green_heart_ pixel_art.png" , "assets/UI/hearts/red_heart_ pixel_art.png" };
 
@@ -77,6 +84,9 @@ namespace Battle_City
 		Sprite inputKeysUISprites[maxKeys];
 		Texture heartsTextures[maxHearts];
 		Sprite heartsSprites[maxHearts];
+		Font textFont;
+		Text enemiesLeftMeassegeText;
+		Text enemiesLeftText;
 		RenderWindow window;
 		GameObject* playerTank[maxPlayers];
 		GameObject* enemyTank[maxEnemyTanks];
@@ -110,7 +120,7 @@ namespace Battle_City
 		void DestroyPlayerTankIfHasNoLifesLeft(short index);
 
 		void DrawTanksMoveKeysUI();
-		void DrawHearts();
+		void DrawHearts();		
 	};
 }
 

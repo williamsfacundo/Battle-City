@@ -1,5 +1,6 @@
 #include "gameplay.h"
 
+#include <string>
 #include <SFML/Window/Event.hpp>
 #include <SFML/Window/VideoMode.hpp>
 #include <SFML/System/Time.hpp>
@@ -79,6 +80,20 @@ namespace Battle_City
 
             heartsSprites[i].setScale(heartsSpriteSize.x / actualSize.x, heartsSpriteSize.y / actualSize.y);
         }        
+
+        textFont.loadFromFile(textFontFile);
+        
+        enemiesLeftMeassegeText.setString("ENEMIES LEFT");
+        enemiesLeftMeassegeText.setCharacterSize(24);
+        enemiesLeftMeassegeText.setFillColor(Color::White);
+        enemiesLeftMeassegeText.setFont(textFont);
+        enemiesLeftMeassegeText.setPosition(windowWidth / 2.0f - (24 * 7), windowHeigth - (limitingWallXOffset / 3));
+        
+        enemiesLeftText.setCharacterSize(24);
+        enemiesLeftText.setFillColor(Color::Red);
+        enemiesLeftText.setFont(textFont);
+        enemiesLeftText.setPosition(windowWidth / 2.0f + (24 * 5.5), windowHeigth - (limitingWallXOffset / 3));
+
 
         for (short i = 0; i < maxPlayers; i++) 
         {
@@ -199,6 +214,18 @@ namespace Battle_City
 
     void Gameplay::Update(Time dt)
     {
+        short enemies = 0;
+
+        for (short i = 0; i < maxEnemyTanks; i++) 
+        {
+            if (enemyTank[i] != NULL) 
+            {
+                enemies += 1;
+            }
+        }
+
+        enemiesLeftText.setString(to_string(enemies));
+
         for (short i = 0; i < maxPlayers; i++)
         {
             if (playerTank[i] != NULL)
@@ -276,6 +303,8 @@ namespace Battle_City
 
         DrawTanksMoveKeysUI();
         DrawHearts();
+        window.draw(enemiesLeftMeassegeText);
+        window.draw(enemiesLeftText);
 
         window.display();
     }
@@ -874,5 +903,5 @@ namespace Battle_City
                 }
             }
         }
-    }
+    }   
 }
