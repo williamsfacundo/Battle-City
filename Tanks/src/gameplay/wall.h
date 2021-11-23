@@ -25,7 +25,7 @@ namespace Battle_City
 		Sprite wallSprite;
 		bool destroyable;
 	public:
-		Wall(float xPosition, float yPosition, Vector2f size, const String textureFile,bool destroyable);
+		Wall(float xPosition, float yPosition, Vector2f size, const String textureFile, bool destroyable);
 
 		void SetSize(float width, float heigth);
 		Vector2f GetSize();

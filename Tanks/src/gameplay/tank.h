@@ -29,10 +29,9 @@ namespace Battle_City
 	private:
 		Vector2f size;
 		RectangleShape rectangle;		
-		Direction direction;
-		//Direction tankDirectionWhenCollision;
+		Direction direction;		
 		Color color;
-		GameObject* bullets[maxBullets];
+		Bullet* bullets[maxBullets];
 		String imageFiles[maxTextures];
 		Texture tankTextures[maxTextures];
 		Sprite tankSprite;
@@ -56,8 +55,7 @@ namespace Battle_City
 		Direction getDirection();				
 		RectangleShape GetRectangle();		
 		bool GetTankMoving();
-		float GetMoveSpeed();
-		//Direction GetTankDirectionWhenCollision();
+		float GetMoveSpeed();		
 
 		virtual void Update(Time dt, float xLimit, float yLimit) = 0;
 		virtual void Draw(RenderWindow& window);		
@@ -74,7 +72,7 @@ namespace Battle_City
 		void DrawBullets(RenderWindow& window);
 		void DestroyBulletsOutOfMapLimits(float xLimit, float yLimit);		
 		void CreateBullet(short index, float xPos, float yPos);
-		GameObject* GetBullet(short index);
+		Bullet* GetBullet(short index);
 		bool IsBulletNull(short index);
 
 		void Animation(Time dt);

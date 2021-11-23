@@ -141,12 +141,7 @@ namespace Battle_City
 	float Tank::GetMoveSpeed() 
 	{
 		return moveSpeed;
-	}
-
-	/*Direction Tank::GetTankDirectionWhenCollision()
-	{
-		return tankDirectionWhenCollision;
-	}*/
+	}	
 
 	void Tank::Draw(RenderWindow& window)
 	{
@@ -253,7 +248,7 @@ namespace Battle_City
 		bullets[index] = new Bullet(xPos, yPos, { bulletsWidth, bulletsHeight }, getDirection());
 	}
 
-	GameObject* Tank::GetBullet(short index)
+	Bullet* Tank::GetBullet(short index)
 	{
 		return bullets[index];
 	}

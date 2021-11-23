@@ -13,9 +13,11 @@
 #include <SFML/Graphics/Font.hpp>
 #include <SFML/Graphics/Text.hpp>
 
-#include "game_object.h"
 #include "tank.h"
 #include "player.h"
+#include "enemy.h"
+#include "base.h"
+#include "wall.h"
 
 using namespace sf;
 using namespace std;
@@ -108,13 +110,13 @@ namespace Battle_City
 		Font textFont;
 		Text enemiesLeftMeassegeText;
 		Text enemiesLeftText;
-		RenderWindow window;
-		GameObject* playerTank[maxPlayers];
-		GameObject* enemyTank[maxEnemyTanks];
-		GameObject* militaryBase;
-		GameObject* destroyableWalls[maxDestroyableWalls];
-		GameObject* nonDestroyableWalls[maxNonDestroyableWalls];
-		GameObject* mapLimitingWalls[maxMapLimitingWalls];
+		RenderWindow window;		
+		Player* playerTanks[maxPlayers];
+		Enemy* enemyTanks[maxEnemyTanks];
+		Base* militaryBase;
+		Wall* destroyableWalls[maxDestroyableWalls];
+		Wall* nonDestroyableWalls[maxNonDestroyableWalls];
+		Wall* mapLimitingWalls[maxMapLimitingWalls];
 		Clock clock;
 		Time dt;		
 	public:
