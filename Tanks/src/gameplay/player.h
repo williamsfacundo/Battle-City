@@ -12,24 +12,20 @@
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Graphics/Color.hpp>
 
+#include "global_vars.h"
+
 using namespace sf;
 
 namespace Battle_City 
 {
-	enum class PlayerMovementSet { right, left, up, down, none };
-
-	const float playerMoveSpeed = 150.5f;
-	const float timeBetweenShots = 0.65f;
-
-	const short initialLifes = 3;
-
-	const Color playerTankColor = Color::Green;
-
-	const short maxInputKeys = 5;	
-
 	class Player : public Tank
 	{
-	private:
+	private:		
+		const float playerMoveSpeed = 150.5f;
+		const float timeBetweenShots = 0.65f;
+		
+		const short initialLifes = 3;		
+
 		PlayerMovementSet moveStatus;
 		Keyboard::Key inputKeys[maxInputKeys];
 		float shootingTimer;

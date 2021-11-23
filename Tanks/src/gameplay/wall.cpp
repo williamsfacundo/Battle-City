@@ -28,8 +28,8 @@ namespace Battle_City
 
 		Vector2f actualSize;
 
-		actualSize.x = wallSprite.getTextureRect().width;
-		actualSize.y = wallSprite.getTextureRect().height;
+		actualSize.x = static_cast<float>(wallSprite.getTextureRect().width);
+		actualSize.y = static_cast<float>(wallSprite.getTextureRect().height);
 
 		wallSprite.setScale(size.x / actualSize.x, size.y / actualSize.y);
 	}

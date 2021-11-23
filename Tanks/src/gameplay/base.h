@@ -12,11 +12,11 @@
 
 namespace Battle_City 
 {
-	const Color baseColor = Color::White;
-
 	class Base : public GameObject
 	{
 	private:
+		const Color baseColor = Color::White;
+
 		Vector2f size;
 		Color color; 
 		Texture baseTexture;

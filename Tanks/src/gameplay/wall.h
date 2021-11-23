@@ -12,12 +12,12 @@
 
 namespace Battle_City 
 {
-	const Color destroyableWallColor = Color::Blue;
-	const Color nonDestroyableWallColor = Color::Magenta;	
-
 	class Wall : public GameObject
 	{
 	private:
+		const Color destroyableWallColor = Color::Blue;
+		const Color nonDestroyableWallColor = Color::Magenta;
+
 		Vector2f size;
 		Color color;
 		RectangleShape rectangle;

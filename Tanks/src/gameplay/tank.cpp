@@ -11,6 +11,7 @@
 #include <SFML/System/Vector2.hpp>
 
 #include "game_object.h"
+#include "global_vars.h"
 
 namespace Battle_City
 {
@@ -112,8 +113,8 @@ namespace Battle_City
 	{
 		Vector2f actualSize;
 
-		actualSize.x = tankSprite.getTextureRect().width;
-		actualSize.y = tankSprite.getTextureRect().height;
+		actualSize.x = static_cast<float>(tankSprite.getTextureRect().width);
+		actualSize.y = static_cast<float>(tankSprite.getTextureRect().height);
 
 		tankSprite.setScale(size.x / actualSize.x, size.y / actualSize.y);
 	}

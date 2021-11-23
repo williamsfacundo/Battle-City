@@ -7,13 +7,13 @@ using namespace sf;
 
 namespace Battle_City 
 {
-	enum class Direction { left, right, up, down };
-
 	class GameObject
 	{
 	private:
 		float xPosition;
-		float yPosition;		
+		float yPosition;	
+	protected:
+		
 	public:
 		GameObject(float xPosition, float yPosition);
 		virtual ~GameObject();

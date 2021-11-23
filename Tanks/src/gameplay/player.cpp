@@ -7,6 +7,8 @@
 #include <SFML/System/String.hpp>
 #include <SFML/System/Vector2.hpp>
 
+#include "global_vars.h"
+
 using namespace sf;
 
 namespace Battle_City 

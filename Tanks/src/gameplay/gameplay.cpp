@@ -11,6 +11,8 @@
 #include "collisions.h"
 #include "base.h"
 #include "wall.h"
+
+#include "global_vars.h"
  
 namespace Battle_City 
 {
@@ -59,8 +61,8 @@ namespace Battle_City
         {
             inputKeysUISprites[i].setTexture(inputKeysUITextures[i]);           
 
-            actualSize.x = inputKeysUISprites[i].getTextureRect().width;
-            actualSize.y = inputKeysUISprites[i].getTextureRect().height;
+            actualSize.x = static_cast<float>(inputKeysUISprites[i].getTextureRect().width);
+            actualSize.y = static_cast<float>(inputKeysUISprites[i].getTextureRect().height);
 
             inputKeysUISprites[i].setScale(UISpriteSize.x / actualSize.x, UISpriteSize.y / actualSize.y);
             inputKeysUISprites[i].setPosition(playerInputUIPositions[i].x, playerInputUIPositions[i].y);
@@ -75,8 +77,8 @@ namespace Battle_City
         {
             heartsSprites[i].setTexture(heartsTextures[i]);
 
-            actualSize.x = heartsSprites[i].getTextureRect().width;
-            actualSize.y = heartsSprites[i].getTextureRect().height;
+            actualSize.x = static_cast<float>(heartsSprites[i].getTextureRect().width);
+            actualSize.y = static_cast<float>(heartsSprites[i].getTextureRect().height);
 
             heartsSprites[i].setScale(heartsSpriteSize.x / actualSize.x, heartsSpriteSize.y / actualSize.y);
         }        
@@ -92,7 +94,7 @@ namespace Battle_City
         enemiesLeftText.setCharacterSize(24);
         enemiesLeftText.setFillColor(Color::Red);
         enemiesLeftText.setFont(textFont);
-        enemiesLeftText.setPosition(windowWidth / 2.0f + (24 * 5.5), windowHeigth - (limitingWallXOffset / 3));
+        enemiesLeftText.setPosition(static_cast<float>(windowWidth / 2.0f + (24 * 5.5)), static_cast<float>(windowHeigth - (limitingWallXOffset / 3)));
 
 
         for (short i = 0; i < maxPlayers; i++) 

@@ -11,22 +11,21 @@
 
 #include "game_object.h"
 #include "bullet.h"
+#include "global_vars.h"
 
 using namespace sf;
 
 namespace Battle_City
 {
-	enum class TextureType {left1, left2, right1, right2, up1, up2, down1, down2};
-
-	const short maxTextures = 8;
-	const float bulletsWidth = 10.0f;
-	const float bulletsHeight = 10.0f;
-	const short maxBullets = 5;	
-	const float changeAnimationTime = 0.15f;
-
 	class Tank : public GameObject
 	{
-	private:
+	protected:
+		const float bulletsWidth = 10.0f;
+		const float bulletsHeight = 10.0f;
+		
+	private:		
+		const float changeAnimationTime = 0.15f;					
+
 		Vector2f size;
 		RectangleShape rectangle;		
 		Direction direction;		
@@ -37,8 +36,8 @@ namespace Battle_City
 		Sprite tankSprite;
 		TextureType textureType;
 		float changeAnimationTimer;
-		bool tankMoving;
 		float moveSpeed;
+		bool tankMoving;	
 	public:
 		Tank(float xPosition, float yPosition, Vector2f size, Color color, const String imageFiles[maxTextures]);
 		virtual ~Tank();

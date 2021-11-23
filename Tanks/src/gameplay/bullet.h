@@ -11,15 +11,16 @@
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Graphics/Color.hpp>
 
+#include "global_vars.h"
+
 namespace Battle_City
 {
-	const float bulletMoveSpeed = 300.0f;
-
-	const Color bulletColor = Color::Red;
-
 	class Bullet : public GameObject
 	{
 	private:
+		const float bulletMoveSpeed = 300.0f;
+		const Color bulletColor = Color::Red;
+
 		Vector2f size;
 		RectangleShape rectangle;
 		Direction direction;

@@ -6,6 +6,7 @@
 #include <SFML/System/Time.hpp>
 
 #include "tank.h"
+#include "global_vars.h"
 
 namespace Battle_City 
 {

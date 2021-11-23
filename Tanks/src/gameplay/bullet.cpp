@@ -5,6 +5,7 @@
 #include <SFML/System/Vector2.hpp>
 
 #include "game_object.h"
+#include "global_vars.h"
 
 namespace Battle_City
 {
@@ -24,8 +25,8 @@ namespace Battle_City
 
 		Vector2f actualSize;
 
-		actualSize.x = bulletSprite.getTextureRect().width;
-		actualSize.y = bulletSprite.getTextureRect().height;
+		actualSize.x = static_cast<float>(bulletSprite.getTextureRect().width);
+		actualSize.y = static_cast<float>(bulletSprite.getTextureRect().height);
 
 		bulletSprite.setScale(size.x / actualSize.x, size.y / actualSize.y);
 		
