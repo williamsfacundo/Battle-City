@@ -8,17 +8,16 @@
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Graphics/Color.hpp>
 
-#include "game_object.h"
+#include "rectangle.h"
 
 namespace Battle_City 
 {
-	class Wall : public GameObject
+	class Wall : public Rectangle
 	{
 	private:
 		const Color destroyableWallColor = Color::Blue;
 		const Color nonDestroyableWallColor = Color::Magenta;
-
-		Vector2f size;
+		
 		Color color;
 		RectangleShape rectangle;
 		Texture wallTexture;
@@ -26,9 +25,7 @@ namespace Battle_City
 		bool destroyable;
 	public:
 		Wall(float xPosition, float yPosition, Vector2f size, const String textureFile, bool destroyable);
-
-		void SetSize(float width, float heigth);
-		Vector2f GetSize();
+		
 		bool GetDestroyable();
 
 		void Draw(RenderWindow& window);

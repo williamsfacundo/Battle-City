@@ -133,9 +133,12 @@ namespace Battle_City
 
         militaryBase = new Base(window.getSize().x /2.0f + 300.0f, window.getSize().y / 2.0f, {45.0f, 45.0f});
 
-        for (short i = 0; i < maxDestroyableWalls; i++) 
+        for (short i = 0; i < maxDestroyableWallRows; i++) 
         {
-            destroyableWalls[i] = new Wall(window.getSize().x / 2.0f + 55 * (i + 1), window.getSize().y / 3.0f + 350, {45.0f, 45.0f}, destroyableWallTextureFile,true);
+            for (short j = 0; j < maxDestroyableWallColumns; j++)
+            {
+                destroyableWalls[i][j] = new Wall(window.getSize().x / 2.0f + 20 * i, window.getSize().y / 3.0f + 350 + 20 * j, { 20.0f, 20.0f }, destroyableWallTextureFile, true);
+            }            
         }
         
         for (short i = 0; i < maxNonDestroyableWalls; i++) 
@@ -175,13 +178,16 @@ namespace Battle_City
             }
         }        
 
-        for (short i = 0; i < maxDestroyableWalls; i++)
+        for (short i = 0; i < maxDestroyableWallRows; i++)
         {
-            if (destroyableWalls[i] != NULL)
+            for (short j = 0; j < maxDestroyableWallColumns; j++) 
             {
-                delete destroyableWalls[i];
-                destroyableWalls[i] = NULL;
-            }            
+                if (destroyableWalls[i] != NULL)
+                {
+                    delete destroyableWalls[i][j];
+                    destroyableWalls[i][j] = NULL;
+                }
+            }                        
         }
 
         for (short i = 0; i < maxNonDestroyableWalls; i++)
@@ -279,12 +285,15 @@ namespace Battle_City
 
         militaryBase->Draw(window);
 
-        for (short i = 0; i < maxDestroyableWalls; i++)
+        for (short i = 0; i < maxDestroyableWallRows; i++)
         {
-            if (destroyableWalls[i] != NULL)
-            {
-               destroyableWalls[i]->Draw(window);
-            }
+            for (short j = 0; j < maxDestroyableWallRows; j++)
+            { 
+                if (destroyableWalls[i][j] != NULL)
+                {
+                    destroyableWalls[i][j]->Draw(window);
+                }
+            }            
         }
 
         for (short i = 0; i < maxNonDestroyableWalls; i++)
@@ -513,28 +522,32 @@ namespace Battle_City
                 {
                     if (!enemyTanks[i]->IsBulletNull(j))
                     {
-                        for (short k = 0; k < maxDestroyableWalls; k++) 
+                        for (short k = 0; k < maxDestroyableWallRows; k++) 
                         {
-                            if (destroyableWalls[k] != NULL)
+                            for (short h = 0; h < maxDestroyableWallColumns; h++) 
                             {
-                                if (CollisionFunctions::CollisionRectangles(
-                                    destroyableWalls[k]->GetXPosition(),
-                                    destroyableWalls[k]->GetYPosition(),
-                                    destroyableWalls[k]->GetSize().x,
-                                    destroyableWalls[k]->GetSize().y,
-                                    enemyTanks[i]->GetBullet(j)->GetXPosition(),
-                                    enemyTanks[i]->GetBullet(j)->GetYPosition(),
-                                    enemyTanks[i]->GetBullet(j)->GetSize().x,
-                                    enemyTanks[i]->GetBullet(j)->GetSize().y)) 
+                                if (destroyableWalls[k][j] != NULL)
                                 {
-                                    enemyTanks[i]->DestroyBullet(j);
+                                    if (CollisionFunctions::CollisionRectangles(
+                                        destroyableWalls[k][j]->GetXPosition(),
+                                        destroyableWalls[k][j]->GetYPosition(),
+                                        destroyableWalls[k][j]->GetSize().x,
+                                        destroyableWalls[k][j]->GetSize().y,
+                                        enemyTanks[i]->GetBullet(j)->GetXPosition(),
+                                        enemyTanks[i]->GetBullet(j)->GetYPosition(),
+                                        enemyTanks[i]->GetBullet(j)->GetSize().x,
+                                        enemyTanks[i]->GetBullet(j)->GetSize().y))
+                                    {
+                                        enemyTanks[i]->DestroyBullet(j);
 
-                                    delete destroyableWalls[k];
-                                    destroyableWalls[k] = NULL;
-
-                                    k = maxDestroyableWalls;
+                                        delete destroyableWalls[k][j];
+                                        destroyableWalls[k][j] = NULL;
+                                                                                
+                                        k = maxDestroyableWallRows;
+                                        h = maxDestroyableWallColumns;
+                                    }
                                 }
-                            }
+                            }                            
                         }                                                
                     }
                 }
@@ -549,28 +562,32 @@ namespace Battle_City
                 {
                     if (!playerTanks[i]->IsBulletNull(j))
                     {
-                        for (short k = 0; k < maxDestroyableWalls; k++)
+                        for (short k = 0; k < maxDestroyableWallRows; k++)
                         {
-                            if (destroyableWalls[k] != NULL)
+                            for (short h = 0; h < maxDestroyableWallColumns; h++) 
                             {
-                                if (CollisionFunctions::CollisionRectangles(
-                                    destroyableWalls[k]->GetXPosition(),
-                                    destroyableWalls[k]->GetYPosition(),
-                                    destroyableWalls[k]->GetSize().x,
-                                    destroyableWalls[k]->GetSize().y,
-                                    playerTanks[i]->GetBullet(j)->GetXPosition(),
-                                    playerTanks[i]->GetBullet(j)->GetYPosition(),
-                                    playerTanks[i]->GetBullet(j)->GetSize().x,
-                                    playerTanks[i]->GetBullet(j)->GetSize().y))
+                                if (destroyableWalls[k][j] != NULL)
                                 {
-                                    playerTanks[i]->DestroyBullet(j);
+                                    if (CollisionFunctions::CollisionRectangles(
+                                        destroyableWalls[k][j]->GetXPosition(),
+                                        destroyableWalls[k][j]->GetYPosition(),
+                                        destroyableWalls[k][j]->GetSize().x,
+                                        destroyableWalls[k][j]->GetSize().y,
+                                        playerTanks[i]->GetBullet(j)->GetXPosition(),
+                                        playerTanks[i]->GetBullet(j)->GetYPosition(),
+                                        playerTanks[i]->GetBullet(j)->GetSize().x,
+                                        playerTanks[i]->GetBullet(j)->GetSize().y))
+                                    {
+                                        playerTanks[i]->DestroyBullet(j);
 
-                                    delete destroyableWalls[k];
-                                    destroyableWalls[k] = NULL;
+                                        delete destroyableWalls[k][j];
+                                        destroyableWalls[k][j] = NULL;
 
-                                    k = maxDestroyableWalls;
+                                        k = maxDestroyableWallRows;
+                                        h = maxDestroyableWallColumns;
+                                    }
                                 }
-                            }
+                            }                            
                         }
                     }
                 }
@@ -701,15 +718,17 @@ namespace Battle_City
         {
             if (enemyTanks[i] != NULL) 
             {
-                for (short j = 0; j < maxDestroyableWalls; j++)
+                for (short j = 0; j < maxDestroyableWallRows; j++)
                 {
-                    if (destroyableWalls[j] != NULL) 
+                    for (short h = 0; h < maxDestroyableWallColumns; h++) 
                     {
-                        CollisionFunctions::CollisionTankWithStaticRectangleObject((Tank*)enemyTanks[i],
-                            { destroyableWalls[j]->GetXPosition(), destroyableWalls[j]->GetYPosition()}, 
-                            destroyableWalls[j]->GetSize());
-                    }
-                    
+                        if (destroyableWalls[j][h] != NULL)
+                        {
+                            CollisionFunctions::CollisionTankWithStaticRectangleObject((Tank*)enemyTanks[i],
+                                { destroyableWalls[j][h]->GetXPosition(), destroyableWalls[j][h]->GetYPosition() },
+                                destroyableWalls[j][h]->GetSize());
+                        }
+                    }                                       
                 }
 
                 for (short j = 0; j < maxNonDestroyableWalls; j++)
@@ -738,15 +757,17 @@ namespace Battle_City
         {
             if (playerTanks[i] != NULL)
             {
-                for (short j = 0; j < maxDestroyableWalls; j++)
+                for (short j = 0; j < maxDestroyableWallRows; j++)
                 {
-                    if (destroyableWalls[j] != NULL)
+                    for (short h = 0; h < maxDestroyableWallColumns; h++) 
                     {
-                        CollisionFunctions::CollisionTankWithStaticRectangleObject((Tank*)playerTanks[i],
-                            { destroyableWalls[j]->GetXPosition(), destroyableWalls[j]->GetYPosition() },
-                            destroyableWalls[j]->GetSize());
-                    }
-
+                        if (destroyableWalls[j][h] != NULL)
+                        {
+                            CollisionFunctions::CollisionTankWithStaticRectangleObject((Tank*)playerTanks[i],
+                                { destroyableWalls[j][h]->GetXPosition(), destroyableWalls[j][h]->GetYPosition() },
+                                destroyableWalls[j][h]->GetSize());
+                        }
+                    }                    
                 }
             }
         }        

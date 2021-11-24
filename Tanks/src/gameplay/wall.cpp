@@ -2,11 +2,11 @@
 
 #include <SFML/Graphics/RenderWindow.hpp>
 
-#include "game_object.h"
+#include "rectangle.h"
 
 namespace Battle_City 
 {
-	Wall::Wall(float xPosition, float yPosition, Vector2f size, const String textureFile, bool destroyable) : GameObject(xPosition, yPosition)
+	Wall::Wall(float xPosition, float yPosition, Vector2f size, const String textureFile, bool destroyable) : Rectangle(xPosition, yPosition, size)
 	{
 		if (destroyable)
 		{
@@ -16,8 +16,7 @@ namespace Battle_City
 		{
 			color = nonDestroyableWallColor;
 		}
-
-		SetSize(size.x, size.y);
+		
 		rectangle.setSize(size);
 		this->destroyable = destroyable;		
 		rectangle.setFillColor(color);
@@ -32,18 +31,7 @@ namespace Battle_City
 		actualSize.y = static_cast<float>(wallSprite.getTextureRect().height);
 
 		wallSprite.setScale(size.x / actualSize.x, size.y / actualSize.y);
-	}
-
-	void Wall::SetSize(float width, float heigth)
-	{
-		size.x = width;
-		size.y = heigth;
-	}
-
-	Vector2f Wall::GetSize()
-	{
-		return size;
-	}
+	}	
 
 	bool Wall::GetDestroyable() 
 	{

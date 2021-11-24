@@ -10,12 +10,12 @@
 #include <SFML/System/String.hpp>
 #include <SFML/System/Vector2.hpp>
 
-#include "game_object.h"
+#include "rectangle.h"
 #include "global_vars.h"
 
 namespace Battle_City
 {
-	Tank::Tank(float xPosition, float yPosition, Vector2f size, Color color, const String imageFiles[maxTextures]) : GameObject(xPosition, yPosition)
+	Tank::Tank(float xPosition, float yPosition, Vector2f size, Color color, const String imageFiles[maxTextures]) : Rectangle(xPosition, yPosition, size)
 	{
 		SetSize(size.x, size.y);
 		rectangle.setSize(size);
@@ -50,12 +50,6 @@ namespace Battle_City
 	{		
 		DestroyBullets();
 	}
-
-	void Tank::SetSize(float width, float heigth)
-	{
-		size.x = width;
-		size.y = heigth;
-	}	
 
 	void Tank::setDirection(Direction direction) 
 	{
@@ -116,12 +110,7 @@ namespace Battle_City
 		actualSize.x = static_cast<float>(tankSprite.getTextureRect().width);
 		actualSize.y = static_cast<float>(tankSprite.getTextureRect().height);
 
-		tankSprite.setScale(size.x / actualSize.x, size.y / actualSize.y);
-	}
-
-	Vector2f Tank::GetSize()
-	{
-		return size;
+		tankSprite.setScale(GetSize().x / actualSize.x, GetSize().y / actualSize.y);
 	}		
 
 	Direction Tank::getDirection() 

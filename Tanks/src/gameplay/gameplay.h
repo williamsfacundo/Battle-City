@@ -31,7 +31,8 @@ namespace Battle_City
 		static const short maxKeys = 20;
 		static const short maxEnemyTanks = 5;
 		static const short maxPlayers = 4;
-		static const short maxDestroyableWalls = 4;
+		static const short maxDestroyableWallRows = 3;
+		static const short maxDestroyableWallColumns = 3;
 		static const short maxNonDestroyableWalls = 4;
 		static const short maxMapLimitingWalls = 4;
 		static const short maxHearts = 4; //assets https://opengameart.org/content/heart-pixel-arts
@@ -102,7 +103,7 @@ namespace Battle_City
 		Player* playerTanks[maxPlayers];
 		Enemy* enemyTanks[maxEnemyTanks];
 		Base* militaryBase;
-		Wall* destroyableWalls[maxDestroyableWalls];
+		Wall* destroyableWalls[maxDestroyableWallRows][maxDestroyableWallColumns];
 		Wall* nonDestroyableWalls[maxNonDestroyableWalls];
 		Wall* mapLimitingWalls[maxMapLimitingWalls];
 		Clock clock;

@@ -3,11 +3,11 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/System/Vector2.hpp>
 
-#include "game_object.h"
+#include "rectangle.h"
 
 namespace Battle_City
 {
-	Base::Base(float xPosition, float yPosition, Vector2f size) : GameObject (xPosition, yPosition)
+	Base::Base(float xPosition, float yPosition, Vector2f size) : Rectangle (xPosition, yPosition, size)
 	{
 		SetSize(size.x, size.y);
 		rectangle.setSize(size);
@@ -25,18 +25,7 @@ namespace Battle_City
 		actualSize.y = static_cast<float>(baseSprite.getTextureRect().height);
 
 		baseSprite.setScale(size.x / actualSize.x, size.y / actualSize.y);
-	}
-
-	void Base::SetSize(float width, float heigth)
-	{
-		size.x = width;
-		size.y = heigth;
-	}
-
-	Vector2f Base::GetSize() 
-	{
-		return size;
-	}
+	}	
 
 	void Base::Draw(RenderWindow& window) 
 	{

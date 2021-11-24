@@ -8,11 +8,11 @@
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
 
-#include "game_object.h"
+#include "rectangle.h"
 
 namespace Battle_City 
 {
-	class Base : public GameObject
+	class Base : public Rectangle
 	{
 	private:
 		const Color baseColor = Color::White;
@@ -23,10 +23,7 @@ namespace Battle_City
 		Sprite baseSprite;
 		RectangleShape rectangle;
 	public:
-		Base(float xPosition, float yPosition, Vector2f size);
-
-		void SetSize(float width, float heigth);		
-		Vector2f GetSize();	
+		Base(float xPosition, float yPosition, Vector2f size);	
 
 		void Draw(RenderWindow& window);
 	};

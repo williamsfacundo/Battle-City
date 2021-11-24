@@ -18,7 +18,7 @@ namespace Battle_City
 		void CollisionTankWithStaticRectangleObject(Tank* tank, Vector2f recPosition, Vector2f recSize)
 		{
 			if (CollisionRectangles(tank->GetXPosition(), tank->GetYPosition(),
-				((Tank*)tank)->GetSize().x, ((Tank*)tank)->GetSize().y, recPosition.x, recPosition.y, recSize.x, recSize.y))
+				tank->GetSize().x, tank->GetSize().y, recPosition.x, recPosition.y, recSize.x, recSize.y))
 			{
 				TankBehaviourWhenCollisionWithStaticRectangleObject(tank, recPosition, recSize);
 			}						
@@ -27,8 +27,8 @@ namespace Battle_City
 		void TanksCollision(Tank* tankOne, Tank* tankTwo) 
 		{
 			if (CollisionRectangles(tankOne->GetXPosition(), tankOne->GetYPosition(),
-				((Tank*)tankOne)->GetSize().x, ((Tank*)tankOne)->GetSize().y, tankTwo->GetXPosition(), tankTwo->GetYPosition(),
-				((Tank*)tankTwo)->GetSize().x, ((Tank*)tankTwo)->GetSize().y))
+				tankOne->GetSize().x, tankOne->GetSize().y, tankTwo->GetXPosition(), tankTwo->GetYPosition(),
+				tankTwo->GetSize().x, tankTwo->GetSize().y))
 			{
 				TanksBehaviourWhenCollision(tankOne, tankTwo);
 			}			
@@ -38,13 +38,13 @@ namespace Battle_City
 		{
 			Vector2f newPosition = { 0.0f, 0.0f };
 
-			switch (((Tank*)tank)->getDirection())
+			switch (tank->getDirection())
 			{
 			case Direction::left:
 
-				if (((Tank*)tank)->GetTankMoving())
+				if (tank->GetTankMoving())
 				{
-					((Tank*)tank)->AddXPosition(-((Tank*)tank)->GetMoveSpeed());
+					tank->AddXPosition(-tank->GetMoveSpeed());
 				}
 				else
 				{
@@ -55,22 +55,22 @@ namespace Battle_City
 				break;
 			case Direction::right:
 
-				if (((Tank*)tank)->GetTankMoving())
+				if (tank->GetTankMoving())
 				{
-					((Tank*)tank)->AddXPosition(-((Tank*)tank)->GetMoveSpeed());
+					tank->AddXPosition(-tank->GetMoveSpeed());
 				}
 				else
 				{
-					newPosition = { objectCollidingWithPosition.x - ((Tank*)tank)->GetSize().x - minSeparation, tank->GetYPosition() };
+					newPosition = { objectCollidingWithPosition.x - tank->GetSize().x - minSeparation, tank->GetYPosition() };
 					tank->SetPosition(newPosition.x, newPosition.y);
 				}
 
 				break;
 			case Direction::up:
 
-				if (((Tank*)tank)->GetTankMoving())
+				if (tank->GetTankMoving())
 				{
-					((Tank*)tank)->AddYPosition(-((Tank*)tank)->GetMoveSpeed());
+					tank->AddYPosition(-tank->GetMoveSpeed());
 				}
 				else
 				{
@@ -81,13 +81,13 @@ namespace Battle_City
 				break;
 			case Direction::down:
 
-				if (((Tank*)tank)->GetTankMoving())
+				if (tank->GetTankMoving())
 				{
-					((Tank*)tank)->AddYPosition(-((Tank*)tank)->GetMoveSpeed());
+					tank->AddYPosition(-tank->GetMoveSpeed());
 				}
 				else
 				{
-					newPosition = { tank->GetXPosition(), objectCollidingWithPosition.y - ((Tank*)tank)->GetSize().y - minSeparation };
+					newPosition = { tank->GetXPosition(), objectCollidingWithPosition.y - tank->GetSize().y - minSeparation };
 					tank->SetPosition(newPosition.x, newPosition.y);
 				}
 
@@ -97,7 +97,7 @@ namespace Battle_City
 
 		void TanksBehaviourWhenCollision(Tank* tankOne, Tank* tankTwo) 
 		{
-			switch (((Tank*)tankOne)->getDirection())
+			switch (tankOne->getDirection())
 			{
 			case Direction::left:				
 

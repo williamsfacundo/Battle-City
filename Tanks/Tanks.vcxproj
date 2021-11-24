@@ -167,7 +167,7 @@ XCOPY "$(SolutionDir)assets" "$(TargetDir)assets" /e /h /y /s</Command>
     <ClCompile Include="src\gameplay\collisions.cpp" />
     <ClCompile Include="src\gameplay\enemy.cpp" />
     <ClCompile Include="src\gameplay\gameplay.cpp" />
-    <ClCompile Include="src\gameplay\game_object.cpp" />
+    <ClCompile Include="src\gameplay\rectangle.cpp" />
     <ClCompile Include="src\gameplay\player.cpp" />
     <ClCompile Include="src\gameplay\tank.cpp" />
     <ClCompile Include="src\gameplay\wall.cpp" />
@@ -179,7 +179,7 @@ XCOPY "$(SolutionDir)assets" "$(TargetDir)assets" /e /h /y /s</Command>
     <ClInclude Include="src\gameplay\collisions.h" />
     <ClInclude Include="src\gameplay\enemy.h" />
     <ClInclude Include="src\gameplay\gameplay.h" />
-    <ClInclude Include="src\gameplay\game_object.h" />
+    <ClInclude Include="src\gameplay\rectangle.h" />
     <ClInclude Include="src\gameplay\player.h" />
     <ClInclude Include="src\gameplay\tank.h" />
     <ClInclude Include="src\gameplay\wall.h" />

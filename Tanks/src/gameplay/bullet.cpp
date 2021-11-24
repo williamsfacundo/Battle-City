@@ -4,12 +4,12 @@
 #include <SFML/System/Time.hpp>
 #include <SFML/System/Vector2.hpp>
 
-#include "game_object.h"
+#include "rectangle.h"
 #include "global_vars.h"
 
 namespace Battle_City
 {
-	Bullet::Bullet(float xPosition, float yPosition, Vector2f size, Direction direction) : GameObject(xPosition, yPosition)
+	Bullet::Bullet(float xPosition, float yPosition, Vector2f size, Direction direction) : Rectangle(xPosition, yPosition, size)
 	{
 		SetSize(size.x, size.y);
 		rectangle.setSize(size);
@@ -30,13 +30,7 @@ namespace Battle_City
 
 		bulletSprite.setScale(size.x / actualSize.x, size.y / actualSize.y);
 		
-	}
-
-	void Bullet::SetSize(float width, float heigth)
-	{
-		size.x = width;
-		size.y = heigth;
-	}
+	}	
 
 	void Bullet::SetBulletSpriteDependingDirection(Direction direction)
 	{
@@ -55,12 +49,7 @@ namespace Battle_City
 			bulletTexture.loadFromFile("assets/bullet/bulletSpriteDown.png");			
 			break;
 		}
-	}
-
-	Vector2f Bullet::GetSize()
-	{
-		return size;
-	}
+	}	
 
 	void Bullet::Update(Time dt)
 	{
