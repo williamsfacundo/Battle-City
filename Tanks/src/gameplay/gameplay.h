@@ -93,8 +93,8 @@ namespace Battle_City
 		short numberOfPlayers;
 		const char* title = "TANKS";
 		Texture inputKeysUITextures[maxKeys];
-		Sprite inputKeysUISprites[maxKeys];
 		Texture heartsTextures[maxHearts];
+		Sprite inputKeysUISprites[maxKeys];		
 		Sprite heartsSprites[maxHearts];
 		Font textFont;
 		Text enemiesLeftMeassegeText;

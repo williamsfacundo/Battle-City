@@ -8,8 +8,7 @@
 namespace Battle_City
 {
 	Base::Base(float xPosition, float yPosition, Vector2f size) : Rectangle (xPosition, yPosition, size)
-	{
-		SetSize(size.x, size.y);
+	{		
 		rectangle.setSize(size);
 		color = baseColor;
 		rectangle.setFillColor(color);

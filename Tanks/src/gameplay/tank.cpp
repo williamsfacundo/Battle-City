@@ -16,8 +16,7 @@
 namespace Battle_City
 {
 	Tank::Tank(float xPosition, float yPosition, Vector2f size, Color color, const String imageFiles[maxTextures]) : Rectangle(xPosition, yPosition, size)
-	{
-		SetSize(size.x, size.y);
+	{		
 		rectangle.setSize(size);
 		rectangle.setFillColor(color);
 		SetRectanglePosition(xPosition, yPosition);

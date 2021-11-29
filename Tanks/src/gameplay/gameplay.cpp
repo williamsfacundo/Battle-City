@@ -1,5 +1,6 @@
 #include "gameplay.h"
 
+#include <iostream>
 #include <string>
 #include <SFML/Window/Event.hpp>
 #include <SFML/Window/VideoMode.hpp>
@@ -251,7 +252,6 @@ namespace Battle_City
         }    
 
         DestroyEnemyTanksWhenHit();
-        DestroyDestroyableWallsWhenHit();
         DestroyDestroyableWallsWhenHit();
         DestroyBulletsWhenHitNonDestroyableWalls();
         TanksCollideWithWalls();
@@ -526,13 +526,13 @@ namespace Battle_City
                         {
                             for (short h = 0; h < maxDestroyableWallColumns; h++) 
                             {
-                                if (destroyableWalls[k][j] != NULL)
+                                if (destroyableWalls[k][h] != NULL)
                                 {
                                     if (CollisionFunctions::CollisionRectangles(
-                                        destroyableWalls[k][j]->GetXPosition(),
-                                        destroyableWalls[k][j]->GetYPosition(),
-                                        destroyableWalls[k][j]->GetSize().x,
-                                        destroyableWalls[k][j]->GetSize().y,
+                                        destroyableWalls[k][h]->GetXPosition(),
+                                        destroyableWalls[k][h]->GetYPosition(),
+                                        destroyableWalls[k][h]->GetSize().x,
+                                        destroyableWalls[k][h]->GetSize().y,
                                         enemyTanks[i]->GetBullet(j)->GetXPosition(),
                                         enemyTanks[i]->GetBullet(j)->GetYPosition(),
                                         enemyTanks[i]->GetBullet(j)->GetSize().x,
@@ -540,8 +540,8 @@ namespace Battle_City
                                     {
                                         enemyTanks[i]->DestroyBullet(j);
 
-                                        delete destroyableWalls[k][j];
-                                        destroyableWalls[k][j] = NULL;
+                                        delete destroyableWalls[k][h];
+                                        destroyableWalls[k][h] = NULL;
                                                                                 
                                         k = maxDestroyableWallRows;
                                         h = maxDestroyableWallColumns;
@@ -566,13 +566,13 @@ namespace Battle_City
                         {
                             for (short h = 0; h < maxDestroyableWallColumns; h++) 
                             {
-                                if (destroyableWalls[k][j] != NULL)
+                                if (destroyableWalls[k][h] != NULL)
                                 {
                                     if (CollisionFunctions::CollisionRectangles(
-                                        destroyableWalls[k][j]->GetXPosition(),
-                                        destroyableWalls[k][j]->GetYPosition(),
-                                        destroyableWalls[k][j]->GetSize().x,
-                                        destroyableWalls[k][j]->GetSize().y,
+                                        destroyableWalls[k][h]->GetXPosition(),
+                                        destroyableWalls[k][h]->GetYPosition(),
+                                        destroyableWalls[k][h]->GetSize().x,
+                                        destroyableWalls[k][h]->GetSize().y,
                                         playerTanks[i]->GetBullet(j)->GetXPosition(),
                                         playerTanks[i]->GetBullet(j)->GetYPosition(),
                                         playerTanks[i]->GetBullet(j)->GetSize().x,
@@ -580,8 +580,8 @@ namespace Battle_City
                                     {
                                         playerTanks[i]->DestroyBullet(j);
 
-                                        delete destroyableWalls[k][j];
-                                        destroyableWalls[k][j] = NULL;
+                                        delete destroyableWalls[k][h];
+                                        destroyableWalls[k][h] = NULL;
 
                                         k = maxDestroyableWallRows;
                                         h = maxDestroyableWallColumns;

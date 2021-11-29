@@ -5,6 +5,7 @@ namespace Battle_City
 	Rectangle::Rectangle(float xPosition, float yPosition, Vector2f size)
 	{
 		SetPosition(xPosition, yPosition);
+		SetSize(size.x, size.y);
 	}
 
 	Rectangle::~Rectangle() 
