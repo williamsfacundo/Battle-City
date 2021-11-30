@@ -15,7 +15,7 @@ namespace Battle_City
 	class Credits
 	{
 	private:
-		const Scenes inputChangeScene = Scenes::pvp;
+		const Scenes inputChangeScene = Scenes::menu;
 		const Keyboard::Key inputKey = Keyboard::Key::Enter;
 
 		Texture backgroundTexture;

@@ -16,14 +16,15 @@ namespace Battle_City
         exit = false;
 
         windowWidth = 1200;
-        windowHeigth = 800;
+        windowHeigth = 800;               
 
         window.create(VideoMode(windowWidth, windowHeigth), title);
 
         gameplay = new Gameplay(3, false, windowWidth, windowHeigth, window);
         sceneManager = new SceneManager();
-        sceneManager->SetCurrentScene(Scenes::credits);
+        sceneManager->SetCurrentScene(Scenes::menu);
         credits = new Credits(windowWidth, windowHeigth);
+        mainMenu = new Menu(windowWidth, windowHeigth);
     }
 
     Game::~Game()
@@ -35,6 +36,7 @@ namespace Battle_City
 
         delete sceneManager;
         delete credits;
+        delete mainMenu;
     }
 
     void Game::Run()
@@ -50,12 +52,15 @@ namespace Battle_City
                 {
                     window.close();
                 }                
-            }     
+            }            
 
             switch (sceneManager->GetCurrentScene())
             {
             case Scenes::menu:
-                             
+
+                mainMenu->Input(sceneManager, windowWidth, windowHeigth);
+                mainMenu->Update(dt);
+                mainMenu->Draw(window);
 
                 break;
             case Scenes::credits:
@@ -96,7 +101,7 @@ namespace Battle_City
                 break;
             default:
                 break;
-            }            
+            }           
         }
     }
 }

@@ -8,6 +8,7 @@
 #include "gameplay/gameplay.h"
 #include "scene_manager.h"
 #include "credits.h"
+#include "menu.h"
 
 namespace Battle_City 
 {
@@ -20,11 +21,12 @@ namespace Battle_City
 		const char* title = "TANKS";
 		short windowWidth;
 		short windowHeigth;
-		bool exit;
+		bool exit;	
 
 		Gameplay* gameplay;
 		SceneManager* sceneManager;
 		Credits* credits;
+		Menu* mainMenu;		
 	public:
 		Game();
 		~Game();

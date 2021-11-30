@@ -11,11 +11,15 @@ namespace Battle_City
 		const Scenes initialScene = Scenes::menu;
 
 		Scenes currentScene;
+		Scenes lastScene;
 	public:
 		SceneManager();
 
 		void SetCurrentScene(Scenes currentScene);
+		void SetLastScene(Scenes lastScene);
+
 		Scenes GetCurrentScene();
+		Scenes GetLastScene();
 	};
 }
 
