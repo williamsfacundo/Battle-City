@@ -17,13 +17,10 @@
  
 namespace Battle_City 
 {
-    Gameplay::Gameplay(short numberOfPlayers, bool pvp)
+    Gameplay::Gameplay(short numberOfPlayers, bool pvp, float windowWidth, float windowHeigth, RenderWindow& window)
     {
         gameOver = false;
-        this->pvp = pvp;
-
-        windowWidth = 1200;
-        windowHeigth = 800;
+        this->pvp = pvp;       
 
         Vector2f UIkeysSeparation = {4.5f, 4.5f};
         Vector2f playerInputUIPositions[maxKeys] = { 
@@ -55,8 +52,6 @@ namespace Battle_City
             this->numberOfPlayers = 2;
         }
 
-        window.create(VideoMode(windowWidth, windowHeigth), title);
-        
         for (short i = 0; i < maxKeys; i++) 
         { 
             inputKeysUITextures[i].loadFromFile(keysUIFiles[i]);            
@@ -240,7 +235,7 @@ namespace Battle_City
         }        
     }
 
-    void Gameplay::Update(Time dt)
+    void Gameplay::Update(Time dt, float windowWidth, float windowHeigth)
     {
         short enemies = 0;
 
@@ -290,7 +285,7 @@ namespace Battle_City
         DefeatCondition();
     }
 
-    void Gameplay::Draw()
+    void Gameplay::Draw(RenderWindow& window)
     {
         window.clear(Color::Black);
 
@@ -342,34 +337,13 @@ namespace Battle_City
             }
         }
 
-        DrawTanksMoveKeysUI();
-        DrawHearts();
+        DrawTanksMoveKeysUI(window);
+        DrawHearts(window);
         window.draw(enemiesLeftMeassegeText);
         window.draw(enemiesLeftText);
 
         window.display();
-    }
-
-    void Gameplay::Run()
-    {
-        while (window.isOpen() && !gameOver)
-        {
-            dt = clock.restart();
-
-            Event event;
-            while (window.pollEvent(event))
-            {
-                if (event.type == Event::Closed)
-                {
-                    window.close();
-                }
-            }
-
-            Input();
-            Update(dt);
-            Draw();
-        }
-    }
+    }    
 
     void Gameplay::WinCondition() 
     {
@@ -975,7 +949,7 @@ namespace Battle_City
         }
     }
 
-    void Gameplay::DrawTanksMoveKeysUI()
+    void Gameplay::DrawTanksMoveKeysUI(RenderWindow& window)
     {
         for (short i = 0; i < numberOfPlayers; i++) 
         {
@@ -1013,7 +987,7 @@ namespace Battle_City
         }        
     }
 
-    void Gameplay::DrawHearts() 
+    void Gameplay::DrawHearts(RenderWindow& window)
     {
         short aux = 0;
 
@@ -1032,4 +1006,9 @@ namespace Battle_City
             }
         }
     }   
+
+    bool Gameplay::GetGameOver() 
+    {
+        return gameOver;
+    }
 }

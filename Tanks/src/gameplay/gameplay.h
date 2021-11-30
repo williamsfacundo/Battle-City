@@ -3,7 +3,6 @@
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/System/Time.hpp>
-#include <SFML/System/Clock.hpp>
 #include <SFML/System/String.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Window/Keyboard.hpp>
@@ -88,35 +87,28 @@ namespace Battle_City
 		const Vector2f heartsSpritesSeparation = { 5.0f, 15.0f };
 
 		bool gameOver;
-		bool pvp;
-		short windowWidth;
-		short windowHeigth;
-		short numberOfPlayers;
-		const char* title = "TANKS";
+		bool pvp;		
+		short numberOfPlayers;		
 		Texture inputKeysUITextures[maxKeys];
 		Texture heartsTextures[maxHearts];
 		Sprite inputKeysUISprites[maxKeys];		
 		Sprite heartsSprites[maxHearts];
 		Font textFont;
 		Text enemiesLeftMeassegeText;
-		Text enemiesLeftText;
-		RenderWindow window;		
+		Text enemiesLeftText;			
 		Player* playerTanks[maxPlayers];
 		Enemy* enemyTanks[maxEnemyTanks];
 		Base* militaryBase;
 		Wall* destroyableWalls[maxDestroyableWallRows][maxDestroyableWallColumns];
 		Wall* nonDestroyableWalls[maxNonDestroyableWalls];
-		Wall* mapLimitingWalls[maxMapLimitingWalls];
-		Clock clock;
-		Time dt;		
+		Wall* mapLimitingWalls[maxMapLimitingWalls];				
 	public:
-		Gameplay(short numberOfPlayers, bool pvp);
+		Gameplay(short numberOfPlayers, bool pvp, float windowWidth, float windowHeigth, RenderWindow& window);
 		~Gameplay();
 
 		void Input();
-		void Update(Time dt);
-		void Draw();
-		void Run();
+		void Update(Time dt, float windowWidth, float windowHeigth);
+		void Draw(RenderWindow& window);		
 
 		void WinCondition();
 		void DefeatCondition();		
@@ -136,8 +128,10 @@ namespace Battle_City
 		bool OnePlayerTankRemaining();
 		void DestroyPlayerTankIfHasNoLifesLeft(short index);
 
-		void DrawTanksMoveKeysUI();
-		void DrawHearts();		
+		void DrawTanksMoveKeysUI(RenderWindow& window);
+		void DrawHearts(RenderWindow& window);
+
+		bool GetGameOver();
 	};
 }
 

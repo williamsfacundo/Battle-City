@@ -1,4 +1,4 @@
-#include "gameplay/gameplay.h"
+#include "game/game.h"
 
 #include <iostream>
 #include <time.h>
@@ -9,11 +9,11 @@ int main()
 {
     srand(time(NULL));
 
-    Gameplay* gameplay = new Gameplay(4, true);
+    Game* game = new Game();
 
-    gameplay->Run();
+    game->Run();
 
-    delete gameplay;
+    delete game;
 
     return 0;
 }
