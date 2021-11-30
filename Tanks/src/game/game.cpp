@@ -1,8 +1,11 @@
 #include "game.h"
 
 #include <SFML/Window/Event.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
 
 #include "gameplay/gameplay.h"
+#include "scene_manager.h"
+#include "credits.h"
 
 using namespace sf;
 
@@ -19,6 +22,8 @@ namespace Battle_City
 
         gameplay = new Gameplay(3, false, windowWidth, windowHeigth, window);
         sceneManager = new SceneManager();
+        sceneManager->SetCurrentScene(Scenes::credits);
+        credits = new Credits(windowWidth, windowHeigth);
     }
 
     Game::~Game()
@@ -29,6 +34,7 @@ namespace Battle_City
         }        
 
         delete sceneManager;
+        delete credits;
     }
 
     void Game::Run()
@@ -49,13 +55,13 @@ namespace Battle_City
             switch (sceneManager->GetCurrentScene())
             {
             case Scenes::menu:
-
-
+                             
 
                 break;
             case Scenes::credits:
 
-
+                credits->Draw(window);
+                credits->Input(sceneManager);
 
                 break;
             case Scenes::pvp:

@@ -7,6 +7,7 @@
 
 #include "gameplay/gameplay.h"
 #include "scene_manager.h"
+#include "credits.h"
 
 namespace Battle_City 
 {
@@ -23,6 +24,7 @@ namespace Battle_City
 
 		Gameplay* gameplay;
 		SceneManager* sceneManager;
+		Credits* credits;
 	public:
 		Game();
 		~Game();
