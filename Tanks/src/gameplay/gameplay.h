@@ -88,6 +88,7 @@ namespace Battle_City
 		const Vector2f heartsSpritesSeparation = { 5.0f, 15.0f };
 
 		bool gameOver;
+		bool pvp;
 		short windowWidth;
 		short windowHeigth;
 		short numberOfPlayers;
@@ -109,7 +110,7 @@ namespace Battle_City
 		Clock clock;
 		Time dt;		
 	public:
-		Gameplay(short numberOfPlayers);
+		Gameplay(short numberOfPlayers, bool pvp);
 		~Gameplay();
 
 		void Input();
@@ -128,7 +129,11 @@ namespace Battle_City
 		void TanksCollideWithWalls();
 		void TanksCollideWithMilitaryBase();
 		void TanksCollideWithEachOther();
-		bool AllTanksDestroyed();		
+		void PlayersShootEachOther();
+
+		bool AllEnemyTanksDestroyed();
+		bool AllPlayersTanksDestroyed();
+		bool OnePlayerTankRemaining();
 		void DestroyPlayerTankIfHasNoLifesLeft(short index);
 
 		void DrawTanksMoveKeysUI();

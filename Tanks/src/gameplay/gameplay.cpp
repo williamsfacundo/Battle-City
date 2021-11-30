@@ -17,9 +17,10 @@
  
 namespace Battle_City 
 {
-    Gameplay::Gameplay(short numberOfPlayers)
+    Gameplay::Gameplay(short numberOfPlayers, bool pvp)
     {
         gameOver = false;
+        this->pvp = pvp;
 
         windowWidth = 1200;
         windowHeigth = 800;
@@ -46,8 +47,13 @@ namespace Battle_City
           {(UISpriteSize.x * 0.5f) + UIkeysSeparation.x, limitingWallYOffset + UIkeysSeparation.y},
           {windowWidth - (UISpriteSize.x * 1.5f) - UIkeysSeparation.x, limitingWallYOffset + UIkeysSeparation.y},
           {windowWidth - (UISpriteSize.x * 1.5f) - UIkeysSeparation.x, limitingWallYOffset + (UIkeysSeparation.y * 7) + (UISpriteSize.y * 6)}};
-
+                
         this->numberOfPlayers = numberOfPlayers;
+
+        if (!this->pvp && this->numberOfPlayers > 2) 
+        {
+            this->numberOfPlayers = 2;
+        }
 
         window.create(VideoMode(windowWidth, windowHeigth), title);
         
@@ -108,7 +114,7 @@ namespace Battle_City
             numberOfPlayers = 1;
         }
 
-        for (short i = 0; i < numberOfPlayers; i++)
+        for (short i = 0; i < this->numberOfPlayers; i++)
         {
             switch (i)
             {
@@ -129,10 +135,23 @@ namespace Battle_City
 
         for (short i = 0; i < maxEnemyTanks; i++) 
         {
-            enemyTanks[i] = new Enemy((window.getSize().x / 15.0f) * (i+1) + 125, window.getSize().y / 3.0f, { 40.0f, 40.0f }, enemyTankColor, enemyTexturesFiles);
-        }       
+            enemyTanks[i] = NULL;
+        }
 
-        militaryBase = new Base(window.getSize().x /2.0f + 300.0f, window.getSize().y / 2.0f, {45.0f, 45.0f});
+        if (!this->pvp) 
+        {
+            for (short i = 0; i < maxEnemyTanks; i++)
+            {
+                enemyTanks[i] = new Enemy((window.getSize().x / 15.0f) * (i + 1) + 125, window.getSize().y / 3.0f, { 40.0f, 40.0f }, enemyTankColor, enemyTexturesFiles);
+            }
+        }               
+
+        militaryBase = NULL;
+
+        if (!this->pvp) 
+        {
+            militaryBase = new Base(window.getSize().x / 2.0f + 300.0f, window.getSize().y / 2.0f, { 45.0f, 45.0f });
+        }        
 
         for (short i = 0; i < maxDestroyableWallRows; i++) 
         {
@@ -254,10 +273,18 @@ namespace Battle_City
         DestroyEnemyTanksWhenHit();
         DestroyDestroyableWallsWhenHit();
         DestroyBulletsWhenHitNonDestroyableWalls();
-        TanksCollideWithWalls();
-        TanksCollideWithMilitaryBase();
-        EnemiesBulletsCollideWithPlayers();
+        TanksCollideWithWalls();        
         TanksCollideWithEachOther();
+
+        if (pvp) 
+        {
+            PlayersShootEachOther();
+        }
+        else 
+        {
+            TanksCollideWithMilitaryBase();
+            EnemiesBulletsCollideWithPlayers();
+        }
 
         WinCondition();
         DefeatCondition();
@@ -283,7 +310,10 @@ namespace Battle_City
             }
         }
 
-        militaryBase->Draw(window);
+        if (militaryBase != NULL) 
+        { 
+            militaryBase->Draw(window); 
+        }
 
         for (short i = 0; i < maxDestroyableWallRows; i++)
         {
@@ -343,30 +373,32 @@ namespace Battle_City
 
     void Gameplay::WinCondition() 
     {
-        if (AllTanksDestroyed()) 
+        if (pvp) 
         {
-            gameOver = true;
+            if (OnePlayerTankRemaining()) 
+            {
+                gameOver = true;
+            }
         }
+        else 
+        {
+            if (AllEnemyTanksDestroyed())
+            {
+                gameOver = true;
+            }
+        }        
     }
     
     void Gameplay::DefeatCondition()
     {
-        bool allPlayerTanksDestroyed = true;
-
-        for (short i = 0; i < maxPlayers; i++) 
+        if (!pvp) 
         {
-            if (playerTanks[i] != NULL)
+            if (AllPlayersTanksDestroyed() || BulletsCollideWithMilitaryBase())
             {
-                allPlayerTanksDestroyed = false;
-                i = maxPlayers;
+                gameOver = true;
             }
-        }
-
-        if (allPlayerTanksDestroyed || BulletsCollideWithMilitaryBase())
-        {
-            gameOver = true;
-        }               
-    }    
+        }                       
+    }   
 
     void Gameplay::EnemiesBulletsCollideWithPlayers()
     {
@@ -843,7 +875,46 @@ namespace Battle_City
         }        
     }
 
-    bool Gameplay::AllTanksDestroyed() 
+    void Gameplay::PlayersShootEachOther() 
+    {
+        for (short i = 0; i < maxPlayers; i++)
+        {
+            if (playerTanks[i] != NULL)
+            {
+                for (short j = 0; j < maxBullets; j++)
+                {
+                    if (!playerTanks[i]->IsBulletNull(j))
+                    {
+                        for (short k = 0; k < maxPlayers; k++)
+                        {
+                            if (playerTanks[k] != NULL && i != k)
+                            {
+                                if (CollisionFunctions::CollisionRectangles(
+                                    playerTanks[k]->GetXPosition(),
+                                    playerTanks[k]->GetYPosition(),
+                                    playerTanks[k]->GetSize().x,
+                                    playerTanks[k]->GetSize().y,
+                                    playerTanks[i]->GetBullet(j)->GetXPosition(),
+                                    playerTanks[i]->GetBullet(j)->GetYPosition(),
+                                    playerTanks[i]->GetBullet(j)->GetSize().x,
+                                    playerTanks[i]->GetBullet(j)->GetSize().y))
+                                {
+                                    playerTanks[k]->DecreaseLifes();
+                                    playerTanks[i]->DestroyBullet(j);
+
+                                    DestroyPlayerTankIfHasNoLifesLeft(k);
+
+                                    k = maxPlayers;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    bool Gameplay::AllEnemyTanksDestroyed()
     {
         bool allDestroyed = true;
 
@@ -858,6 +929,41 @@ namespace Battle_City
         }
 
         return allDestroyed;
+    }
+
+    bool Gameplay::AllPlayersTanksDestroyed()
+    {
+        bool allDestroyed = true;
+
+        for (short i = 0; i < maxPlayers; i++)
+        {
+            if (playerTanks[i] != NULL)
+            {
+                allDestroyed = false;
+
+                i = maxPlayers;
+            }
+        }
+
+        return allDestroyed;
+    }
+
+    bool Gameplay::OnePlayerTankRemaining()
+    {
+        short playersRemaining = 0;
+        bool onePlayerAlive = false;
+
+        for (short i = 0; i < maxPlayers; i++)
+        {
+            if (playerTanks[i] != NULL)
+            {
+                playersRemaining++;                              
+            }
+        }
+
+        playersRemaining > 1 ? onePlayerAlive = false : onePlayerAlive = true;
+
+        return onePlayerAlive;
     }
 
     void Gameplay::DestroyPlayerTankIfHasNoLifesLeft(short index)
