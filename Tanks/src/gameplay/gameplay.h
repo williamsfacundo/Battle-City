@@ -11,6 +11,7 @@
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Graphics/Font.hpp>
 #include <SFML/Graphics/Text.hpp>
+#include <SFML/Window/Keyboard.hpp>
 
 #include "tank.h"
 #include "player.h"
@@ -18,6 +19,7 @@
 #include "base.h"
 #include "wall.h"
 #include "global_vars.h"
+#include "game/scene_manager.h"
 
 using namespace sf;
 using namespace std;
@@ -86,6 +88,8 @@ namespace Battle_City
 		const Vector2f heartsSpriteSize = { 69.0f, 69.0f };
 		const Vector2f heartsSpritesSeparation = { 5.0f, 15.0f };
 
+		const Keyboard::Key goMenuKey = Keyboard::Key::M;
+
 		bool gameOver;
 		bool pvp;		
 		short numberOfPlayers;		
@@ -95,7 +99,8 @@ namespace Battle_City
 		Sprite heartsSprites[maxHearts];
 		Font textFont;
 		Text enemiesLeftMeassegeText;
-		Text enemiesLeftText;			
+		Text enemiesLeftText;		
+		Text goToMenuText;
 		Player* playerTanks[maxPlayers];
 		Enemy* enemyTanks[maxEnemyTanks];
 		Base* militaryBase;
@@ -106,7 +111,7 @@ namespace Battle_City
 		Gameplay(short numberOfPlayers, bool pvp, float windowWidth, float windowHeigth, RenderWindow& window);
 		~Gameplay();
 
-		void Input();
+		void Input(SceneManager* sceneManager);
 		void Update(Time dt, float windowWidth, float windowHeigth);
 		void Draw(RenderWindow& window);		
 
@@ -132,6 +137,7 @@ namespace Battle_City
 		void DrawHearts(RenderWindow& window);
 
 		bool GetGameOver();
+		void GoBackToMenu(SceneManager* sceneManager);
 	};
 }
 

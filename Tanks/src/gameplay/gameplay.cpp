@@ -5,6 +5,7 @@
 #include <SFML/Window/Event.hpp>
 #include <SFML/Window/VideoMode.hpp>
 #include <SFML/System/Time.hpp>
+#include <SFML/Window/Keyboard.hpp>
 
 #include "tank.h"
 #include "player.h"
@@ -12,6 +13,7 @@
 #include "collisions.h"
 #include "base.h"
 #include "wall.h"
+#include "game/scene_manager.h"
 
 #include "global_vars.h"
  
@@ -91,13 +93,18 @@ namespace Battle_City
         enemiesLeftMeassegeText.setCharacterSize(24);
         enemiesLeftMeassegeText.setFillColor(Color::White);
         enemiesLeftMeassegeText.setFont(textFont);
-        enemiesLeftMeassegeText.setPosition(windowWidth / 2.0f - (24 * 7), windowHeigth - (limitingWallXOffset / 3));
+        enemiesLeftMeassegeText.setPosition(windowWidth / 2.0f - (24 * 14), windowHeigth - (limitingWallXOffset / 3));
         
         enemiesLeftText.setCharacterSize(24);
         enemiesLeftText.setFillColor(Color::Red);
         enemiesLeftText.setFont(textFont);
-        enemiesLeftText.setPosition(static_cast<float>(windowWidth / 2.0f + (24 * 5.5)), static_cast<float>(windowHeigth - (limitingWallXOffset / 3)));
+        enemiesLeftText.setPosition(static_cast<float>(windowWidth / 2.0f - 24), static_cast<float>(windowHeigth - (limitingWallXOffset / 3)));
 
+        goToMenuText.setString("GO TO MENU (M)");
+        goToMenuText.setCharacterSize(20);
+        goToMenuText.setFillColor(Color::Green);
+        goToMenuText.setFont(textFont);
+        goToMenuText.setPosition(static_cast<float>(windowWidth / 2.0f + (24 * 5.5)), static_cast<float>(windowHeigth - (limitingWallXOffset / 3)));
 
         for (short i = 0; i < maxPlayers; i++) 
         {
@@ -224,7 +231,7 @@ namespace Battle_City
         }
     }
 
-    void Gameplay::Input()
+    void Gameplay::Input(SceneManager* sceneManager)
     {
         for (short i = 0; i < maxPlayers; i++) 
         {
@@ -232,7 +239,9 @@ namespace Battle_City
             {
                 playerTanks[i]->Input();
             }
-        }        
+        }      
+
+        GoBackToMenu(sceneManager);
     }
 
     void Gameplay::Update(Time dt, float windowWidth, float windowHeigth)
@@ -341,6 +350,7 @@ namespace Battle_City
         DrawHearts(window);
         window.draw(enemiesLeftMeassegeText);
         window.draw(enemiesLeftText);
+        window.draw(goToMenuText);
 
         window.display();
     }    
@@ -1010,5 +1020,13 @@ namespace Battle_City
     bool Gameplay::GetGameOver() 
     {
         return gameOver;
+    }
+
+    void Gameplay::GoBackToMenu(SceneManager* sceneManager)
+    {
+        if (Keyboard::isKeyPressed(goMenuKey))
+        {
+            sceneManager->SetCurrentScene(Scenes::menu);
+        }
     }
 }

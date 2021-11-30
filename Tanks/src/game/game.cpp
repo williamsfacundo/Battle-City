@@ -20,7 +20,7 @@ namespace Battle_City
 
         window.create(VideoMode(windowWidth, windowHeigth), title);
 
-        gameplay = new Gameplay(3, false, windowWidth, windowHeigth, window);
+        gameplay = NULL;
         sceneManager = new SceneManager();
         sceneManager->SetCurrentScene(Scenes::menu);
         credits = new Credits(windowWidth, windowHeigth);
@@ -71,20 +71,29 @@ namespace Battle_City
                 break;
             case Scenes::pvp:
 
-                gameplay->Input();
+                if (gameplay == NULL) 
+                {
+                    gameplay = new Gameplay(4, true, windowWidth, windowHeigth, window);
+                }
+
+                gameplay->Input(sceneManager);
                 gameplay->Update(dt, windowWidth, windowHeigth);
                 gameplay->Draw(window);
 
                 if (gameplay->GetGameOver())
                 {
-                    delete gameplay;
-                    gameplay = new Gameplay(4, true, windowWidth, windowHeigth, window);
+                    sceneManager->SetCurrentScene(Scenes::menu);
                 }
 
                 break;
             case Scenes::pvscpu:
 
-                gameplay->Input();
+                if (gameplay == NULL)
+                {
+                    gameplay = new Gameplay(2, false, windowWidth, windowHeigth, window);
+                }
+
+                gameplay->Input(sceneManager);
                 gameplay->Update(dt, windowWidth, windowHeigth);
                 gameplay->Draw(window);
 
@@ -102,6 +111,18 @@ namespace Battle_City
             default:
                 break;
             }           
+
+            if (sceneManager->GetCurrentScene() != sceneManager->GetLastScene() && 
+                (sceneManager->GetLastScene() == Scenes::pvp || sceneManager->GetLastScene() == Scenes::pvscpu))
+            {
+                delete gameplay;
+                gameplay = NULL;
+            }
+
+            if (sceneManager->GetCurrentScene() != sceneManager->GetLastScene()) 
+            {
+                sceneManager->SetLastScene(sceneManager->GetCurrentScene());
+            }
         }
     }
 }
