@@ -9,6 +9,7 @@
 #include "scene_manager.h"
 #include "credits.h"
 #include "menu.h"
+#include "gameover.h"
 
 namespace Battle_City 
 {
@@ -27,6 +28,7 @@ namespace Battle_City
 		SceneManager* sceneManager;
 		Credits* credits;
 		Menu* mainMenu;		
+		GameOver* gameOver;
 	public:
 		Game();
 		~Game();

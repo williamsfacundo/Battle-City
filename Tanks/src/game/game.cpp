@@ -25,6 +25,7 @@ namespace Battle_City
         sceneManager->SetCurrentScene(Scenes::menu);
         credits = new Credits(windowWidth, windowHeigth);
         mainMenu = new Menu(windowWidth, windowHeigth);
+        gameOver = new GameOver(windowWidth, windowHeigth);
     }
 
     Game::~Game()
@@ -37,6 +38,7 @@ namespace Battle_City
         delete sceneManager;
         delete credits;
         delete mainMenu;
+        delete gameOver;
     }
 
     void Game::Run()
@@ -82,7 +84,7 @@ namespace Battle_City
 
                 if (gameplay->GetGameOver())
                 {
-                    sceneManager->SetCurrentScene(Scenes::menu);
+                    sceneManager->SetCurrentScene(Scenes::endgame);
                 }
 
                 break;
@@ -99,13 +101,19 @@ namespace Battle_City
 
                 if (gameplay->GetGameOver())
                 {
-                    sceneManager->SetCurrentScene(Scenes::menu);
+                    sceneManager->SetCurrentScene(Scenes::endgame);
                 }
 
                 break;
             case Scenes::exit:
 
                 exit = true;
+
+                break;
+            case Scenes::endgame:
+
+                gameOver->Input(sceneManager);
+                gameOver->Draw(window);
 
                 break;
             default:

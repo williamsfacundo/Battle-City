@@ -34,7 +34,7 @@ namespace Battle_City
 		static const short maxPlayers = 4;
 		static const short maxDestroyableWallRows = 30;
 		static const short maxDestroyableWallColumns = 5;
-		static const short maxNonDestroyableWalls = 20;
+		static const short maxNonDestroyableWalls = 9;
 		static const short maxMapLimitingWalls = 4;
 		static const short maxHearts = 4; //assets https://opengameart.org/content/heart-pixel-arts
 
