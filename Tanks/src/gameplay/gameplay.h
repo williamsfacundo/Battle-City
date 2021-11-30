@@ -30,11 +30,11 @@ namespace Battle_City
 	{
 	private:
 		static const short maxKeys = 20;
-		static const short maxEnemyTanks = 5;
+		static const short maxEnemyTanks = 15;
 		static const short maxPlayers = 4;
-		static const short maxDestroyableWallRows = 3;
-		static const short maxDestroyableWallColumns = 3;
-		static const short maxNonDestroyableWalls = 4;
+		static const short maxDestroyableWallRows = 30;
+		static const short maxDestroyableWallColumns = 5;
+		static const short maxNonDestroyableWalls = 20;
 		static const short maxMapLimitingWalls = 4;
 		static const short maxHearts = 4; //assets https://opengameart.org/content/heart-pixel-arts
 

@@ -116,24 +116,42 @@ namespace Battle_City
             numberOfPlayers = 1;
         }
 
-        for (short i = 0; i < this->numberOfPlayers; i++)
+        if (pvp) 
         {
-            switch (i)
+            for (short i = 0; i < this->numberOfPlayers; i++)
             {
-            case 0:
-                playerTanks[i] = new Player(window.getSize().x / 2.0f + 50 * (i + 1), window.getSize().y / 2.0f, { 40.0f, 40.0f }, playerTankColor, playerOneTexturesFiles, playerOneInputKeys);
-                break;
-            case 1:
-                playerTanks[i] = new Player(window.getSize().x / 2.0f + 50 * (i + 1), window.getSize().y / 2.0f, { 40.0f, 40.0f }, playerTankColor, playerTwoTexturesFiles, playerTwoInputKeys);
-                break;
-            case 2:
-                playerTanks[i] = new Player(window.getSize().x / 2.0f + 50 * (i + 1), window.getSize().y / 2.0f, { 40.0f, 40.0f }, playerTankColor, playerThreeTexturesFiles, playerThreeInputKeys);
-                break;
-            case 3:
-                playerTanks[i] = new Player(window.getSize().x / 2.0f + 50 * (i + 1), window.getSize().y / 2.0f, { 40.0f, 40.0f }, playerTankColor, playerFourTexturesFiles, playerFourInputKeys);
-                break;            
-            }            
-        }        
+                switch (i)
+                {
+                case 0:
+                    playerTanks[i] = new Player(limitingWallXOffset + limitingWallWidth + 40, limitingWallYOffset + limitingWallHeight + 40, { 40.0f, 40.0f }, playerTankColor, playerOneTexturesFiles, playerOneInputKeys);
+                    break;
+                case 1:
+                    playerTanks[i] = new Player(window.getSize().x - (limitingWallXOffset + limitingWallWidth + 40), limitingWallYOffset + limitingWallHeight + 40, { 40.0f, 40.0f }, playerTankColor, playerTwoTexturesFiles, playerTwoInputKeys);
+                    break;
+                case 2:
+                    playerTanks[i] = new Player(limitingWallXOffset + limitingWallWidth + 40, window.getSize().y - (limitingWallYOffset + limitingWallHeight + 40), { 40.0f, 40.0f }, playerTankColor, playerThreeTexturesFiles, playerThreeInputKeys);
+                    break;
+                case 3:
+                    playerTanks[i] = new Player(window.getSize().x - (limitingWallXOffset + limitingWallWidth + 40), window.getSize().y - (limitingWallYOffset + limitingWallHeight + 40), { 40.0f, 40.0f }, playerTankColor, playerFourTexturesFiles, playerFourInputKeys);
+                    break;
+                }
+            }           
+        }
+        else 
+        {
+            for (short i = 0; i < this->numberOfPlayers; i++)
+            {
+                switch (i)
+                {
+                case 0:
+                    playerTanks[i] = new Player(window.getSize().x / 2.0f + 100.0f, window.getSize().y - limitingWallYOffset - limitingWallHeight - 45.0f, { 40.0f, 40.0f }, playerTankColor, playerOneTexturesFiles, playerOneInputKeys);
+                    break;
+                case 1:
+                    playerTanks[i] = new Player(window.getSize().x / 2.0f - 100.0f, window.getSize().y - limitingWallYOffset - limitingWallHeight - 45.0f, { 40.0f, 40.0f }, playerTankColor, playerTwoTexturesFiles, playerTwoInputKeys);
+                    break;
+                }
+            }
+        }                
 
         for (short i = 0; i < maxEnemyTanks; i++) 
         {
@@ -144,7 +162,7 @@ namespace Battle_City
         {
             for (short i = 0; i < maxEnemyTanks; i++)
             {
-                enemyTanks[i] = new Enemy((window.getSize().x / 15.0f) * (i + 1) + 125, window.getSize().y / 3.0f, { 40.0f, 40.0f }, enemyTankColor, enemyTexturesFiles);
+                enemyTanks[i] = new Enemy(limitingWallXOffset + limitingWallHeight + (i * 50), window.getSize().y / 3.0f, { 40.0f, 40.0f }, enemyTankColor, enemyTexturesFiles);
             }
         }               
 
@@ -152,16 +170,27 @@ namespace Battle_City
 
         if (!this->pvp) 
         {
-            militaryBase = new Base(window.getSize().x / 2.0f + 300.0f, window.getSize().y / 2.0f, { 45.0f, 45.0f });
-        }        
+            militaryBase = new Base(window.getSize().x / 2.0f + 20.0f, window.getSize().y - limitingWallYOffset - limitingWallHeight - 45.0f, { 45.0f, 45.0f });
+        }  
 
-        for (short i = 0; i < maxDestroyableWallRows; i++) 
+        for (short i = 0; i < maxDestroyableWallRows; i++)
         {
             for (short j = 0; j < maxDestroyableWallColumns; j++)
             {
-                destroyableWalls[i][j] = new Wall(window.getSize().x / 2.0f + 20 * i, window.getSize().y / 3.0f + 350 + 20 * j, { 20.0f, 20.0f }, destroyableWallTextureFile, true);
-            }            
+                destroyableWalls[i][j] = NULL;
+            }
         }
+
+        if (!pvp) 
+        {
+            for (short i = 0; i < maxDestroyableWallRows; i++)
+            {
+                for (short j = 0; j < maxDestroyableWallColumns; j++)
+                {
+                    destroyableWalls[i][j] = new Wall(window.getSize().x / 4.0f + 20 * i, window.getSize().y / 3.0f + 270 + 20 * j, { 20.0f, 20.0f }, destroyableWallTextureFile, true);
+                }
+            }
+        }       
         
         for (short i = 0; i < maxNonDestroyableWalls; i++) 
         {
@@ -321,7 +350,7 @@ namespace Battle_City
 
         for (short i = 0; i < maxDestroyableWallRows; i++)
         {
-            for (short j = 0; j < maxDestroyableWallRows; j++)
+            for (short j = 0; j < maxDestroyableWallColumns; j++)
             { 
                 if (destroyableWalls[i][j] != NULL)
                 {
