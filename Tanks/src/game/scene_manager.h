@@ -3,7 +3,7 @@
 
 namespace Battle_City
 {
-	enum class Scenes { menu, credits, gameplay, exit };
+	enum class Scenes { menu, credits, pvp, pvscpu, exit };
 	
 	class SceneManager
 	{

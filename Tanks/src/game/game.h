@@ -6,6 +6,7 @@
 #include <SFML/System/Clock.hpp>
 
 #include "gameplay/gameplay.h"
+#include "scene_manager.h"
 
 namespace Battle_City 
 {
@@ -21,6 +22,7 @@ namespace Battle_City
 		bool exit;
 
 		Gameplay* gameplay;
+		SceneManager* sceneManager;
 	public:
 		Game();
 		~Game();

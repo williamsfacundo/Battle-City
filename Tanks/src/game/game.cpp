@@ -16,7 +16,9 @@ namespace Battle_City
         windowHeigth = 800;
 
         window.create(VideoMode(windowWidth, windowHeigth), title);
+
         gameplay = new Gameplay(3, false, windowWidth, windowHeigth, window);
+        sceneManager = new SceneManager();
     }
 
     Game::~Game()
@@ -25,6 +27,8 @@ namespace Battle_City
         {
             delete gameplay;
         }        
+
+        delete sceneManager;
     }
 
     void Game::Run()
@@ -42,15 +46,51 @@ namespace Battle_City
                 }                
             }     
 
-            gameplay->Input();
-            gameplay->Update(dt, windowWidth, windowHeigth);
-            gameplay->Draw(window);
-
-            if (gameplay->GetGameOver()) 
+            switch (sceneManager->GetCurrentScene())
             {
-                delete gameplay;
-                gameplay = new Gameplay(3, false, windowWidth, windowHeigth, window);
-            }
+            case Scenes::menu:
+
+
+
+                break;
+            case Scenes::credits:
+
+
+
+                break;
+            case Scenes::pvp:
+
+                gameplay->Input();
+                gameplay->Update(dt, windowWidth, windowHeigth);
+                gameplay->Draw(window);
+
+                if (gameplay->GetGameOver())
+                {
+                    delete gameplay;
+                    gameplay = new Gameplay(4, true, windowWidth, windowHeigth, window);
+                }
+
+                break;
+            case Scenes::pvscpu:
+
+                gameplay->Input();
+                gameplay->Update(dt, windowWidth, windowHeigth);
+                gameplay->Draw(window);
+
+                if (gameplay->GetGameOver())
+                {
+                    sceneManager->SetCurrentScene(Scenes::menu);
+                }
+
+                break;
+            case Scenes::exit:
+
+                exit = true;
+
+                break;
+            default:
+                break;
+            }            
         }
     }
 }
